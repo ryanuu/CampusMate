@@ -151,8 +151,7 @@ create table lab_course_list
 (
    course_list_id       int not null auto_increment comment '课程表ID',
    term                 int not null comment '学期',
-   start_week           int not null comment '开始时间（周）',
-   end_week             int not null comment '结束时间（周）',
+
    weekday              int not null comment '周几',
    section              int not null comment '节数（第几节）',
    curriculum_id        int comment '课程id',
