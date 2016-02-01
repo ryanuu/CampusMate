@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>1.2</jsp-version>
+    <short-name>cemobile</short-name>
+    <uri>http://www.cemobile.net/Framework/tags</uri>
+
+    <tag>
+        <name>authorize</name>
+        <tag-class>com.cemobile.framework.base.common.tag.AuthorizeTag</tag-class>
+        <description>权限控件</description>
+
+        <attribute>
+            <name>authCode</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>权限编码</description>
+        </attribute>
+    </tag>
+</taglib>
