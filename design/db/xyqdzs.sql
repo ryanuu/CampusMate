@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/2/1 15:12:14                            */
+/* Created on:     2016/2/2 16:20:39                            */
 /*==============================================================*/
 
 
@@ -45,14 +45,15 @@ drop table if exists lab_teacher;
 /*==============================================================*/
 create table LAB_TERM
 (
-   tremI_id             int not null auto_increment comment '学期ID',
+   trem_id              int not null auto_increment comment '学期ID',
    term_name            char(30),
    start_date           date comment '开始时间',
    end_date             date comment '结束时间',
+   college_id           int,
    create_date          date comment '创建时间',
    edite_date           date comment '修改时间',
    del                  int comment '删除标识',
-   primary key (tremI_id)
+   primary key (trem_id)
 );
 
 alter table LAB_TERM comment '学期表';
@@ -64,9 +65,10 @@ create table LAB_TIME
 (
    id                   int not null auto_increment comment 'id',
    section              int comment '节数',
-   term                 int comment '学期',
+   term_id              int comment '学期',
    start_date           time comment '开始时间',
    end_date             time comment '结束时间',
+   college_id           int,
    create_date          date comment '创建时间',
    edit_date            date comment '修改时间',
    del                  int comment '删除标识',
@@ -105,12 +107,15 @@ create table lab_check_work
    check_id             int not null auto_increment comment '考勤id',
    class_id             int comment '班级ID',
    curriculum_id        int comment '课程id',
+   curriculum_name      int,
    status               int comment '考勤状态',
    student_id           int comment '学生id',
+   weekNo               int,
+   weekday              int,
    section              int comment '节数',
    start_date           date comment '上课签到时间',
    end_date             date comment '下课签到时间',
-   term                 int comment '学期',
+   term_id              int comment '学期',
    create_date          date comment '创建时间',
    edit_date            date comment '修改时间',
    del                  int comment '删除标识',
@@ -165,7 +170,7 @@ create table lab_course_list
    weekday              int not null comment '周几',
    section              int not null comment '节数（第几节）',
    class_id             int not null,
-   term                 int not null comment '学期',
+   term_id              int not null comment '学期',
    position_id          int,
    course_type          int not null,
    create_date          date comment '创建时间',
@@ -184,6 +189,7 @@ create table lab_curriculum_name
    curriculum_id        int not null auto_increment comment '课程id',
    curriculum_name      char(100) comment '课程名称',
    teacher_id           int comment '任课老师ID',
+   teacher_name         char(20),
    start_week           int comment '开始时间（周）',
    end_week             int comment '结束时间（周）',
    subject_id           int not null,
@@ -248,7 +254,7 @@ create table lab_modify_course
    curriculum_id        int,
    weekday              int not null comment '周几',
    section              int not null comment '节数',
-   term                 int not null comment '学期',
+   term_id              int not null comment '学期',
    class_id             int not null,
    position_id          int,
    course_type          int not null,
@@ -424,7 +430,7 @@ alter table lab_course_list add constraint FK_Reference_6 foreign key (class_id)
       references lab_class (class_id) on delete restrict on update restrict;
 
 alter table lab_curriculum_name add constraint FK_Reference_16 foreign key (tremI_id)
-      references LAB_TERM (tremI_id) on delete restrict on update restrict;
+      references LAB_TERM (trem_id) on delete restrict on update restrict;
 
 alter table lab_department add constraint FK_Reference_2 foreign key (college_id)
       references lab_college (college_id) on delete restrict on update restrict;
