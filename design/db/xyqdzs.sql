@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/2/2 16:20:39                            */
+/* Created on:     2016/2/4 10:05:57                            */
 /*==============================================================*/
 
 
@@ -45,7 +45,7 @@ drop table if exists lab_teacher;
 /*==============================================================*/
 create table LAB_TERM
 (
-   trem_id              int not null auto_increment comment '学期ID',
+   term_id              int not null auto_increment comment '学期ID',
    term_name            char(30),
    start_date           date comment '开始时间',
    end_date             date comment '结束时间',
@@ -53,7 +53,7 @@ create table LAB_TERM
    create_date          date comment '创建时间',
    edite_date           date comment '修改时间',
    del                  int comment '删除标识',
-   primary key (trem_id)
+   primary key (term_id)
 );
 
 alter table LAB_TERM comment '学期表';
@@ -133,7 +133,7 @@ create table lab_class
    calss_name           char(50) not null comment '班级名称',
    college_id           int not null,
    department_id        int not null comment '院系ID',
-   major                int not null comment '专业',
+   major_id             int not null comment '专业',
    headmaster           int comment '班主任',
    instructor           int comment '辅导员',
    grade                int not null comment '级',
@@ -153,7 +153,7 @@ create table lab_college
    college_id           int not null auto_increment,
    college_name         char(30) not null,
    short_name           char(10),
-   college_profile      char(500),
+   college_profile      varchar(500),
    create_date          date,
    edit_date            date,
    del                  int,
@@ -195,7 +195,7 @@ create table lab_curriculum_name
    subject_id           int not null,
    college_id           int not null,
    department_id        int not null comment '院系ID',
-   tremI_id             int not null comment '学期id',
+   term_id              int not null comment '学期id',
    level                int comment '级',
    course_type          int,
    create_date          date comment '创建时间',
@@ -214,7 +214,7 @@ create table lab_department
    department_id        int not null auto_increment,
    department_name      char(30) not null,
    short_name           char(10),
-   department_profile   char(500),
+   department_profile   varchar(500),
    college_id           int not null,
    create_date          date,
    edit_date            date,
@@ -237,7 +237,7 @@ create table lab_exam
    department_id        int not null,
    subject_id           int not null,
    level                int,
-   tremI_id             int,
+   term_id              int,
    teacher_id           int,
    create_date          date,
    edit_date            date,
@@ -290,10 +290,11 @@ alter table lab_motion_trail comment '轨迹表';
 create table lab_notice
 (
    notice_id            int not null auto_increment comment 'ID',
-   content              char(1000) comment '内容',
+   content              varchar(1000) comment '内容',
    title                char(100) comment '标题',
    display_date         int comment '展示时间',
    teacher_id           int comment '创建人id',
+   source               char,
    class_id             char comment '接收班级',
    department_id        int,
    college_id           int,
@@ -339,12 +340,12 @@ create table lab_student
    id_card              char(18) comment '身份证号码',
    type                 int comment '职位',
    email                char comment 'Email',
-   major                int comment '专业',
+   major_id             int comment '专业',
    class_id             int,
    department_id        int comment '学系ID',
    college_id           int comment '学院id',
    head_image           char comment '头像',
-   note                 char(500) comment '备注',
+   note                 varchar(500) comment '备注',
    password             char comment '密码',
    creat_date           date comment '创建时间',
    edit_date            date comment '修改时间',
@@ -378,7 +379,7 @@ create table lab_subject
    subject_id           int not null auto_increment,
    subject_name         char(30) not null,
    short_name           char(10),
-   subject_profile      char(500),
+   subject_profile      varchar(500),
    college_id           int not null,
    department_id        int not null,
    create_date          date,
@@ -407,7 +408,7 @@ create table lab_teacher
    department_id        char comment '院系ID',
    head_image           char comment '头像',
    role                 int comment '角色',
-   note                 char(500) comment '备注',
+   note                 varchar(500) comment '备注',
    password             char comment '密码',
    creat_date           date comment '创建时间',
    edit_date            date comment '修改时间',
@@ -429,8 +430,8 @@ alter table lab_course_list add constraint FK_Reference_5 foreign key (position_
 alter table lab_course_list add constraint FK_Reference_6 foreign key (class_id)
       references lab_class (class_id) on delete restrict on update restrict;
 
-alter table lab_curriculum_name add constraint FK_Reference_16 foreign key (tremI_id)
-      references LAB_TERM (trem_id) on delete restrict on update restrict;
+alter table lab_curriculum_name add constraint FK_Reference_16 foreign key (term_id)
+      references LAB_TERM (term_id) on delete restrict on update restrict;
 
 alter table lab_department add constraint FK_Reference_2 foreign key (college_id)
       references lab_college (college_id) on delete restrict on update restrict;
