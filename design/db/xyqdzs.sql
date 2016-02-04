@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/2/4 9:53:52                             */
+/* Created on:     2016/2/4 10:05:57                            */
 /*==============================================================*/
 
 
@@ -153,7 +153,7 @@ create table lab_college
    college_id           int not null auto_increment,
    college_name         char(30) not null,
    short_name           char(10),
-   college_profile      char(500),
+   college_profile      varchar(500),
    create_date          date,
    edit_date            date,
    del                  int,
@@ -214,7 +214,7 @@ create table lab_department
    department_id        int not null auto_increment,
    department_name      char(30) not null,
    short_name           char(10),
-   department_profile   char(500),
+   department_profile   varchar(500),
    college_id           int not null,
    create_date          date,
    edit_date            date,
@@ -290,7 +290,7 @@ alter table lab_motion_trail comment '轨迹表';
 create table lab_notice
 (
    notice_id            int not null auto_increment comment 'ID',
-   content              char(1000) comment '内容',
+   content              varchar(1000) comment '内容',
    title                char(100) comment '标题',
    display_date         int comment '展示时间',
    teacher_id           int comment '创建人id',
@@ -345,7 +345,7 @@ create table lab_student
    department_id        int comment '学系ID',
    college_id           int comment '学院id',
    head_image           char comment '头像',
-   note                 char(500) comment '备注',
+   note                 varchar(500) comment '备注',
    password             char comment '密码',
    creat_date           date comment '创建时间',
    edit_date            date comment '修改时间',
@@ -379,7 +379,7 @@ create table lab_subject
    subject_id           int not null auto_increment,
    subject_name         char(30) not null,
    short_name           char(10),
-   subject_profile      char(500),
+   subject_profile      varchar(500),
    college_id           int not null,
    department_id        int not null,
    create_date          date,
@@ -408,7 +408,7 @@ create table lab_teacher
    department_id        char comment '院系ID',
    head_image           char comment '头像',
    role                 int comment '角色',
-   note                 char(500) comment '备注',
+   note                 varchar(500) comment '备注',
    password             char comment '密码',
    creat_date           date comment '创建时间',
    edit_date            date comment '修改时间',
