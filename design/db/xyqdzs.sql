@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/2/4 10:05:57                            */
+/* Created on:     2016/2/16 13:49:18                           */
 /*==============================================================*/
 
 
@@ -108,7 +108,7 @@ create table lab_check_work
    class_id             int comment '°à¼¶ID',
    curriculum_id        int comment '¿Î³Ìid',
    curriculum_name      int,
-   status               int comment '¿¼ÇÚ×´Ì¬',
+   status               char comment '¿¼ÇÚ×´Ì¬',
    student_id           int comment 'Ñ§Éúid',
    weekNo               int,
    weekday              int,
