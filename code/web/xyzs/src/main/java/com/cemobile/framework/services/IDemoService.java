@@ -1,7 +1,7 @@
-package com.cemobile.demo.services;
+package com.cemobile.framework.services;
 
-import com.cemobile.demo.entities.Demo;
 import com.cemobile.framework.common.page.Page;
+import com.cemobile.framework.entity.Demo;
 
 public interface IDemoService {
 	/*条件查询demo*/

@@ -1,6 +1,5 @@
-package com.cemobile.demo.web.controller;
+package com.cemobile.framework.web.controller;
 
-import java.util.HashMap;
 
 import javax.validation.Valid;
 
@@ -13,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cemobile.demo.entities.Demo;
-import com.cemobile.demo.services.IDemoService;
-import com.cemobile.demo.web.view.View;
 import com.cemobile.framework.base.common.AjaxData;
 import com.cemobile.framework.base.common.AjaxDataComponent;
 import com.cemobile.framework.common.page.Page;
+import com.cemobile.framework.entity.Demo;
+import com.cemobile.framework.services.IDemoService;
+import com.cemobile.framework.web.view.View;
 /**
  * @Title: DemoController.java
  * @Description: 报表展现DEMO控制层

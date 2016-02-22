@@ -1,4 +1,4 @@
-package com.cemobile.demo.entities;
+package com.cemobile.framework.entity;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;

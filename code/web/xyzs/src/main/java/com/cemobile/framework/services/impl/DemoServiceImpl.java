@@ -1,4 +1,4 @@
-package com.cemobile.demo.services.impl;
+package com.cemobile.framework.services.impl;
 
 import java.util.List;
 
@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cemobile.demo.dao.DemoMapper;
-import com.cemobile.demo.entities.Demo;
-import com.cemobile.demo.services.IDemoService;
 import com.cemobile.framework.common.page.Page;
+import com.cemobile.framework.dao.DemoMapper;
+import com.cemobile.framework.entity.Demo;
+import com.cemobile.framework.services.IDemoService;
 @Service
 @Transactional
 public class DemoServiceImpl implements IDemoService{

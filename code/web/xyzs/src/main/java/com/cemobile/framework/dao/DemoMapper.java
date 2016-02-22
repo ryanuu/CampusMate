@@ -1,9 +1,9 @@
-package com.cemobile.demo.dao;
+package com.cemobile.framework.dao;
 
 import java.util.List;
 
-import com.cemobile.demo.entities.Demo;
 import com.cemobile.framework.common.page.Page;
+import com.cemobile.framework.entity.Demo;
 
 public interface DemoMapper{
 
