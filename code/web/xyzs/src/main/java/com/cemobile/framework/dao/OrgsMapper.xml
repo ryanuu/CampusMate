@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cemobile.framework.dao.OrgsMapper">
+	
+	<resultMap id="OrgResultMap" type="com.cemobile.framework.entity.Org">
+		<result property="collegeId" column="college_id" jdbcType="BIGINT"></result>
+		<result property="collegeName" column="college_name" jdbcType="CHAR"></result>
+		<result property="collergeShortName" column="college_short_name" jdbcType="CHAR"></result>
+		<result property="collegeProfile" column="college_profile" jdbcType="VARCHAR"></result>
+		<result property="departmentId" column="department_id" jdbcType="BIGINT"></result>
+		<result property="departmentName" column="department_name" jdbcType="CHAR"></result>
+		<result property="departmentShortName" column="department_short_name" jdbcType="CHAR"></result>
+		<result property="departmentProfile" column="department_profile" jdbcType="VARCHAR"></result>
+		<result property="subjectId" column="subject_id" jdbcType="BIGINT"></result>
+		<result property="subjectName" column="subject_name" jdbcType="CHAR"></result>
+		<result property="subjectShortName" column="subject_short_name" jdbcType="CHAR"></result>
+		<result property="subjectProfile" column="subject_profile" jdbcType="VARCHAR"></result>
+		<result property="classId" column="class_id" jdbcType="BIGINT"></result>
+		<result property="calssName" column="calss_name" jdbcType="CHAR"></result>
+		<result property="headmaster" column="headmaster" jdbcType="BIGINT"></result>
+		<result property="instructor" column="instructor" jdbcType="BIGINT"></result>
+		<result property="grade" column="grade" jdbcType="INTEGER"></result>
+		<result property="headmasterName" column="headmaster_name" jdbcType="CHAR"></result>
+		<result property="instructorName" column="instructor_name" jdbcType="CHAR"></result>
+	
+	</resultMap>
+	
+	<select id="selectOrgAndAllSonOrgByOrg" resultMap="OrgResultMap">
+		
+	</select>
+
+</mapper>

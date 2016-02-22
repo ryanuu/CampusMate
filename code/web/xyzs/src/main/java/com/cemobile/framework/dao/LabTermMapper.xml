@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.LabTermMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.LabTerm">
+		<id property="termId" column="term_id"  jdbcType="BIGINT"/>
+		<result property="termName" column="term_name" jdbcType="CHAR" />
+		<result property="startDate" column="start_date" jdbcType="DATE" />
+		<result property="endDate" column="end_date" jdbcType="DATE" />
+		<result property="collegeId" column="college_id" jdbcType="BIGINT" />
+		<result property="createDate" column="create_date" jdbcType="DATE" />
+		<result property="editeDate" column="edite_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	    <![CDATA[
+		term_id,term_name,start_date,end_date,college_id,create_date,edite_date,del
+	    ]]>
+	</sql>
+
+	<sql id="LabTerm_findPage">
+		<where>
+	       <if test="termId != null">
+				AND term_id = #{termId,jdbcType=BIGINT}
+			</if>
+	       <if test="termName != null">
+				AND term_name = #{termName,jdbcType=CHAR}
+			</if>
+	       <if test="startDate != null">
+				AND start_date = #{startDate,jdbcType=DATE}
+			</if>
+	       <if test="endDate != null">
+				AND end_date = #{endDate,jdbcType=DATE}
+			</if>
+	       <if test="collegeId != null">
+				AND college_id = #{collegeId,jdbcType=BIGINT}
+			</if>
+	       <if test="createDate != null">
+				AND create_date = #{createDate,jdbcType=DATE}
+			</if>
+	       <if test="editeDate != null">
+				AND edite_date = #{editeDate,jdbcType=DATE}
+			</if>
+	       <if test="del != null">
+				AND del = #{del,jdbcType=INTEGER}
+			</if>
+		</where>
+	</sql>
+
+	<insert id="insert" parameterType="com.cemobile.framework.entity.LabTerm"  useGeneratedKeys="true" keyProperty="termId"  >
+    <![CDATA[
+        INSERT INTO lab_term (
+        	term_name ,
+        	start_date ,
+        	end_date ,
+        	college_id ,
+        	create_date ,
+        	edite_date ,
+        	del 
+        ) VALUES (
+        	#{termName,jdbcType=CHAR} ,
+        	#{startDate,jdbcType=DATE} ,
+        	#{endDate,jdbcType=DATE} ,
+        	#{collegeId,jdbcType=BIGINT} ,
+        	sysdate(),
+        	#{editeDate,jdbcType=DATE} ,
+        	#{del,jdbcType=INTEGER} 
+        )
+    ]]>
+	</insert>
+
+    <insert id="insertSelective" parameterType="com.cemobile.framework.entity.LabTerm">
+        INSERT INTO lab_term 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="termId != null">term_id </if>,
+			<if test="termName != null">term_name </if>,
+			<if test="startDate != null">start_date </if>,
+			<if test="endDate != null">end_date </if>,
+			<if test="collegeId != null">college_id </if>,
+			<if test="createDate != null">create_date </if>,
+			<if test="editeDate != null">edite_date </if>,
+			<if test="del != null">del </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="termId != null">
+				term_id = #{termId,jdbcType=BIGINT}	,
+			</if>
+			<if test="termName != null">
+				term_name = #{termName,jdbcType=CHAR}	,
+			</if>
+			<if test="startDate != null">
+				start_date = #{startDate,jdbcType=DATE}	,
+			</if>
+			<if test="endDate != null">
+				end_date = #{endDate,jdbcType=DATE}	,
+			</if>
+			<if test="collegeId != null">
+				college_id = #{collegeId,jdbcType=BIGINT}	,
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=DATE}	,
+			</if>
+			<if test="editeDate != null">
+				edite_date = #{editeDate,jdbcType=DATE}	,
+			</if>
+			<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertBatch" parameterType="com.cemobile.framework.entity.LabTerm" >
+		 INSERT INTO lab_term  (
+        	term_name ,
+        	start_date ,
+        	end_date ,
+        	college_id ,
+        	create_date ,
+        	edite_date ,
+        	del 
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">(
+        	#{item.termName,jdbcType=CHAR} ,
+        	#{item.startDate,jdbcType=DATE} ,
+        	#{item.endDate,jdbcType=DATE} ,
+        	#{item.collegeId,jdbcType=BIGINT} ,
+        	#{item.createDate,jdbcType=DATE} ,
+        	#{item.editeDate,jdbcType=DATE} ,
+        	#{item.del,jdbcType=INTEGER} 
+			)
+		</foreach>
+	</insert>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM lab_term WHERE
+        term_id =#{termId,jdbcType=BIGINT}
+    </delete>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.cemobile.framework.entity.LabTerm" >
+        UPDATE lab_term 
+		<set>
+				<if test="termName != null">
+				term_name = #{termName,jdbcType=CHAR}	,
+				</if>
+				<if test="startDate != null">
+				start_date = #{startDate,jdbcType=DATE}	,
+				</if>
+				<if test="endDate != null">
+				end_date = #{endDate,jdbcType=DATE}	,
+				</if>
+				<if test="collegeId != null">
+				college_id = #{collegeId,jdbcType=BIGINT}	,
+				</if>
+				<if test="createDate != null">
+				create_date = #{createDate,jdbcType=DATE}	,
+				</if>
+				<if test="editeDate != null">
+				edite_date = #{editeDate,jdbcType=DATE}	,
+				</if>
+				<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	
+				</if>
+		</set>
+		WHERE  term_id =#{termId,jdbcType=BIGINT}
+	</update>
+
+    <update id="updateByPrimaryKey" parameterType="com.cemobile.framework.entity.LabTerm" >
+        UPDATE lab_term 
+		<set>
+				term_name = #{termName,jdbcType=CHAR}	,
+				start_date = #{startDate,jdbcType=DATE}	,
+				end_date = #{endDate,jdbcType=DATE}	,
+				college_id = #{collegeId,jdbcType=BIGINT}	,
+				create_date = #{createDate,jdbcType=DATE}	,
+				edite_date = #{editeDate,jdbcType=DATE}	,
+				del = #{del,jdbcType=INTEGER}	
+		</set>
+		WHERE  term_id = #{termId,jdbcType=BIGINT}
+	</update>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_term 
+		WHERE  term_id = #{termId,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryByKeyword" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from lab_term 
+		<include refid="LabTerm_findPage"/>    
+	</select>
+
+	<select id="queryAllLabTerm" resultMap="BaseResultMap" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_term 
+	</select>
+</mapper>
+

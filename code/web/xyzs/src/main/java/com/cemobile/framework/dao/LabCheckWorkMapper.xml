@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.LabCheckWorkMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.LabCheckWork">
+		<id property="checkId" column="check_id"  jdbcType="BIGINT"/>
+		<result property="classId" column="class_id" jdbcType="BIGINT" />
+		<result property="curriculumId" column="curriculum_id" jdbcType="BIGINT" />
+		<result property="curriculumName" column="curriculum_name" jdbcType="CHAR" />
+		<result property="status" column="status" jdbcType="CHAR" />
+		<result property="studentId" column="student_id" jdbcType="BIGINT" />
+		<result property="weekNo" column="weekNo" jdbcType="INTEGER" />
+		<result property="weekday" column="weekday" jdbcType="INTEGER" />
+		<result property="section" column="section" jdbcType="INTEGER" />
+		<result property="startDate" column="start_date" jdbcType="DATE" />
+		<result property="endDate" column="end_date" jdbcType="DATE" />
+		<result property="termId" column="term_id" jdbcType="BIGINT" />
+		<result property="createDate" column="create_date" jdbcType="DATE" />
+		<result property="editDate" column="edit_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	    <![CDATA[
+		check_id,class_id,curriculum_id,curriculum_name,status,student_id,weekNo,weekday,section,start_date,end_date,term_id,create_date,edit_date,del
+	    ]]>
+	</sql>
+
+	<sql id="LabCheckWork_findPage">
+		<where>
+	       <if test="checkId != null">
+				AND check_id = #{checkId,jdbcType=BIGINT}
+			</if>
+	       <if test="classId != null">
+				AND class_id = #{classId,jdbcType=BIGINT}
+			</if>
+	       <if test="curriculumId != null">
+				AND curriculum_id = #{curriculumId,jdbcType=BIGINT}
+			</if>
+	       <if test="curriculumName != null">
+				AND curriculum_name = #{curriculumName,jdbcType=CHAR}
+			</if>
+	       <if test="status != null">
+				AND status = #{status,jdbcType=CHAR}
+			</if>
+	       <if test="studentId != null">
+				AND student_id = #{studentId,jdbcType=BIGINT}
+			</if>
+	       <if test="weekNo != null">
+				AND weekNo = #{weekNo,jdbcType=INTEGER}
+			</if>
+	       <if test="weekday != null">
+				AND weekday = #{weekday,jdbcType=INTEGER}
+			</if>
+	       <if test="section != null">
+				AND section = #{section,jdbcType=INTEGER}
+			</if>
+	       <if test="startDate != null">
+				AND start_date = #{startDate,jdbcType=DATE}
+			</if>
+	       <if test="endDate != null">
+				AND end_date = #{endDate,jdbcType=DATE}
+			</if>
+	       <if test="termId != null">
+				AND term_id = #{termId,jdbcType=BIGINT}
+			</if>
+	       <if test="createDate != null">
+				AND create_date = #{createDate,jdbcType=DATE}
+			</if>
+	       <if test="editDate != null">
+				AND edit_date = #{editDate,jdbcType=DATE}
+			</if>
+	       <if test="del != null">
+				AND del = #{del,jdbcType=INTEGER}
+			</if>
+		</where>
+	</sql>
+
+	<insert id="insert" parameterType="com.cemobile.framework.entity.LabCheckWork"  useGeneratedKeys="true" keyProperty="checkId"  >
+    <![CDATA[
+        INSERT INTO lab_check_work (
+        	check_id ,
+        	class_id ,
+        	curriculum_id ,
+        	curriculum_name ,
+        	status ,
+        	student_id ,
+        	weekNo ,
+        	weekday ,
+        	section ,
+        	start_date ,
+        	end_date ,
+        	term_id ,
+        	create_date ,
+        	edit_date ,
+        	del 
+        ) VALUES (
+        	#{checkId,jdbcType=BIGINT} ,
+        	#{classId,jdbcType=BIGINT} ,
+        	#{curriculumId,jdbcType=BIGINT} ,
+        	#{curriculumName,jdbcType=CHAR} ,
+        	#{status,jdbcType=CHAR} ,
+        	#{studentId,jdbcType=BIGINT} ,
+        	#{weekNo,jdbcType=INTEGER} ,
+        	#{weekday,jdbcType=INTEGER} ,
+        	#{section,jdbcType=INTEGER} ,
+        	#{startDate,jdbcType=DATE} ,
+        	#{endDate,jdbcType=DATE} ,
+        	#{termId,jdbcType=BIGINT} ,
+        	#{createDate,jdbcType=DATE} ,
+        	#{editDate,jdbcType=DATE} ,
+        	#{del,jdbcType=INTEGER} 
+        )
+    ]]>
+	</insert>
+
+    <insert id="insertSelective" parameterType="com.cemobile.framework.entity.LabCheckWork">
+        INSERT INTO lab_check_work 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="checkId != null">check_id </if>,
+			<if test="classId != null">class_id </if>,
+			<if test="curriculumId != null">curriculum_id </if>,
+			<if test="curriculumName != null">curriculum_name </if>,
+			<if test="status != null">status </if>,
+			<if test="studentId != null">student_id </if>,
+			<if test="weekNo != null">weekNo </if>,
+			<if test="weekday != null">weekday </if>,
+			<if test="section != null">section </if>,
+			<if test="startDate != null">start_date </if>,
+			<if test="endDate != null">end_date </if>,
+			<if test="termId != null">term_id </if>,
+			<if test="createDate != null">create_date </if>,
+			<if test="editDate != null">edit_date </if>,
+			<if test="del != null">del </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="checkId != null">
+				check_id = #{checkId,jdbcType=BIGINT}	,
+			</if>
+			<if test="classId != null">
+				class_id = #{classId,jdbcType=BIGINT}	,
+			</if>
+			<if test="curriculumId != null">
+				curriculum_id = #{curriculumId,jdbcType=BIGINT}	,
+			</if>
+			<if test="curriculumName != null">
+				curriculum_name = #{curriculumName,jdbcType=CHAR}	,
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=CHAR}	,
+			</if>
+			<if test="studentId != null">
+				student_id = #{studentId,jdbcType=BIGINT}	,
+			</if>
+			<if test="weekNo != null">
+				weekNo = #{weekNo,jdbcType=INTEGER}	,
+			</if>
+			<if test="weekday != null">
+				weekday = #{weekday,jdbcType=INTEGER}	,
+			</if>
+			<if test="section != null">
+				section = #{section,jdbcType=INTEGER}	,
+			</if>
+			<if test="startDate != null">
+				start_date = #{startDate,jdbcType=DATE}	,
+			</if>
+			<if test="endDate != null">
+				end_date = #{endDate,jdbcType=DATE}	,
+			</if>
+			<if test="termId != null">
+				term_id = #{termId,jdbcType=BIGINT}	,
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=DATE}	,
+			</if>
+			<if test="editDate != null">
+				edit_date = #{editDate,jdbcType=DATE}	,
+			</if>
+			<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertBatch" parameterType="com.cemobile.framework.entity.LabCheckWork" >
+		 INSERT INTO lab_check_work  (
+        	class_id ,
+        	curriculum_id ,
+        	curriculum_name ,
+        	status ,
+        	student_id ,
+        	weekNo ,
+        	weekday ,
+        	section ,
+        	start_date ,
+        	end_date ,
+        	term_id ,
+        	create_date ,
+        	edit_date ,
+        	del 
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">(
+        	#{item.classId,jdbcType=BIGINT} ,
+        	#{item.curriculumId,jdbcType=BIGINT} ,
+        	#{item.curriculumName,jdbcType=CHAR} ,
+        	#{item.status,jdbcType=CHAR} ,
+        	#{item.studentId,jdbcType=BIGINT} ,
+        	#{item.weekNo,jdbcType=INTEGER} ,
+        	#{item.weekday,jdbcType=INTEGER} ,
+        	#{item.section,jdbcType=INTEGER} ,
+        	#{item.startDate,jdbcType=DATE} ,
+        	#{item.endDate,jdbcType=DATE} ,
+        	#{item.termId,jdbcType=BIGINT} ,
+        	#{item.createDate,jdbcType=DATE} ,
+        	#{item.editDate,jdbcType=DATE} ,
+        	#{item.del,jdbcType=INTEGER} 
+			)
+		</foreach>
+	</insert>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM lab_check_work WHERE
+        check_id =#{checkId,jdbcType=BIGINT}
+    </delete>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.cemobile.framework.entity.LabCheckWork" >
+        UPDATE lab_check_work 
+		<set>
+				<if test="classId != null">
+				class_id = #{classId,jdbcType=BIGINT}	,
+				</if>
+				<if test="curriculumId != null">
+				curriculum_id = #{curriculumId,jdbcType=BIGINT}	,
+				</if>
+				<if test="curriculumName != null">
+				curriculum_name = #{curriculumName,jdbcType=CHAR}	,
+				</if>
+				<if test="status != null">
+				status = #{status,jdbcType=CHAR}	,
+				</if>
+				<if test="studentId != null">
+				student_id = #{studentId,jdbcType=BIGINT}	,
+				</if>
+				<if test="weekNo != null">
+				weekNo = #{weekNo,jdbcType=INTEGER}	,
+				</if>
+				<if test="weekday != null">
+				weekday = #{weekday,jdbcType=INTEGER}	,
+				</if>
+				<if test="section != null">
+				section = #{section,jdbcType=INTEGER}	,
+				</if>
+				<if test="startDate != null">
+				start_date = #{startDate,jdbcType=DATE}	,
+				</if>
+				<if test="endDate != null">
+				end_date = #{endDate,jdbcType=DATE}	,
+				</if>
+				<if test="termId != null">
+				term_id = #{termId,jdbcType=BIGINT}	,
+				</if>
+				<if test="createDate != null">
+				create_date = #{createDate,jdbcType=DATE}	,
+				</if>
+				<if test="editDate != null">
+				edit_date = #{editDate,jdbcType=DATE}	,
+				</if>
+				<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	
+				</if>
+		</set>
+		WHERE  check_id =#{checkId,jdbcType=BIGINT}
+	</update>
+
+    <update id="updateByPrimaryKey" parameterType="com.cemobile.framework.entity.LabCheckWork" >
+        UPDATE lab_check_work 
+		<set>
+				class_id = #{classId,jdbcType=BIGINT}	,
+				curriculum_id = #{curriculumId,jdbcType=BIGINT}	,
+				curriculum_name = #{curriculumName,jdbcType=CHAR}	,
+				status = #{status,jdbcType=CHAR}	,
+				student_id = #{studentId,jdbcType=BIGINT}	,
+				weekNo = #{weekNo,jdbcType=INTEGER}	,
+				weekday = #{weekday,jdbcType=INTEGER}	,
+				section = #{section,jdbcType=INTEGER}	,
+				start_date = #{startDate,jdbcType=DATE}	,
+				end_date = #{endDate,jdbcType=DATE}	,
+				term_id = #{termId,jdbcType=BIGINT}	,
+				create_date = #{createDate,jdbcType=DATE}	,
+				edit_date = #{editDate,jdbcType=DATE}	,
+				del = #{del,jdbcType=INTEGER}	
+		</set>
+		WHERE  check_id = #{checkId,jdbcType=BIGINT}
+	</update>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_check_work 
+		WHERE  check_id = #{checkId,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryByKeyword" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from lab_check_work 
+		<include refid="LabCheckWork_findPage"/>    
+	</select>
+
+	<select id="queryAllLabCheckWork" resultMap="BaseResultMap" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_check_work 
+	</select>
+</mapper>
+

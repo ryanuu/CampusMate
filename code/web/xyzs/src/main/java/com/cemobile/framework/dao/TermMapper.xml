@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.TermMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.Term">
+		<id property="termId" column="term_id"  jdbcType="BIGINT"/>
+		<result property="termName" column="term_name" jdbcType="CHAR" />
+		<result property="startDate" column="start_date" jdbcType="DATE" />
+		<result property="endDate" column="end_date" jdbcType="DATE" />
+		<result property="collegeId" column="college_id" jdbcType="BIGINT" />
+		<result property="createDate" column="create_date" jdbcType="DATE" />
+		<result property="editeDate" column="edite_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+		<result property="collegeName" column="college_name" jdbcType="CHAR"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	    <![CDATA[
+		t.term_id,t.term_name,t.start_date,t.end_date,t.college_id,t.create_date,t.edite_date,t.del
+	    ]]>
+	</sql>
+
+	<sql id="LabTerm_findPage">
+		<where>
+	       <if test="termId != null">
+				AND t.term_id = #{termId,jdbcType=BIGINT}
+			</if>
+	       <if test="termName != null">
+				AND t.term_name like '%${termName}%'
+			</if>
+	       <if test="startDate != null">
+				AND t.start_date = #{startDate,jdbcType=DATE}
+			</if>
+	       <if test="endDate != null">
+				AND t.end_date = #{endDate,jdbcType=DATE}
+			</if>
+	       <if test="collegeId != null">
+				AND t.college_id = #{collegeId,jdbcType=BIGINT}
+			</if>
+	       <if test="createDate != null">
+				AND t.create_date = #{createDate,jdbcType=DATE}
+			</if>
+	       <if test="editeDate != null">
+				AND edite_date = #{editeDate,jdbcType=DATE}
+			</if>
+	       <if test="del != null">
+				AND t.del = #{del,jdbcType=INTEGER}
+			</if>
+			<if test="collegeName != null">
+				AND c.collegeName like '%${collegeName}%' 
+			</if>
+		</where>
+	</sql>
+
+
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_term t
+		WHERE  term_id = #{termId,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryByKeyword" resultMap="BaseResultMap">
+		select 
+		c.college_name,
+		<include refid="Base_Column_List" />
+		from lab_term t
+		LEFT JOIN lab_college c 
+			ON c.college_id = t.college_id
+		where
+			t.del=0
+			<if test="termId != null">
+				AND t.term_id = #{termId,jdbcType=BIGINT}
+			</if>
+	       <if test="termName != null">
+				AND t.term_name like '%${termName}%'
+			</if>
+	       <if test="startDate != null">
+				AND t.start_date = #{startDate,jdbcType=DATE}
+			</if>
+	       <if test="endDate != null">
+				AND t.end_date = #{endDate,jdbcType=DATE}
+			</if>
+	       <if test="collegeId != null">
+				AND t.college_id = #{collegeId,jdbcType=BIGINT}
+			</if>
+	       <if test="createDate != null">
+				AND t.create_date = #{createDate,jdbcType=DATE}
+			</if>
+	       <if test="editeDate != null">
+				AND edite_date = #{editeDate,jdbcType=DATE}
+			</if>
+			<if test="collegeName != null">
+				AND c.collegeName like '%${collegeName}%' 
+			</if>    
+	</select>
+
+	<select id="queryAllTerm" resultMap="BaseResultMap" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_term t
+		where t.del=0
+	</select>
+</mapper>
+

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.LabCourseListMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.LabCourseList">
+		<id property="courseListId" column="course_list_id"  jdbcType="BIGINT"/>
+		<result property="curriculumId" column="curriculum_id" jdbcType="BIGINT" />
+		<result property="weekday" column="weekday" jdbcType="INTEGER" />
+		<result property="section" column="section" jdbcType="INTEGER" />
+		<result property="classId" column="class_id" jdbcType="BIGINT" />
+		<result property="termId" column="term_id" jdbcType="BIGINT" />
+		<result property="positionId" column="position_id" jdbcType="BIGINT" />
+		<result property="courseType" column="course_type" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" jdbcType="DATE" />
+		<result property="editDate" column="edit_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	    <![CDATA[
+		course_list_id,curriculum_id,weekday,section,class_id,term_id,position_id,course_type,create_date,edit_date,del
+	    ]]>
+	</sql>
+
+	<sql id="LabCourseList_findPage">
+		<where>
+	       <if test="courseListId != null">
+				AND course_list_id = #{courseListId,jdbcType=BIGINT}
+			</if>
+	       <if test="curriculumId != null">
+				AND curriculum_id = #{curriculumId,jdbcType=BIGINT}
+			</if>
+	       <if test="weekday != null">
+				AND weekday = #{weekday,jdbcType=INTEGER}
+			</if>
+	       <if test="section != null">
+				AND section = #{section,jdbcType=INTEGER}
+			</if>
+	       <if test="classId != null">
+				AND class_id = #{classId,jdbcType=BIGINT}
+			</if>
+	       <if test="termId != null">
+				AND term_id = #{termId,jdbcType=BIGINT}
+			</if>
+	       <if test="positionId != null">
+				AND position_id = #{positionId,jdbcType=BIGINT}
+			</if>
+	       <if test="courseType != null">
+				AND course_type = #{courseType,jdbcType=INTEGER}
+			</if>
+	       <if test="createDate != null">
+				AND create_date = #{createDate,jdbcType=DATE}
+			</if>
+	       <if test="editDate != null">
+				AND edit_date = #{editDate,jdbcType=DATE}
+			</if>
+	       <if test="del != null">
+				AND del = #{del,jdbcType=INTEGER}
+			</if>
+		</where>
+	</sql>
+
+	<insert id="insert" parameterType="com.cemobile.framework.entity.LabCourseList"  useGeneratedKeys="true" keyProperty="courseListId"  >
+    <![CDATA[
+        INSERT INTO lab_course_list (
+        	course_list_id ,
+        	curriculum_id ,
+        	weekday ,
+        	section ,
+        	class_id ,
+        	term_id ,
+        	position_id ,
+        	course_type ,
+        	create_date ,
+        	edit_date ,
+        	del 
+        ) VALUES (
+        	#{courseListId,jdbcType=BIGINT} ,
+        	#{curriculumId,jdbcType=BIGINT} ,
+        	#{weekday,jdbcType=INTEGER} ,
+        	#{section,jdbcType=INTEGER} ,
+        	#{classId,jdbcType=BIGINT} ,
+        	#{termId,jdbcType=BIGINT} ,
+        	#{positionId,jdbcType=BIGINT} ,
+        	#{courseType,jdbcType=INTEGER} ,
+        	#{createDate,jdbcType=DATE} ,
+        	#{editDate,jdbcType=DATE} ,
+        	#{del,jdbcType=INTEGER} 
+        )
+    ]]>
+	</insert>
+
+    <insert id="insertSelective" parameterType="com.cemobile.framework.entity.LabCourseList">
+        INSERT INTO lab_course_list 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="courseListId != null">course_list_id </if>,
+			<if test="curriculumId != null">curriculum_id </if>,
+			<if test="weekday != null">weekday </if>,
+			<if test="section != null">section </if>,
+			<if test="classId != null">class_id </if>,
+			<if test="termId != null">term_id </if>,
+			<if test="positionId != null">position_id </if>,
+			<if test="courseType != null">course_type </if>,
+			<if test="createDate != null">create_date </if>,
+			<if test="editDate != null">edit_date </if>,
+			<if test="del != null">del </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="courseListId != null">
+				course_list_id = #{courseListId,jdbcType=BIGINT}	,
+			</if>
+			<if test="curriculumId != null">
+				curriculum_id = #{curriculumId,jdbcType=BIGINT}	,
+			</if>
+			<if test="weekday != null">
+				weekday = #{weekday,jdbcType=INTEGER}	,
+			</if>
+			<if test="section != null">
+				section = #{section,jdbcType=INTEGER}	,
+			</if>
+			<if test="classId != null">
+				class_id = #{classId,jdbcType=BIGINT}	,
+			</if>
+			<if test="termId != null">
+				term_id = #{termId,jdbcType=BIGINT}	,
+			</if>
+			<if test="positionId != null">
+				position_id = #{positionId,jdbcType=BIGINT}	,
+			</if>
+			<if test="courseType != null">
+				course_type = #{courseType,jdbcType=INTEGER}	,
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=DATE}	,
+			</if>
+			<if test="editDate != null">
+				edit_date = #{editDate,jdbcType=DATE}	,
+			</if>
+			<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertBatch" parameterType="com.cemobile.framework.entity.LabCourseList" >
+		 INSERT INTO lab_course_list  (
+        	curriculum_id ,
+        	weekday ,
+        	section ,
+        	class_id ,
+        	term_id ,
+        	position_id ,
+        	course_type ,
+        	create_date ,
+        	edit_date ,
+        	del 
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">(
+        	#{item.curriculumId,jdbcType=BIGINT} ,
+        	#{item.weekday,jdbcType=INTEGER} ,
+        	#{item.section,jdbcType=INTEGER} ,
+        	#{item.classId,jdbcType=BIGINT} ,
+        	#{item.termId,jdbcType=BIGINT} ,
+        	#{item.positionId,jdbcType=BIGINT} ,
+        	#{item.courseType,jdbcType=INTEGER} ,
+        	#{item.createDate,jdbcType=DATE} ,
+        	#{item.editDate,jdbcType=DATE} ,
+        	#{item.del,jdbcType=INTEGER} 
+			)
+		</foreach>
+	</insert>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM lab_course_list WHERE
+        course_list_id =#{courseListId,jdbcType=BIGINT}
+    </delete>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.cemobile.framework.entity.LabCourseList" >
+        UPDATE lab_course_list 
+		<set>
+				<if test="curriculumId != null">
+				curriculum_id = #{curriculumId,jdbcType=BIGINT}	,
+				</if>
+				<if test="weekday != null">
+				weekday = #{weekday,jdbcType=INTEGER}	,
+				</if>
+				<if test="section != null">
+				section = #{section,jdbcType=INTEGER}	,
+				</if>
+				<if test="classId != null">
+				class_id = #{classId,jdbcType=BIGINT}	,
+				</if>
+				<if test="termId != null">
+				term_id = #{termId,jdbcType=BIGINT}	,
+				</if>
+				<if test="positionId != null">
+				position_id = #{positionId,jdbcType=BIGINT}	,
+				</if>
+				<if test="courseType != null">
+				course_type = #{courseType,jdbcType=INTEGER}	,
+				</if>
+				<if test="createDate != null">
+				create_date = #{createDate,jdbcType=DATE}	,
+				</if>
+				<if test="editDate != null">
+				edit_date = #{editDate,jdbcType=DATE}	,
+				</if>
+				<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	
+				</if>
+		</set>
+		WHERE  course_list_id =#{courseListId,jdbcType=BIGINT}
+	</update>
+
+    <update id="updateByPrimaryKey" parameterType="com.cemobile.framework.entity.LabCourseList" >
+        UPDATE lab_course_list 
+		<set>
+				curriculum_id = #{curriculumId,jdbcType=BIGINT}	,
+				weekday = #{weekday,jdbcType=INTEGER}	,
+				section = #{section,jdbcType=INTEGER}	,
+				class_id = #{classId,jdbcType=BIGINT}	,
+				term_id = #{termId,jdbcType=BIGINT}	,
+				position_id = #{positionId,jdbcType=BIGINT}	,
+				course_type = #{courseType,jdbcType=INTEGER}	,
+				create_date = #{createDate,jdbcType=DATE}	,
+				edit_date = #{editDate,jdbcType=DATE}	,
+				del = #{del,jdbcType=INTEGER}	
+		</set>
+		WHERE  course_list_id = #{courseListId,jdbcType=BIGINT}
+	</update>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_course_list 
+		WHERE  course_list_id = #{courseListId,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryByKeyword" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from lab_course_list 
+		<include refid="LabCourseList_findPage"/>    
+	</select>
+
+	<select id="queryAllLabCourseList" resultMap="BaseResultMap" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_course_list 
+	</select>
+</mapper>
+
