@@ -47,6 +47,8 @@ public class TeacherUser extends TsysUser implements Serializable {
 	private String collegeName;
 	
 	private java.lang.Long departmentId;
+	private java.lang.String departmentName;
+	
 	@Length(max=1)
 	private java.lang.String headImage;
 	
@@ -238,9 +240,9 @@ public class TeacherUser extends TsysUser implements Serializable {
 	}
 	
 	public boolean equals(Object obj) {
-		if(obj instanceof LabTeacher == false) return false;
+		if(obj instanceof TeacherUser == false) return false;
 		if(this == obj) return true;
-		LabTeacher other = (LabTeacher)obj;
+		TeacherUser other = (TeacherUser)obj;
 		return new EqualsBuilder().append(getTeacherId(),other.getTeacherId()).isEquals();
 	}
 
@@ -258,6 +260,14 @@ public class TeacherUser extends TsysUser implements Serializable {
 
 	public void setCollegeName(String collegeName) {
 		this.collegeName = collegeName;
+	}
+
+	public java.lang.String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(java.lang.String departmentName) {
+		this.departmentName = departmentName;
 	}
 
 }

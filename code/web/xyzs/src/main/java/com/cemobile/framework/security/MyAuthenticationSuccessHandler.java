@@ -51,8 +51,8 @@ public class MyAuthenticationSuccessHandler extends
 		}
 		//添加自定义的登录用户信息
 		TsysUser tsysUser=(TsysUser) request.getSession().getAttribute("TsysUser");
-		TeacherUser tercherUser=teacherService.selectByPrimaryKey(tsysUser.getUserId());
-		request.getSession().setAttribute("TercherUser", tercherUser);
+		TeacherUser teacherUser=teacherService.selectByPrimaryKey(tsysUser.getUserId());
+		request.getSession().setAttribute("TeacherUser", teacherUser);
 		
 		super.onAuthenticationSuccess(request, response, authentication);
 		

@@ -57,7 +57,6 @@
 	<insert id="insert" parameterType="com.cemobile.framework.entity.LabTime"  useGeneratedKeys="true" keyProperty="id"  >
     <![CDATA[
         INSERT INTO lab_time (
-        	id ,
         	section ,
         	term_id ,
         	start_date ,
@@ -67,15 +66,14 @@
         	edit_date ,
         	del 
         ) VALUES (
-        	#{id,jdbcType=BIGINT} ,
         	#{section,jdbcType=INTEGER} ,
         	#{termId,jdbcType=BIGINT} ,
         	#{startDate,jdbcType=TIME} ,
         	#{endDate,jdbcType=TIME} ,
         	#{collegeId,jdbcType=BIGINT} ,
-        	#{createDate,jdbcType=DATE} ,
+        	sysdate() ,
         	#{editDate,jdbcType=DATE} ,
-        	#{del,jdbcType=INTEGER} 
+        	0 
         )
     ]]>
 	</insert>

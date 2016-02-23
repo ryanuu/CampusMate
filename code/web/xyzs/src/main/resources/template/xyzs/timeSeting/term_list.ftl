@@ -15,7 +15,8 @@
 		var toolbar =  new Array();
 		$(function(){
 			//根据权限，加载按钮
-			authLoad();		
+			authLoad();	
+				
 			//定义列表
 			$('#term_datagrid').datagrid({
 				url:'${path.web}/admin/timeSeting/termList',
@@ -40,18 +41,18 @@
 							var y = time.getFullYear();
 							var m = time.getMonth()+1;
 							var d = time.getDate();
-							return y+'-'+m+'-'+d;
+							return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
 						}},
 						{field:'endDate',title:'结束时间',align:'center',width:200,formatter:function(value,row,index){
 							var time = new Date(value);
 							var y = time.getFullYear();
 							var m = time.getMonth()+1;
 							var d = time.getDate();
-							return y+'-'+m+'-'+d;
+							return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
 						}}
 					]],
 				onDblClickRow:function(rowIndex, rowData){
-					searchTerm(rowData.id);
+					searchTerm(rowData.termId);
 				}
 			});
 		});
@@ -92,10 +93,10 @@
 				}
 				win = $('<div/>').dialog({
 					title:'修改',
-					width:600,
-					height:280,
+					width:450,
+					height:320,
 					modal:true,
-					href:'${path.web}/demo/toUpdate?id='+row[0].id,
+					href:'${path.web}/admin/timeSeting/termUpdateView?id='+row[0].termId,
 					onClose:function(){
 						term_window_close();
 					}
@@ -111,8 +112,8 @@
 				$.messager.confirm('确认', '您是否要删除？', function(r) {
 					if (r) {
 						$.ajax({
-							url : '${path.web}/demo/deleteDemo',
-							data : {"id" : row[0].id},
+							url : '${path.web}/admin/timeSeting/termDel',
+							data : {"id" : row[0].termId},
 							dataType : 'json',
 							type:'post',
 							success : function(data) {
@@ -131,18 +132,30 @@
 				});
 		}	
 		//查看
-		function searchTerm(id){
+		function searchTerm(termId){
 			    win = $('<div/>').dialog({
 					title:'查看',
-					width:600,
-					height:400,
+					width:450,
+					height:350,
 					modal:true,
-					href:'${path.web}/demo/toSel?id='+id,
+					href:'${path.web}/admin/timeSeting/termSearch?id='+termId,
 					onClose:function(){
 						term_window_close();
 					}
 				});
 		}
+		
+		//跳转课间安排列表
+		function timeList(){
+			var row = $('#term_datagrid').datagrid('getChecked');
+				if(row == ''){
+					$.messager.alert('提示框','请选择一行数据！');	
+					return false;
+			}
+			var url='${path.admin}/timeSeting/timeView?termId='+row[0].termId;
+		   	openUrl(url,"课间安排");
+		}
+		
 		//销毁窗口
 		function term_window_close(){
 			win.dialog('destroy');
@@ -197,6 +210,14 @@
 						toolbar.push({text : '修改',iconCls : 'icon-edit',handler : function() {updateTerm();}});
 					}
 				</@cemobile.authorize>
+				<@cemobile.authorize authCode="TERM_TIME">
+					if(toolbar.length > 0){
+						toolbar.push('-');
+						toolbar[toolbar.length] = {text : '课间安排',iconCls : 'icon-remove',handler : function() {timeList();}};
+					}else{
+						toolbar[0] = {text : '课间安排',iconCls : 'icon-remove',handler : function() {timeList();}};
+					}
+				</@cemobile.authorize>	
 				<@cemobile.authorize authCode="TERM_DEL">
 					if(toolbar.length > 0){
 						toolbar.push('-');
@@ -204,8 +225,23 @@
 					}else{
 						toolbar[0] = {text : '删除',iconCls : 'icon-remove',handler : function() {deleteTerm();}};
 					}
-				</@cemobile.authorize>			
+				</@cemobile.authorize>	
 		}
+		
+	// 用IFRAME打开URL中的HTML页面
+	function openUrl(url, title, op) {
+	    if(typeof window.parent.layout_center_closeTab == 'undefined'){
+	    	window.open(url);
+	    	return;
+	    }
+	    window.parent.layout_center_closeTab(title);
+	    window.parent.layout_center_addTabFun($.extend({
+	        title: title,
+	        closable: true,
+	        content: window.parent.createFrame(url)
+	    },op));
+    }
+    
 </script>
 </head>
 <body>

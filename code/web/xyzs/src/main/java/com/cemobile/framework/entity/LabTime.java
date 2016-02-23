@@ -1,5 +1,6 @@
 package com.cemobile.framework.entity;
 
+
 import java.sql.Time;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -52,20 +53,7 @@ public class LabTime extends BaseEntity{
 	public java.lang.Long getTermId() {
 		return this.termId;
 	}
-	public void setStartDate(Time value) {
-		this.startDate = value;
-	}
-	
-	public Time getStartDate() {
-		return this.startDate;
-	}
-	public void setEndDate(Time value) {
-		this.endDate = value;
-	}
-	
-	public Time getEndDate() {
-		return this.endDate;
-	}
+
 	public void setCollegeId(java.lang.Long value) {
 		this.collegeId = value;
 	}
@@ -118,6 +106,22 @@ public class LabTime extends BaseEntity{
 		if(this == obj) return true;
 		LabTime other = (LabTime)obj;
 		return new EqualsBuilder().append(getId(),other.getId()).isEquals();
+	}
+
+	public Time getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Time startDate) {
+		this.startDate = startDate;
+	}
+
+	public Time getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Time endDate) {
+		this.endDate = endDate;
 	}
 }
 

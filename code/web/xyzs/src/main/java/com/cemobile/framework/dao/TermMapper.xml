@@ -58,8 +58,11 @@
 	
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
 		select 
+		c.college_name,
 		<include refid="Base_Column_List" />
 		from lab_term t
+		left join lab_college c
+			on c.college_id = t.college_id
 		WHERE  term_id = #{termId,jdbcType=BIGINT}
 	</select>
 
@@ -104,5 +107,7 @@
 		from lab_term t
 		where t.del=0
 	</select>
+
+	
 </mapper>
 

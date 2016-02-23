@@ -67,7 +67,7 @@
         	#{collegeId,jdbcType=BIGINT} ,
         	sysdate(),
         	#{editeDate,jdbcType=DATE} ,
-        	#{del,jdbcType=INTEGER} 
+        	0 
         )
     ]]>
 	</insert>
@@ -157,9 +157,7 @@
 				<if test="createDate != null">
 				create_date = #{createDate,jdbcType=DATE}	,
 				</if>
-				<if test="editeDate != null">
-				edite_date = #{editeDate,jdbcType=DATE}	,
-				</if>
+				edite_date = sysdate(),
 				<if test="del != null">
 				del = #{del,jdbcType=INTEGER}	
 				</if>
@@ -175,7 +173,7 @@
 				end_date = #{endDate,jdbcType=DATE}	,
 				college_id = #{collegeId,jdbcType=BIGINT}	,
 				create_date = #{createDate,jdbcType=DATE}	,
-				edite_date = #{editeDate,jdbcType=DATE}	,
+				edite_date = sysdate(),
 				del = #{del,jdbcType=INTEGER}	
 		</set>
 		WHERE  term_id = #{termId,jdbcType=BIGINT}

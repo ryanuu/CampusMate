@@ -19,6 +19,7 @@
 		<result property="collegeId" column="college_id" jdbcType="BIGINT" />
 		<result property="collegeName" column="college_name" jdbcType="CHAR" />
 		<result property="departmentId" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" column="department_name" jdbcType="CHAR" />
 		<result property="headImage" column="head_image" jdbcType="CHAR" />
 		<result property="role" column="role" jdbcType="BIGINT" />
 		<result property="note" column="note" jdbcType="VARCHAR" />
@@ -57,6 +58,7 @@
 			t.creat_date,
 			t.edit_date,
 			t.del,
+			d.department_name,
 			c.college_id,
 			c.college_name
 		FROM
@@ -68,6 +70,7 @@
 		LEFT JOIN lab_college c
 			on c.college_id=d.college_id	
 		WHERE  s.user_id = #{id,jdbcType=BIGINT}
+				and	t.del=0 and d.del=0 and c.del=0
 	</select>
 
 	

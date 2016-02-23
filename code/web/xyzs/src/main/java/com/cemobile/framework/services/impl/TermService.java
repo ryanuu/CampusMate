@@ -31,5 +31,12 @@ public class TermService implements ITermService {
         page.setResult(labTermList);
         return page;
     }
+	
+	@Override
+	public Term selectByKeyword(Long id) {
+		// TODO Auto-generated method stub
+		return termMapper.selectByPrimaryKey(id);
+	}
+
 
 }

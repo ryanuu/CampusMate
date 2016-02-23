@@ -3,6 +3,7 @@ package com.cemobile.framework.dao;
 import java.util.List;
 
 import com.cemobile.framework.common.page.Page;
+import com.cemobile.framework.entity.LabTerm;
 import com.cemobile.framework.entity.Term;
 
 /**
@@ -23,4 +24,5 @@ public interface TermMapper {
 	List<Term> queryByKeyword(Term term);
 
 	List<Term> queryAllTerm(Page page);
+	
 }

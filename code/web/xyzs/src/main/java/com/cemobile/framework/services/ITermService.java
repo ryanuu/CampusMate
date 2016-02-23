@@ -1,6 +1,7 @@
 package com.cemobile.framework.services;
 
 import com.cemobile.framework.common.page.Page;
+import com.cemobile.framework.entity.LabTerm;
 import com.cemobile.framework.entity.Term;
 
 /**
@@ -16,4 +17,7 @@ public interface ITermService {
 	public Page queryByKeyword(Term term,Page page);
 
 	public Page queryAllTerm(Page page);
+	
+	public Term selectByKeyword(Long id);
+	
 }

@@ -26,6 +26,7 @@ import com.cemobile.framework.services.ILabTeacherService;
 import com.cemobile.framework.services.IOrgsService;
 import com.cemobile.framework.web.view.View;
 
+
 /**
  * 
  * 创建人：chenzx
@@ -40,7 +41,7 @@ import com.cemobile.framework.web.view.View;
 public class CampusOrgController {
 
 	// 逻辑错误日志
-    private static Logger log = Logger.getLogger(DemoController.class);
+    private static Logger log = Logger.getLogger(CampusOrgController.class);
     @Autowired
     private AjaxDataComponent ajaxDataComponent;
     @Autowired
@@ -62,7 +63,7 @@ public class CampusOrgController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String toList(Model model,HttpSession session) {
-		TsysUser user = (TsysUser)session.getAttribute("TsysUser");
+    	TeacherUser user = (TeacherUser)session.getAttribute("TeacherUser");
 		Long userId = user.getUserId();
 		LabTeacher labTeacher=labTeacherService.selectByPrimaryKey(userId);
 		Long orgId=0l;
@@ -134,7 +135,7 @@ public class CampusOrgController {
 	 */
 	@RequestMapping(value = "/toEdit", method = RequestMethod.GET)
 	public String toEdit(String orgId, Model model,HttpSession session) {
-		TeacherUser sysUser = (TeacherUser)session.getAttribute("SysUser");
+		TeacherUser sysUser = (TeacherUser)session.getAttribute("TeacherUser");
 		
 		List<Object> list=orgService.treeBygId(Long.valueOf(orgId));
         model.addAttribute("org", list.get(0));
@@ -159,7 +160,7 @@ public class CampusOrgController {
 	@RequestMapping(value = "/treelist", method = RequestMethod.POST)
 	public @ResponseBody AjaxData treelist(@Valid Orgtree orgtree, Org org, HttpSession session) {
 		//获取当前登录的用户
-		TsysUser tsysUser = (TsysUser)session.getAttribute("TsysUser");
+		TeacherUser tsysUser = (TeacherUser)session.getAttribute("TeacherUser");
 		Long userId = tsysUser.getUserId();
 		
 		if (org.getDepartmentId()== null) {

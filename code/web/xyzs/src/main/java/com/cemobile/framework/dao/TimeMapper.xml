@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.TimeMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.PlaytimeTime">
+		<id property="id" column="id"  jdbcType="BIGINT"/>
+		<result property="section" column="section" jdbcType="INTEGER" />
+		<result property="termId" column="term_id" jdbcType="BIGINT" />
+		<result property="startDate" column="start_date" jdbcType="TIME" />
+		<result property="endDate" column="end_date" jdbcType="TIME" />
+		<result property="collegeId" column="college_id" jdbcType="BIGINT" />
+		<result property="createDate" column="create_date" jdbcType="DATE" />
+		<result property="editDate" column="edit_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+		<result property="termName" column="term_name" jdbcType="CHAR" />
+		<result property="collegeName" column="college_name" jdbcType="CHAR"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	    <![CDATA[
+		t.id,t.section,t.term_id,t.start_date,t.end_date,t.college_id,t.create_date,t.edit_date,t.del
+	    ]]>
+	</sql>
+
+	<sql id="LabTime_findPage">
+		<where>
+	       <if test="id != null">
+				AND id = #{id,jdbcType=BIGINT}
+			</if>
+	       <if test="section != null">
+				AND section = #{section,jdbcType=INTEGER}
+			</if>
+	       <if test="termId != null">
+				AND term_id = #{termId,jdbcType=BIGINT}
+			</if>
+	       <if test="startDate != null">
+				AND start_date = #{startDate,jdbcType=TIME}
+			</if>
+	       <if test="endDate != null">
+				AND end_date = #{endDate,jdbcType=TIME}
+			</if>
+	       <if test="collegeId != null">
+				AND college_id = #{collegeId,jdbcType=BIGINT}
+			</if>
+	       <if test="createDate != null">
+				AND create_date = #{createDate,jdbcType=DATE}
+			</if>
+	       <if test="editDate != null">
+				AND edit_date = #{editDate,jdbcType=DATE}
+			</if>
+	       <if test="del != null">
+				AND del = #{del,jdbcType=INTEGER}
+			</if>
+		</where>
+	</sql>
+
+
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select 
+		c.college_name,
+		m.term_name,
+		<include refid="Base_Column_List" />
+		from lab_time t
+		left join lab_term m
+			on m.term_id=t.term_id
+		left join lab_college c
+			on c.college_id = t.college_id
+		WHERE  term_id = #{termId,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryByKeyword" resultMap="BaseResultMap">
+		select 
+		c.college_name,
+		m.term_name,
+		<include refid="Base_Column_List" />
+		from lab_time t
+		left join lab_term m
+			on m.term_id=t.term_id
+		left join lab_college c
+			on c.college_id = t.college_id
+		where
+			t.del=0
+			<if test="id != null">
+				AND t.id = #{id,jdbcType=BIGINT}
+			</if>
+	       <if test="section != null">
+				AND t.section = #{section,jdbcType=INTEGER}
+			</if>
+	       <if test="termId != null">
+				AND t.term_id = #{termId,jdbcType=BIGINT}
+			</if>
+	       <if test="startDate != null">
+				AND t.start_date = #{startDate,jdbcType=TIME}
+			</if>
+	       <if test="endDate != null">
+				AND t.end_date = #{endDate,jdbcType=TIME}
+			</if>
+	       <if test="collegeId != null">
+				AND t.college_id = #{collegeId,jdbcType=BIGINT}
+			</if>
+	       <if test="createDate != null">
+				AND t.create_date = #{createDate,jdbcType=DATE}
+			</if>
+	       <if test="editDate != null">
+				AND t.edit_date = #{editDate,jdbcType=DATE}
+			</if>
+	       <if test="del != null">
+				AND t.del = #{del,jdbcType=INTEGER}
+			</if>    
+	</select>
+
+	<select id="queryAllTerm" resultMap="BaseResultMap" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_time t
+		where t.del=0
+	</select>
+
+	
+</mapper>
+
