@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/2/18 14:40:25                           */
+/* Created on:     2016/2/24 17:25:48                           */
 /*==============================================================*/
 
 
@@ -75,7 +75,7 @@ create table LAB_TIME
    primary key (id)
 );
 
-alter table LAB_TIME comment '时间表';
+alter table LAB_TIME comment '课间表';
 
 /*==============================================================*/
 /* Table: lab_bluetooth_dev                                     */
@@ -134,7 +134,7 @@ alter table lab_check_work comment '考勤记录';
 create table lab_class
 (
    class_id             bigint not null auto_increment comment '班级id',
-   calss_name           char(50) not null comment '班级名称',
+   class_name           char(50) not null comment '班级名称',
    college_id           bigint not null,
    department_id        bigint not null comment '院系ID',
    subject_id           bigint not null comment '专业',
