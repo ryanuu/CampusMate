@@ -19,7 +19,7 @@ public interface IOrgsService {
 	//tree组织
 	public List<Orgtree> treelist(Org org);
 	//根据orgId 获取组织数据
-	public List<Object>  treeBygId(Long orgId);
+	public List<Object>  treeBygId(Orgtree orgTree);
 
 	Org queryOrg(Long orgId);
 	

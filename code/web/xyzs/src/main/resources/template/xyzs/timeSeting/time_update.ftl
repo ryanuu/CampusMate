@@ -1,15 +1,15 @@
 
 <script type="text/javascript">	
 
-	function add_update_term()
+	function add_update_time()
 	{
-		$("#term_update_form").form('submit', {
-			url:'${path.web}/admin/timeSeting/termUpdate',
+		$("#time_update_form").form('submit', {
+			url:'${path.web}/admin/timeSeting/timeUpdate',
 			success: function(data){
 				var data = eval('(' + data + ')'); 
 	    		if(data.code == 'S1000'){
-	    			term_window_close();
-					$('#term_datagrid').datagrid('reload');
+	    			time_window_close();
+					$('#time_datagrid').datagrid('reload');
 					showMsg('提示框','修改成功！');		//提示信息
 	      		}
 	    		else
@@ -19,9 +19,9 @@
 			}
 		});
 	}	
-	function cancel_update_term()
+	function cancel_update_time()
 	{
-		term_window_close();
+		time_window_close();
 	}
 	
 	function onSelect(d) {
@@ -36,34 +36,34 @@
 </script>
 
 <div class="edit-table" style="text-align: center;" >
-		<form id="term_update_form" method="post">
-			<input id="termId" name="termId" value="${term.termId}" type="hidden"/>
+		<form id="time_update_form" method="post">
+			<input id="id" name="id" value="${time.id}" type="hidden"/>
         <table cellpadding="5" cellpadding="0" cellspacing="0" border="0">
         	<col  width="23%" />
 			<col  width="77%"/>
 			<tbody>
 	    		<tr>
-	    			<td>学期名称:</td>
-	    			<td><input class="easyui-textbox" type="text" name="termName" data-options="required:true,missingMessage:'请输入名称！'" value="${term.termName}"></input></td>
+	    			<td>第几节:</td>
+	    			<td><input class="easyui-textbox" type="text" name="section" id="section" readOnly="true" value="${time.section}" ></input></td>
 	    		</tr>
-	    		<tr>
-	    			<td>所属学院:</td>
-	    			<td><input class="easyui-textbox" type="text" name="collegeName" readOnly="true"  data-options="required:false" value="${term.collegeName}"></input></td>
-	    		</tr>
-				<tr>
+	    		<tr>		    			
 	    			<td>开始时间:</td>
-	    			<td><input class="easyui-datebox" type="text" id="startDate" value="${term.startDate?string("yyyy-MM-dd HH:mm:ss")}" name="startDate" data-options="required:true,missingMessage:'请输入开始时间！'"></input></td>
+	    			<td>
+		    			<input name="startDate" id="startDate" type="text" class="easyui-timespinner" value="${time.startDate}"></input>
+	    			</td>
 	    		</tr>
-	    		<tr>
+	    		<tr>		    			
 	    			<td>结束时间:</td>
-	    			<td><input class="easyui-datebox" type="text" id="endDate" value="${term.endDate?string("yyyy-MM-dd HH:mm:ss")}" name="endDate" data-options="required:true,missingMessage:'请输入结束时间！',onSelect:onSelect"></input></td>
+	    			<td>
+		    			<input name="endDate" id="endDate" type="text" class="easyui-timespinner" name="endDate" value="${time.endDate}"></input>
+	    			</td>
 	    		</tr>
            </tbody>
         </table>
 	</form>
 	<div data-options="region:'south',border:true" style="text-align: center;">
-			<a icon="icon-ok" href="javascript:void(0)" onclick="add_update_term();" >确定</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a icon="icon-cancel" href="javascript:void(0)" onclick="cancel_update_term();">取消</a>
+			<a icon="icon-ok" href="javascript:void(0)" onclick="add_update_time();" >确定</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a icon="icon-cancel" href="javascript:void(0)" onclick="cancel_update_time();">取消</a>
 	</div>
 </div>
 

@@ -1,6 +1,9 @@
 package com.cemobile.framework.web.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -15,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cemobile.framework.base.common.AjaxData;
 import com.cemobile.framework.base.common.AjaxDataComponent;
-import com.cemobile.framework.base.entities.TsysUser;
+import com.cemobile.framework.common.page.Page;
 import com.cemobile.framework.dict.common.utils.DictCacheUtil;
 import com.cemobile.framework.dict.entities.Dict;
 import com.cemobile.framework.entity.LabTeacher;
@@ -134,10 +137,14 @@ public class CampusOrgController {
 	 * 修改说明：无
 	 */
 	@RequestMapping(value = "/toEdit", method = RequestMethod.GET)
-	public String toEdit(String orgId, Model model,HttpSession session) {
+	public String toEdit(String orgId,String level, Model model,HttpSession session) {
 		TeacherUser sysUser = (TeacherUser)session.getAttribute("TeacherUser");
 		
-		List<Object> list=orgService.treeBygId(Long.valueOf(orgId));
+		Orgtree orgtree=new Orgtree();
+		orgtree.setId(orgId);
+		orgtree.setLevel(level);
+		List<Object> list=orgService.treeBygId(orgtree);
+		
         model.addAttribute("org", list.get(0));
 		return View.ORG.EDIT;
 	}
@@ -161,14 +168,16 @@ public class CampusOrgController {
 	public @ResponseBody AjaxData treelist(@Valid Orgtree orgtree, Org org, HttpSession session) {
 		//获取当前登录的用户
 		TeacherUser tsysUser = (TeacherUser)session.getAttribute("TeacherUser");
-		Long userId = tsysUser.getUserId();
+		Long userId = tsysUser.getTeacherId();
 		
 		if (org.getDepartmentId()== null) {
 			LabTeacher labTeacher=labTeacherService.selectByPrimaryKey(userId);
 			if(labTeacher!=null)
 			{
+				org.setCollegeId(labTeacher.getCollegeId());
 				org.setDepartmentId(labTeacher.getDepartmentId());
 			}
+			//判断是否为超级管理员
 			if ("admin".equals(tsysUser.getUsername())) {
 				//若是admin将orgId设为0
 				org.setCollegeId(0l);
@@ -184,6 +193,44 @@ public class CampusOrgController {
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * 创建人：chenzx
+	 * 创建时间：2016年2月17日 09:55:52
+	 * 方法说明：组织机构管理-根据orgId，查询组织
+	 * 参数：@param org
+	 * 参数：@param session
+	 * 参数：@param page
+	 * 参数：@return AjaxData
+	 * 修改人：无
+	 * 修改时间：无
+	 * 修改说明：无
+	 */
+	@RequestMapping(value = "/treeBygId", method = RequestMethod.POST)
+	public @ResponseBody AjaxData treeBygId(@Valid Orgtree org,HttpSession session,Page page) {
+		try {
+		    //如果前端传递的组织机构id是null，那么就从session中获取用户的userId，使用这个userId获取组织机构Id
+			if (org.getId()== null) {
+				TeacherUser tsysUser = (TeacherUser)session.getAttribute("TeacherUser");
+				Long userId = tsysUser.getUserId();
+				
+				org.setId(tsysUser.getCollegeId().toString());
+				org.setLevel("college");
+			}
+			
+			
+			//通过组织机构Id获取组织机构树
+			List<Object> list=orgService.treeBygId(org);
+			
+			List<Map<String,Object>> result=new ArrayList<Map<String,Object>>();
+			Map<String,Object> m=new HashMap<String,Object>();
+			m.put("orgObj", list);
+			result.add(m);
+			return ajaxDataComponent.createSuccess(result,1);
+		} catch (Exception e) {
+			log.error(e);
+			return ajaxDataComponent.createErrorCode("E1501");
+		}
+	}
 	
 }

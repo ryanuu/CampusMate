@@ -68,7 +68,7 @@
 			on m.term_id=t.term_id
 		left join lab_college c
 			on c.college_id = t.college_id
-		WHERE  term_id = #{termId,jdbcType=BIGINT}
+		WHERE  t.id = #{id,jdbcType=BIGINT}
 	</select>
 
 	<select id="queryByKeyword" resultMap="BaseResultMap">

@@ -38,8 +38,8 @@
 					]],
 				columns:
 					[[      
-						{field:'termName',title:'学期',align:'center',width:300},
-						{field:'collegeName',title:'学院名称',align:'center',width:300}
+						{field:'termName',title:'所属学期',align:'center',width:300},
+						{field:'collegeName',title:'所属学院',align:'center',width:300}
 					]],
 				onDblClickRow:function(rowIndex, rowData){
 					searchtime(rowData.id);
@@ -203,7 +203,8 @@
  <div class="easyui-layout" data-options="fit:true,border:false">
     <div data-options="region:'north',border:false" style="overflow: hidden;padding:5px">
     	<form id="time_list_form" method="post">
-    		<input type="text" name="termId" value="${termId}" style="display:none;" />
+    		<input type="text" name="termId" value="${termId}" style="display:none;" /><!--所属的学期id-->
+			<!--
 			<table  cellpadding="0" cellspacing="1" class="formtable" >
 			<tr>
 			    <td align="center" width="10%">
@@ -212,33 +213,18 @@
 				<td class="value" width="20%">
 					<input id ="timeName" name="timeName" class="easyui-textbox" >
 				</td>
-				<!--
 				<td align="center" width="10%">
 					学院名称
 				</td>
 				<td class="value" width="20%">
-					<input id="type" name="type" class="easyui-combobox" data-options="
-				    valueField: 'label',
-				    textField: 'value',
-				    data: 
-				    [{
-					    label: '1',
-					    value: '1'
-				    },{
-					    label: '2',
-					    value: '2'
-				    },{
-					    label: '3',
-					    value: '3'
-				    }]" />
-				</td>-->
 				<td colspan="2" align="center" class="value">
 					<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:false,onClick:function(){timeSearch()}"  >查询</a>
 					<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:false,onClick:function(){timeReset()}"  >重置</a>
-					<!--<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:false,onClick:function(){timeSeniorSearch()}"  >高级查询</a>-->
+					<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:false,onClick:function(){timeSeniorSearch()}"  >高级查询</a>
 				</td>
 			</tr>
 		</table>
+		-->
 	</form>
 	</div>
     <div data-options="region:'center',border:true" >

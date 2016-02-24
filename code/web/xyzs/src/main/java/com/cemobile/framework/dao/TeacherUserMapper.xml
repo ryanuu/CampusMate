@@ -58,19 +58,15 @@
 			t.creat_date,
 			t.edit_date,
 			t.del,
-			d.department_name,
-			c.college_id,
-			c.college_name
+			(SELECT department_name from lab_department where department_id=t.department_id and del=0) department_name,
+			(SELECT college_id FROM lab_college WHERE college_id=t.college_id and del=0) college_id,
+			(SELECT college_name FROM lab_college WHERE college_id=t.college_id and del=0) college_name
 		FROM
 			tsys_user s
 		LEFT JOIN lab_teacher t 
-			ON t.user_id = s.USER_ID
-		LEFT JOIN lab_department d
-			ON d.department_id=t.department_id
-		LEFT JOIN lab_college c
-			on c.college_id=d.college_id	
+			ON t.user_id = s.USER_ID	
 		WHERE  s.user_id = #{id,jdbcType=BIGINT}
-				and	t.del=0 and d.del=0 and c.del=0
+				and	t.del=0
 	</select>
 
 	

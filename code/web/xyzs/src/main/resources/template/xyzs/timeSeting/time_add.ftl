@@ -50,7 +50,7 @@
 		    			</td>
 		    		</tr>
 		    		<tr>		    			
-		    			<td>结束时间时间:</td>
+		    			<td>结束时间:</td>
 		    			<td>
 			    			<input name="endDate" id="endDate" type="text" class="easyui-timespinner" name="endDate" data-options="required:true,missingMessage:'请输入结束时间！',showSeconds:true,onSelect:onSelect"></input>
 		    			</td>

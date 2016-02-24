@@ -1,30 +1,37 @@
 <div class="add-table">
-    <form id="term_Senior_form" method="post">
+    <form id="time_Senior_form" method="post">
 		 <table cellpadding="5" cellpadding="0" cellspacing="0" border="0">
 		    <col  width="23%" />
 			<col  width="77%"/>
 			<tbody>
 	        	<tr>
-				    <td>
-						学期名称:
-					</td>
-					<td>
-						<input id ="termName" name="termName" class="easyui-textbox" value="${term.termName}" readOnly="true">
-					</td>
-				</tr>
-				<tr>
-	    			<td>所属学院:</td>
-	    			<td><input class="easyui-textbox" type="text" name="collegeName" readOnly="true"  data-options="required:false" value="${term.collegeName}"></input></td>
+	    			<td>第几节:</td>
+	    			<td><input class="easyui-textbox" type="text" name="section" id="section" readOnly="true" value="${time.section}" ></input></td>
 	    		</tr>
-				<tr>
+	    		<tr>		    			
 	    			<td>开始时间:</td>
-	    			<td><input class="easyui-textbox" type="text" id="startDate" readOnly="true"  value="${term.startDate?string("yyyy-MM-dd")}" name="startDate" ></input></td>
+	    			<td>
+		    			<input name="startDate" id="startDate" type="text" class="easyui-timespinner" readOnly="true" value="${time.startDate}"></input>
+	    			</td>
 	    		</tr>
-	    		<tr>
+	    		<tr>		    			
 	    			<td>结束时间:</td>
-	    			<td><input class="easyui-textbox" type="text" id="endDate" readOnly="true" value="${term.endDate?string("yyyy-MM-dd")}" name="endDate" ></input></td>
+	    			<td>
+		    			<input name="endDate" id="endDate" type="text" class="easyui-timespinner" readOnly="true" name="endDate" value="${time.endDate}"></input>
+	    			</td>
 	    		</tr>
-					
+				<tr>		    			
+	    			<td>所属学期:</td>
+	    			<td>
+		    			<input name="endDate" id="endDate" type="text" class="easyui-textbox" readOnly="true" name="endDate" value="${time.termName}"></input>
+	    			</td>
+	    		</tr>
+	    		<tr>		    			
+	    			<td>所属院校:</td>
+	    			<td>
+		    			<input name="endDate" id="endDate" type="text" class="easyui-textbox" readOnly="true" name="endDate" value="${time.collegeName}"></input>
+	    			</td>
+	    		</tr>
 	    	</tbody>
 	    </table>
     </form>

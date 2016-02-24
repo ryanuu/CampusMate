@@ -33,13 +33,15 @@ public class Org{
 	
 	private java.lang.Long classId;//班级ID
 	@NotEmpty @Length(max=50)
-	private java.lang.String calssName;
+	private java.lang.String className;
 	private java.lang.Long headmaster;//班主任(teacherId)
 	private java.lang.Long instructor;//辅导员(teacherId)
 	@NotNull 
 	private java.lang.Integer grade;//级（入学年份）
 	private String headmasterName;//班主任(名字)
 	private String instructorName;//辅导员(名字)
+	
+	private String level;//级别（学院、学系、专业、班级）
 	
 	public java.lang.Long getCollegeId() {
 		return collegeId;
@@ -119,12 +121,6 @@ public class Org{
 	public void setClassId(java.lang.Long classId) {
 		this.classId = classId;
 	}
-	public java.lang.String getCalssName() {
-		return calssName;
-	}
-	public void setCalssName(java.lang.String calssName) {
-		this.calssName = calssName;
-	}
 	public java.lang.Long getHeadmaster() {
 		return headmaster;
 	}
@@ -154,6 +150,18 @@ public class Org{
 	}
 	public void setInstructorName(String instructorName) {
 		this.instructorName = instructorName;
+	}
+	public java.lang.String getClassName() {
+		return className;
+	}
+	public void setClassName(java.lang.String className) {
+		this.className = className;
+	}
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
 	}
 	
 }

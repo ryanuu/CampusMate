@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.SubjectMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.Subject">
+		<id property="subjectId" column="subject_id"  jdbcType="BIGINT"/>
+		<result property="subjectName" column="subject_name" jdbcType="CHAR" />
+		<result property="shortName" column="short_name" jdbcType="CHAR" />
+		<result property="subjectProfile" column="subject_profile" jdbcType="VARCHAR" />
+		<result property="collegeId" column="college_id" jdbcType="BIGINT" />
+		<result property="departmentId" column="department_id" jdbcType="BIGINT" />
+		<result property="createDate" column="create_date" jdbcType="DATE" />
+		<result property="editDate" column="edit_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+		<result property="departmentName" column="department_name" jdbcType="CHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	    <![CDATA[
+		s.subject_id,s.subject_name,s.short_name,s.subject_profile,s.college_id,s.department_id,s.create_date,s.edit_date,s.del
+	    ]]>
+	</sql>
+
+	<sql id="LabSubject_findPage">
+		<where>
+			del=0
+	       <if test="subjectId != null">
+				AND subject_id = #{subjectId,jdbcType=BIGINT}
+			</if>
+	       <if test="subjectName != null">
+				AND subject_name = #{subjectName,jdbcType=CHAR}
+			</if>
+	       <if test="shortName != null">
+				AND short_name = #{shortName,jdbcType=CHAR}
+			</if>
+	       <if test="subjectProfile != null">
+				AND subject_profile = #{subjectProfile,jdbcType=VARCHAR}
+			</if>
+	       <if test="collegeId != null">
+				AND college_id = #{collegeId,jdbcType=BIGINT}
+			</if>
+	       <if test="departmentId != null">
+				AND department_id = #{departmentId,jdbcType=BIGINT}
+			</if>
+	       <if test="createDate != null">
+				AND create_date = #{createDate,jdbcType=DATE}
+			</if>
+	       <if test="editDate != null">
+				AND edit_date = #{editDate,jdbcType=DATE}
+			</if>
+	       <if test="del != null">
+				AND del = #{del,jdbcType=INTEGER}
+			</if>
+		</where>
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select 
+		d.department_name,
+		<include refid="Base_Column_List" />
+		from lab_subject s
+		left join lab_department d
+			on d.department_id=s.department_id
+		WHERE  subject_id = #{subjectId,jdbcType=BIGINT}
+	</select>
+
+</mapper>
+

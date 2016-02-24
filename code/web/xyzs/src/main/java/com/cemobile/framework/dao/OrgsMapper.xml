@@ -17,7 +17,7 @@
 		<result property="subjectShortName" column="subject_short_name" jdbcType="CHAR"></result>
 		<result property="subjectProfile" column="subject_profile" jdbcType="VARCHAR"></result>
 		<result property="classId" column="class_id" jdbcType="BIGINT"></result>
-		<result property="calssName" column="calss_name" jdbcType="CHAR"></result>
+		<result property="className" column="class_name" jdbcType="CHAR"></result>
 		<result property="headmaster" column="headmaster" jdbcType="BIGINT"></result>
 		<result property="instructor" column="instructor" jdbcType="BIGINT"></result>
 		<result property="grade" column="grade" jdbcType="INTEGER"></result>

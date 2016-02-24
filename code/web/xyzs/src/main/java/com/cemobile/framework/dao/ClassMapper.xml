@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.ClassMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.Classes">
+		<id property="classId" column="class_id"  jdbcType="BIGINT"/>
+		<result property="className" column="class_name" jdbcType="CHAR" />
+		<result property="collegeId" column="college_id" jdbcType="BIGINT" />
+		<result property="departmentId" column="department_id" jdbcType="BIGINT" />
+		<result property="subjectId" column="subject_id" jdbcType="BIGINT" />
+		<result property="headmaster" column="headmaster" jdbcType="BIGINT" />
+		<result property="instructor" column="instructor" jdbcType="BIGINT" />
+		<result property="grade" column="grade" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" jdbcType="DATE" />
+		<result property="editDate" column="edit_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+		<result property="subjectName" column="subject_name" jdbcType="CHAR" />
+		<result property="headmasterName" column="headmaster_name" jdbcType="CHAR" />
+		<result property="instructorName" column="instructor_name" jdbcType="CHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	    <![CDATA[
+		c.class_id,c.class_name,c.college_id,c.department_id,c.subject_id,c.headmaster,c.instructor,grade,c.create_date,c.edit_date,c.del
+	    ]]>
+	</sql>
+
+	<sql id="LabClass_findPage">
+		<where>
+			del=0
+	       <if test="classId != null">
+				AND class_id = #{classId,jdbcType=BIGINT}
+			</if>
+	       <if test="className != null">
+				AND class_name = #{className,jdbcType=CHAR}
+			</if>
+	       <if test="collegeId != null">
+				AND college_id = #{collegeId,jdbcType=BIGINT}
+			</if>
+	       <if test="departmentId != null">
+				AND department_id = #{departmentId,jdbcType=BIGINT}
+			</if>
+	       <if test="subjectId != null">
+				AND subject_id = #{subjectId,jdbcType=BIGINT}
+			</if>
+	       <if test="headmaster != null">
+				AND headmaster = #{headmaster,jdbcType=BIGINT}
+			</if>
+	       <if test="instructor != null">
+				AND instructor = #{instructor,jdbcType=BIGINT}
+			</if>
+	       <if test="grade != null">
+				AND grade = #{grade,jdbcType=INTEGER}
+			</if>
+	       <if test="createDate != null">
+				AND create_date = #{createDate,jdbcType=DATE}
+			</if>
+	       <if test="editDate != null">
+				AND edit_date = #{editDate,jdbcType=DATE}
+			</if>
+	       <if test="del != null">
+				AND del = #{del,jdbcType=INTEGER}
+			</if>
+		</where>
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select 
+		s.subject_name,
+		(select teacher_name from lab_teacher where teacher_id=c.headmaster) headmaster_name,
+		(select teacher_name from lab_teacher where teacher_id=c.instructor) instructor_name,
+		<include refid="Base_Column_List" />
+		from lab_class c
+		left join lab_subject s
+			on s.subject_id=c.subject_id
+		WHERE  class_id = #{classId,jdbcType=BIGINT}
+	</select>
+
+</mapper>
+

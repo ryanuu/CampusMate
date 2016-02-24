@@ -15,7 +15,7 @@ public class LabClass extends BaseEntity{
 	
 	private java.lang.Long classId;
 	@NotEmpty @Length(max=50)
-	private java.lang.String calssName;
+	private java.lang.String className;
 	@NotNull 
 	private java.lang.Long collegeId;
 	@NotNull 
@@ -42,13 +42,6 @@ public class LabClass extends BaseEntity{
 	
 	public java.lang.Long getClassId() {
 		return this.classId;
-	}
-	public void setCalssName(java.lang.String value) {
-		this.calssName = value;
-	}
-	
-	public java.lang.String getCalssName() {
-		return this.calssName;
 	}
 	public void setCollegeId(java.lang.Long value) {
 		this.collegeId = value;
@@ -113,11 +106,18 @@ public class LabClass extends BaseEntity{
 	public java.lang.Integer getDel() {
 		return this.del;
 	}
+	public java.lang.String getClassName() {
+		return className;
+	}
 
+	public void setClassName(java.lang.String className) {
+		this.className = className;
+	}
+	
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("ClassId:",getClassId()+" ")
-			.append("CalssName:",getCalssName()+" ")
+			.append("CalssName:",getClassName()+" ")
 			.append("CollegeId:",getCollegeId()+" ")
 			.append("DepartmentId:",getDepartmentId()+" ")
 			.append("SubjectId:",getSubjectId()+" ")

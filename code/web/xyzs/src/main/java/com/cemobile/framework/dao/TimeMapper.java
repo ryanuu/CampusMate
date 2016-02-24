@@ -16,7 +16,7 @@ import com.cemobile.framework.entity.PlaytimeTime;
  */
 public interface TimeMapper {
 
-	PlaytimeTime selectByPrimaryKey(java.lang.Long timeId);
+	PlaytimeTime selectByPrimaryKey(java.lang.Long id);
 	
 	List<PlaytimeTime> queryByKeyword(PlaytimeTime time,Page page);
 

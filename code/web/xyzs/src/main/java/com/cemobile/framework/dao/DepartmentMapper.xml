@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.DepartmentMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.Department">
+		<id property="departmentId" column="department_id"  jdbcType="BIGINT"/>
+		<result property="departmentName" column="department_name" jdbcType="CHAR" />
+		<result property="shortName" column="short_name" jdbcType="CHAR" />
+		<result property="departmentProfile" column="department_profile" jdbcType="VARCHAR" />
+		<result property="collegeId" column="college_id" jdbcType="BIGINT" />
+		<result property="createDate" column="create_date" jdbcType="DATE" />
+		<result property="editDate" column="edit_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+		<result property="collegeName" column="college_name" jdbcType="CHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	    <![CDATA[
+		d.department_id,d.department_name,d.short_name,d.department_profile,d.college_id,d.create_date,d.edit_date,d.del
+	    ]]>
+	</sql>
+
+	<sql id="LabDepartment_findPage">
+		<where>
+			del=0 
+	       <if test="departmentId != null">
+				AND department_id = #{departmentId,jdbcType=BIGINT}
+			</if>
+	       <if test="departmentName != null">
+				AND department_name = #{departmentName,jdbcType=CHAR}
+			</if>
+	       <if test="shortName != null">
+				AND short_name = #{shortName,jdbcType=CHAR}
+			</if>
+	       <if test="departmentProfile != null">
+				AND department_profile = #{departmentProfile,jdbcType=VARCHAR}
+			</if>
+	       <if test="collegeId != null">
+				AND college_id = #{collegeId,jdbcType=BIGINT}
+			</if>
+	       <if test="createDate != null">
+				AND create_date = #{createDate,jdbcType=DATE}
+			</if>
+	       <if test="editDate != null">
+				AND edit_date = #{editDate,jdbcType=DATE}
+			</if>
+	       <if test="del != null">
+				AND del = #{del,jdbcType=INTEGER}
+			</if>
+		</where>
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select 
+		c.college_name,
+		<include refid="Base_Column_List" />
+		from lab_department d
+		left join lab_college c
+			on c.college_id=d.college_id
+		WHERE  department_id = #{departmentId,jdbcType=BIGINT}
+	</select>
+
+</mapper>
+

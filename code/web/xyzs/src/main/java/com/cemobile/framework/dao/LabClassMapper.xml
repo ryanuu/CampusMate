@@ -6,7 +6,7 @@
 
 	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.LabClass">
 		<id property="classId" column="class_id"  jdbcType="BIGINT"/>
-		<result property="calssName" column="calss_name" jdbcType="CHAR" />
+		<result property="className" column="class_name" jdbcType="CHAR" />
 		<result property="collegeId" column="college_id" jdbcType="BIGINT" />
 		<result property="departmentId" column="department_id" jdbcType="BIGINT" />
 		<result property="subjectId" column="subject_id" jdbcType="BIGINT" />
@@ -20,7 +20,7 @@
 	
 	<sql id="Base_Column_List">
 	    <![CDATA[
-		class_id,calss_name,college_id,department_id,subject_id,headmaster,instructor,grade,create_date,edit_date,del
+		class_id,class_name,college_id,department_id,subject_id,headmaster,instructor,grade,create_date,edit_date,del
 	    ]]>
 	</sql>
 
@@ -30,8 +30,8 @@
 	       <if test="classId != null">
 				AND class_id = #{classId,jdbcType=BIGINT}
 			</if>
-	       <if test="calssName != null">
-				AND calss_name = #{calssName,jdbcType=CHAR}
+	       <if test="className != null">
+				AND class_name = #{className,jdbcType=CHAR}
 			</if>
 	       <if test="collegeId != null">
 				AND college_id = #{collegeId,jdbcType=BIGINT}
@@ -67,7 +67,7 @@
     <![CDATA[
         INSERT INTO lab_class (
         	class_id ,
-        	calss_name ,
+        	class_name ,
         	college_id ,
         	department_id ,
         	subject_id ,
@@ -79,7 +79,7 @@
         	del 
         ) VALUES (
         	#{classId,jdbcType=BIGINT} ,
-        	#{calssName,jdbcType=CHAR} ,
+        	#{className,jdbcType=CHAR} ,
         	#{collegeId,jdbcType=BIGINT} ,
         	#{departmentId,jdbcType=BIGINT} ,
         	#{subjectId,jdbcType=BIGINT} ,
@@ -97,7 +97,7 @@
         INSERT INTO lab_class 
 		<trim prefix="(" suffix=")" suffixOverrides="," >
 			<if test="classId != null">class_id </if>,
-			<if test="calssName != null">calss_name </if>,
+			<if test="className != null">class_name </if>,
 			<if test="collegeId != null">college_id </if>,
 			<if test="departmentId != null">department_id </if>,
 			<if test="subjectId != null">subject_id </if>,
@@ -112,8 +112,8 @@
 			<if test="classId != null">
 				class_id = #{classId,jdbcType=BIGINT}	,
 			</if>
-			<if test="calssName != null">
-				calss_name = #{calssName,jdbcType=CHAR}	,
+			<if test="className != null">
+				class_name = #{className,jdbcType=CHAR}	,
 			</if>
 			<if test="collegeId != null">
 				college_id = #{collegeId,jdbcType=BIGINT}	,
@@ -147,7 +147,7 @@
 
 	<insert id="insertBatch" parameterType="com.cemobile.framework.entity.LabClass" >
 		 INSERT INTO lab_class  (
-        	calss_name ,
+        	class_name ,
         	college_id ,
         	department_id ,
         	subject_id ,
@@ -159,7 +159,7 @@
         	del 
 		) VALUES
 		<foreach collection="list" item="item" index="index" separator=",">(
-        	#{item.calssName,jdbcType=CHAR} ,
+        	#{item.className,jdbcType=CHAR} ,
         	#{item.collegeId,jdbcType=BIGINT} ,
         	#{item.departmentId,jdbcType=BIGINT} ,
         	#{item.subjectId,jdbcType=BIGINT} ,
@@ -181,8 +181,8 @@
 	<update id="updateByPrimaryKeySelective" parameterType="com.cemobile.framework.entity.LabClass" >
         UPDATE lab_class 
 		<set>
-				<if test="calssName != null">
-				calss_name = #{calssName,jdbcType=CHAR}	,
+				<if test="className != null">
+				class_name = #{className,jdbcType=CHAR}	,
 				</if>
 				<if test="collegeId != null">
 				college_id = #{collegeId,jdbcType=BIGINT}	,
@@ -218,7 +218,7 @@
     <update id="updateByPrimaryKey" parameterType="com.cemobile.framework.entity.LabClass" >
         UPDATE lab_class 
 		<set>
-				calss_name = #{calssName,jdbcType=CHAR}	,
+				class_name = #{className,jdbcType=CHAR}	,
 				college_id = #{collegeId,jdbcType=BIGINT}	,
 				department_id = #{departmentId,jdbcType=BIGINT}	,
 				subject_id = #{subjectId,jdbcType=BIGINT}	,

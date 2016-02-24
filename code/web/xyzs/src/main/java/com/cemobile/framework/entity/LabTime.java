@@ -19,9 +19,9 @@ public class LabTime extends BaseEntity{
 	
 	private java.lang.Long termId;
 	
-	private Time startDate;
+	private String startDate;
 	
-	private Time endDate;
+	private String endDate;
 	
 	private java.lang.Long collegeId;
 	
@@ -108,20 +108,22 @@ public class LabTime extends BaseEntity{
 		return new EqualsBuilder().append(getId(),other.getId()).isEquals();
 	}
 
-	public Time getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Time startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public Time getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Time endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
+
+	
 }
 

@@ -14,67 +14,81 @@
 	<script type="text/javascript">
 	    var _orgId='${_orgId!''}';
 		var addwin;
-		var dataType = {
+		var collegeType = {
 				"rows" : [
 				{
-					"key":"orgName",
+					"key":"collegeName",
 					"name" : "机构名称 ",
 					"value" : ""
 				}, {
-					"key":"parentOrgName",
-					"name" : "机构隶属",
+					"key":"collergeShortName",
+					"name" : "机构简称",
 					"value" : ""
 				}, {
-					"key":"orgLevel",
-					"name" : "机构级别",
-					"value" : "",
-				}, {
-					"key":"memberCount", 
-					"name" : "机构会员",
-					"value" : "",
-					format:function(v){
-					    var content='';
-					    if(v==''){
-					       v=0 ;
-					    }
-					    $("#orgMemberNum").val(v);
-					    var ifAuth=false;
-					    <@cemobile.authorize authCode="ORG_MEMBER_LIST">
-					         ifAuth=true;
-						</@cemobile.authorize>
-						 if(ifAuth){
-					     	  return "<a href='javascript:goMemeberList();' style='text-decoration:none'>"+v+"</a>人";
-						 }else{
-						   return v+"人";
-						 }
-					}
-				}, {
-					"key":"honorary",
-					"name" : "机构荣誉",
+					"key":"collegeProfile",
+					"name" : "机构简介",
 					"value" : ""
-				},
-				
-			//	{
-				//	"key":"roleLevel",
-				//	"name" : "角色等级",
-				//	"value" : ""
-				//},
-				
+				}]};
+		var departmentType = {
+				"rows" : [
 				{
-					"key":"note",
-					"name" : "备注",
+					"key":"departmentName",
+					"name" : "机构名称 ",
+					"value" : ""
+				}, {
+					"key":"departmentShortName",
+					"name" : "机构简称",
+					"value" : ""
+				}, {
+					"key":"collegeName",
+					"name" : "机构隶属",
+					"value" : "",
+				}, {
+					"key":"departmentProfile",
+					"name" : "机构简介",
+					"value" : ""
+				}]};
+		var subjectType = {
+				"rows" : [
+				{
+					"key":"subjectName",
+					"name" : "机构名称 ",
+					"value" : ""
+				}, {
+					"key":"subjectShortName",
+					"name" : "机构简称",
+					"value" : ""
+				}, {
+					"key":"departmentName",
+					"name" : "机构隶属",
+					"value" : "",
+				}, {
+					"key":"subjectProfile",
+					"name" : "机构简介",
+					"value" : ""
+				}]};
+		var classType = {
+				"rows" : [
+				{
+					"key":"className",
+					"name" : "机构名称 ",
 					"value" : ""
 				},{
-					"key":"groupDesc",<#--需要注意的点-->
-					"name" : "本级工会委员会委员",
+					"key":"subjectName",
+					"name" : "机构隶属",
 					"value" : "",
-					format:function(v){
-					    var content="";
-					    <@cemobile.authorize authCode="ORG_POSITION_EDIT">
-									content="</span><input type='button' value='委员管理' onclick='javascript:goWYManage();'/>";
-						</@cemobile.authorize>
-						return v+"<span id='wyList'>"+content;
-					}
+				}, {
+					"key":"headmasterName",
+					"name" : "班主任",
+					"value" : ""
+				}, {
+					"key":"instructorName",
+					"name" : "辅导员",
+					"value" : "",
+				}, {
+					"key":"grade",
+					"name" : "入学年份",
+					"value" : ""
 				}]};
 		var toolbar =  new Array();
 		$(function(){
@@ -96,27 +110,23 @@
 					},
 					onLoadSuccess:function(node,data){
 					   var orgId =data[0].id;
-					   var childrenNum = 0;
-			           if(data[0].children){
-			        		childrenNum = data[0].children.length;
-			        	}
+					   var level =data[0].level;
 					   if(orgId!=0){
 					      //根据权限，加载按钮
-						  authLoad(orgId,childrenNum);
+						  authLoad(orgId);
 						  //加载按钮面板 
 						$('#org_list_datagrid').propertygrid({
 							showGroup: false,
 			    			scrollbarSize: 0,
 							toolbar:toolbar});
 							$('#org_list_datagrid').propertygrid('resize')
-					      getOrgData(orgId);
+					      getOrgData(orgId,level);
 					   }
 					}
 			    });
-			   
 			  
 			    //根据权限，加载按钮
-				authLoad(0,1);
+				authLoad(0);
 				
 				//定义列表
 			    orgDatagrid();
@@ -127,12 +137,9 @@
 		// 加载菜单详细
 		function treeLoadData(node) {
 			var orgId = node.id;
-			var childrenNum = 0;
-        	if(node.children){
-        		childrenNum = node.children.length;
-        	}
+
         	//根据权限，加载按钮
-			authLoad(orgId,childrenNum);
+			authLoad(orgId);
 			//加载按钮面板 
 				$('#org_list_datagrid').propertygrid({
 					showGroup: false,
@@ -140,43 +147,93 @@
 					toolbar:toolbar});
 			
 		    if(orgId!=0){//不是超级组织
-			    getOrgData(node.id);
+			    getOrgData(node.id,node.level);
 		     }else{
 		       location.reload();	
 		     }
 		}
 		
 		//获取组织数据
-		function getOrgData(id){
+		function getOrgData(id,level){
 		    $.ajax({
-						url : '${path.web}/admin/org/treeBygId?orgId='+id,
+						url : '${path.web}/admin/campusOrg/treeBygId?id='+id+'&level='+level,
 						dataType : 'json',
 						type : 'post',
 						success : function(data) {
 							if (data.code == 'S1000') {
-								var rows=dataType.rows;
-								for(var i=0;i<rows.length;i++){
-									var r=rows[i];
-									r.value=data.rows[0].orgObj[0][r.key];
-									r.value == null?r.value='':r.value=r.value;
-									if(typeof r.format == "function"){
-										r.value = r.format(r.value);
-									}
-									$('#org_list_orgId').val(data.rows[0].orgObj[0].orgId);
-									$('#org_list_orgLevel').val(data.rows[0].orgObj[0].orgLevel);
-									$('#org_list_parentId').val(data.rows[0].orgObj[0].parentId);
-								}					
-								$("#org_list_datagrid").propertygrid("loadData", dataType);
-								var position=data.rows[0].positionObj;
-								var htm="<ul style='padding-left:1px;list-style-type:none;'>";
-								if(position.length>0){
-								   for(var i=0;i<position.length;i++){
-										htm+="<li><strong>"+position[i].positionName+"</strong>："+position[i].memberName+"</li>";
-								   }
+								if(data.rows[0].orgObj[0].level=="college"){
+									var rows=collegeType.rows;
+									for(var i=0;i<rows.length;i++){
+										var r=rows[i];
+										r.value=data.rows[0].orgObj[0][r.key];
+										r.value == null?r.value='':r.value=r.value;
+										if(typeof r.format == "function"){
+											r.value = r.format(r.value);
+										}
+										$('#org_list_orgId').val(data.rows[0].orgObj[0].collegeId);
+										$('#org_list_orgLevel').val(data.rows[0].orgObj[0].level);
+									}					
+									$("#org_list_datagrid").propertygrid("loadData", collegeType);
+									var htm="<ul style='padding-left:1px;list-style-type:none;'>";
+									htm+="</ul>";
+									$("#wyList").html(htm);
+									$('#org_list_datagrid').propertygrid('resize')
 								}
-								htm+="</ul>";
-								$("#wyList").html(htm);
-								$('#org_list_datagrid').propertygrid('resize')
+								else if(data.rows[0].orgObj[0].level=="department"){
+									var rows=departmentType.rows;
+									for(var i=0;i<rows.length;i++){
+										var r=rows[i];
+										r.value=data.rows[0].orgObj[0][r.key];
+										r.value == null?r.value='':r.value=r.value;
+										if(typeof r.format == "function"){
+											r.value = r.format(r.value);
+										}
+										$('#org_list_orgId').val(data.rows[0].orgObj[0].collegeId);
+										$('#org_list_orgLevel').val(data.rows[0].orgObj[0].level);
+									}					
+									$("#org_list_datagrid").propertygrid("loadData", departmentType);
+									var htm="<ul style='padding-left:1px;list-style-type:none;'>";
+									htm+="</ul>";
+									$("#wyList").html(htm);
+									$('#org_list_datagrid').propertygrid('resize')
+								}
+								else if(data.rows[0].orgObj[0].level=="subject"){
+									var rows=subjectType.rows;
+									for(var i=0;i<rows.length;i++){
+										var r=rows[i];
+										r.value=data.rows[0].orgObj[0][r.key];
+										r.value == null?r.value='':r.value=r.value;
+										if(typeof r.format == "function"){
+											r.value = r.format(r.value);
+										}
+										$('#org_list_orgId').val(data.rows[0].orgObj[0].collegeId);
+										$('#org_list_orgLevel').val(data.rows[0].orgObj[0].level);
+									}					
+									$("#org_list_datagrid").propertygrid("loadData", subjectType);
+									var htm="<ul style='padding-left:1px;list-style-type:none;'>";
+									htm+="</ul>";
+									$("#wyList").html(htm);
+									$('#org_list_datagrid').propertygrid('resize')
+								}
+								else if(data.rows[0].orgObj[0].level=="class"){
+									var rows=classType.rows;
+									for(var i=0;i<rows.length;i++){
+										var r=rows[i];
+										r.value=data.rows[0].orgObj[0][r.key];
+										r.value == null?r.value='':r.value=r.value;
+										if(typeof r.format == "function"){
+											r.value = r.format(r.value);
+										}
+										$('#org_list_orgId').val(data.rows[0].orgObj[0].collegeId);
+										$('#org_list_orgLevel').val(data.rows[0].orgObj[0].level);
+									}					
+									$("#org_list_datagrid").propertygrid("loadData", classType);
+									var htm="<ul style='padding-left:1px;list-style-type:none;'>";
+									htm+="</ul>";
+									$("#wyList").html(htm);
+									$('#org_list_datagrid').propertygrid('resize')
+								}
+								
 							} else {
 								$.messager.alert('错误：' + data.code, data.errorText);
 							}
@@ -354,13 +411,13 @@
 			$.messager.show({title:t, msg:m,timeout:5000,slowType:'slide'});
 		}
 		//根据权限，加载按钮
-		function authLoad(orgId,childrenNum){
+		function authLoad(orgId){
 				//每次加载前先将按钮个数清零
 				toolbar.length = 0;
-				<@cemobile.authorize authCode="GROUP_ADD">
+				<@cemobile.authorize authCode="ORG_ADD">
 					toolbar.push({text:'添加子级机构',iconCls: 'icon-add',handler: function(){addOrg();}});
 				</@cemobile.authorize>
-				<@cemobile.authorize authCode="GROUP_EDIT">
+				<@cemobile.authorize authCode="ORG_EDIT">
 					if(orgId != 0){
 						if(toolbar.length > 0){
 							toolbar.push('-');
@@ -370,8 +427,8 @@
 						}
 					}
 				</@cemobile.authorize>
-				<@cemobile.authorize authCode="GROUP_DEL">
-				  if(childrenNum==0  &&  orgId!=_orgId){
+				<@cemobile.authorize authCode="ORG_DEL">
+				  if(orgId!=_orgId){
 					if(orgId != 0 ){
 						if(toolbar.length > 0){
 							toolbar.push('-');
@@ -382,7 +439,7 @@
 					}
 					}
 				</@cemobile.authorize>		
-				<@cemobile.authorize authCode="GROUP_MOVE">
+				<@cemobile.authorize authCode="ORG_MOVE">
 				 
 					if(orgId != 0  &&orgId!=_orgId){
 						if(toolbar.length > 0){
@@ -395,26 +452,6 @@
 				</@cemobile.authorize>		
 		}
 
-        //委员管理
-		function goWYManage(){
-		  var orgId = $('#org_list_orgId').val();
-			if(orgId == ''){
-				$.messager.alert('提示框','请选择一行树！');	
-				return false;
-			}			
-		  addwin = $('<div/>').dialog({
-				title:'编辑委员会成员',
-				width:1000,
-				height:500,
-				modal:true,
-				href:'${path.web}/admin/position/edit?orgId='+orgId,
-				onClose:function(){
-					org_window_close();
-					getOrgData(orgId);
-				}
-			});
-		
-		 }
 		 
 		 //会员详情
 		 function goMemeberList(){

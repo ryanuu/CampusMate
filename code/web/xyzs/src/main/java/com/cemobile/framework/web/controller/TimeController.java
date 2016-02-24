@@ -364,8 +364,22 @@ public class TimeController {
 	        log.info("新增课间数据!");
 	        TeacherUser user = (TeacherUser)session.getAttribute("TeacherUser");
 	        labTime.setCollegeId(user.getCollegeId());
-	        labTimeService.insert(labTime);
-			return ajaxDataComponent.createSuccess(page.getResult(),page.getTotal());
+	        
+	        //判断是否已存在节课，如果存在就不允许重复添加
+	        PlaytimeTime playTime=new PlaytimeTime();
+	        playTime.setSection(labTime.getSection());
+	        playTime.setCollegeId(labTime.getCollegeId());
+	        playTime.setTermId(labTime.getTermId());
+	        page=timeService.queryByKeyword(playTime, page);
+	        int count=page.getResult().size();
+	        if(count>0){
+	        	return ajaxDataComponent.createError("该节课已存在！");
+	        }
+	        else{
+	        	labTimeService.insert(labTime);
+				return ajaxDataComponent.createSuccess(page.getResult(),page.getTotal());
+	        }
+	        
 		} catch (Exception e) {
 			log.error(e);
 			return ajaxDataComponent.createErrorCode("E1600");
