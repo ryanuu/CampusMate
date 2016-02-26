@@ -6,7 +6,7 @@
 
 	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.LabStudent">
 		<id property="studentId" column="student_id"  jdbcType="BIGINT"/>
-		<result property="studentNumber" column="student_number" jdbcType="BIGINT" />
+		<result property="studentNumber" column="student_number" jdbcType="CHAR" />
 		<result property="studentName" column="student_name" jdbcType="CHAR" />
 		<result property="nickname" column="nickname" jdbcType="CHAR" />
 		<result property="sex" column="sex" jdbcType="BIT" />
@@ -19,7 +19,7 @@
 		<result property="classId" column="class_id" jdbcType="BIGINT" />
 		<result property="headImage" column="head_image" jdbcType="CHAR" />
 		<result property="note" column="note" jdbcType="VARCHAR" />
-		<result property="password" column="password" jdbcType="CHAR" />
+		<result property="password" column="password" jdbcType="VARCHAR" />
 		<result property="creatDate" column="creat_date" jdbcType="DATE" />
 		<result property="editDate" column="edit_date" jdbcType="DATE" />
 		<result property="del" column="del" jdbcType="INTEGER" />
@@ -38,7 +38,7 @@
 				AND student_id = #{studentId,jdbcType=BIGINT}
 			</if>
 	       <if test="studentNumber != null">
-				AND student_number = #{studentNumber,jdbcType=BIGINT}
+				AND student_number = #{studentNumber,jdbcType=CHAR}
 			</if>
 	       <if test="studentName != null">
 				AND student_name = #{studentName,jdbcType=CHAR}
@@ -77,7 +77,7 @@
 				AND note = #{note,jdbcType=VARCHAR}
 			</if>
 	       <if test="password != null">
-				AND password = #{password,jdbcType=CHAR}
+				AND password = #{password,jdbcType=VARCHAR}
 			</if>
 	       <if test="creatDate != null">
 				AND creat_date = #{creatDate,jdbcType=DATE}
@@ -118,7 +118,7 @@
         	useri_id 
         ) VALUES (
         	#{studentId,jdbcType=BIGINT} ,
-        	#{studentNumber,jdbcType=BIGINT} ,
+        	#{studentNumber,jdbcType=CHAR} ,
         	#{studentName,jdbcType=CHAR} ,
         	#{nickname,jdbcType=CHAR} ,
         	#{sex,jdbcType=BIT} ,
@@ -131,7 +131,7 @@
         	#{classId,jdbcType=BIGINT} ,
         	#{headImage,jdbcType=CHAR} ,
         	#{note,jdbcType=VARCHAR} ,
-        	#{password,jdbcType=CHAR} ,
+        	#{password,jdbcType=VARCHAR} ,
         	#{creatDate,jdbcType=DATE} ,
         	#{editDate,jdbcType=DATE} ,
         	#{del,jdbcType=INTEGER} ,
@@ -168,7 +168,7 @@
 				student_id = #{studentId,jdbcType=BIGINT}	,
 			</if>
 			<if test="studentNumber != null">
-				student_number = #{studentNumber,jdbcType=BIGINT}	,
+				student_number = #{studentNumber,jdbcType=CHAR}	,
 			</if>
 			<if test="studentName != null">
 				student_name = #{studentName,jdbcType=CHAR}	,
@@ -207,7 +207,7 @@
 				note = #{note,jdbcType=VARCHAR}	,
 			</if>
 			<if test="password != null">
-				password = #{password,jdbcType=CHAR}	,
+				password = #{password,jdbcType=VARCHAR}	,
 			</if>
 			<if test="creatDate != null">
 				creat_date = #{creatDate,jdbcType=DATE}	,
@@ -246,7 +246,7 @@
         	useri_id 
 		) VALUES
 		<foreach collection="list" item="item" index="index" separator=",">(
-        	#{item.studentNumber,jdbcType=BIGINT} ,
+        	#{item.studentNumber,jdbcType=CHAR} ,
         	#{item.studentName,jdbcType=CHAR} ,
         	#{item.nickname,jdbcType=CHAR} ,
         	#{item.sex,jdbcType=BIT} ,
@@ -259,7 +259,7 @@
         	#{item.classId,jdbcType=BIGINT} ,
         	#{item.headImage,jdbcType=CHAR} ,
         	#{item.note,jdbcType=VARCHAR} ,
-        	#{item.password,jdbcType=CHAR} ,
+        	#{item.password,jdbcType=VARCHAR} ,
         	#{item.creatDate,jdbcType=DATE} ,
         	#{item.editDate,jdbcType=DATE} ,
         	#{item.del,jdbcType=INTEGER} ,
@@ -277,7 +277,7 @@
         UPDATE lab_student 
 		<set>
 				<if test="studentNumber != null">
-				student_number = #{studentNumber,jdbcType=BIGINT}	,
+				student_number = #{studentNumber,jdbcType=CHAR}	,
 				</if>
 				<if test="studentName != null">
 				student_name = #{studentName,jdbcType=CHAR}	,
@@ -316,7 +316,7 @@
 				note = #{note,jdbcType=VARCHAR}	,
 				</if>
 				<if test="password != null">
-				password = #{password,jdbcType=CHAR}	,
+				password = #{password,jdbcType=VARCHAR}	,
 				</if>
 				<if test="creatDate != null">
 				creat_date = #{creatDate,jdbcType=DATE}	,
@@ -337,7 +337,7 @@
     <update id="updateByPrimaryKey" parameterType="com.cemobile.framework.entity.LabStudent" >
         UPDATE lab_student 
 		<set>
-				student_number = #{studentNumber,jdbcType=BIGINT}	,
+				student_number = #{studentNumber,jdbcType=CHAR}	,
 				student_name = #{studentName,jdbcType=CHAR}	,
 				nickname = #{nickname,jdbcType=CHAR}	,
 				sex = #{sex,jdbcType=BIT}	,
@@ -350,7 +350,7 @@
 				class_id = #{classId,jdbcType=BIGINT}	,
 				head_image = #{headImage,jdbcType=CHAR}	,
 				note = #{note,jdbcType=VARCHAR}	,
-				password = #{password,jdbcType=CHAR}	,
+				password = #{password,jdbcType=VARCHAR}	,
 				creat_date = #{creatDate,jdbcType=DATE}	,
 				edit_date = #{editDate,jdbcType=DATE}	,
 				del = #{del,jdbcType=INTEGER}	,

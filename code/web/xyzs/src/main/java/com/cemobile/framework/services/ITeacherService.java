@@ -1,5 +1,6 @@
 package com.cemobile.framework.services;
 
+import com.cemobile.framework.entity.Teacher;
 import com.cemobile.framework.entity.TeacherUser;
 
 /**
@@ -14,4 +15,7 @@ import com.cemobile.framework.entity.TeacherUser;
 public interface ITeacherService {
 	//根据id查询用户的所有信息（两表）
 	public TeacherUser selectByPrimaryKey(Long id);
+	
+	//根据用户名查询用户的信息
+	public Teacher selectByPrimaryName(String username);
 }

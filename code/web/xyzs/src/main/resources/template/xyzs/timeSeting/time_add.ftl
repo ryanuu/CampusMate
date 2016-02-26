@@ -41,7 +41,19 @@
 				<tbody>
 		    		<tr>
 		    			<td>第几节:</td>
-		    			<td><input class="easyui-textbox" type="text" name="section" id="section" data-options="required:true,missingMessage:'请输入名称！'" ></input></td>
+		    			<td><select  class="easyui-combobox" type="text" name="section" id="section" style="width:150px;" editable="false">
+		    					<option value="1">1</option>   
+							    <option value="2">2</option>   
+							    <option value="3">3</option>   
+							    <option value="4">4</option>   
+							    <option value="5">5</option>
+							    <option value="6">6</option>   
+							    <option value="7">7</option>   
+							    <option value="8">8</option>   
+							    <option value="9">9</option>   
+							    <option value="10">10</option>
+							    <option value="11">11</option>
+		    				</select ></td>
 		    		</tr>
 		    		<tr>		    			
 		    			<td>开始时间:</td>

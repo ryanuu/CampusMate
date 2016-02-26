@@ -16,7 +16,7 @@ public class LabTeacher extends BaseEntity{
 	
 	private java.lang.Long teacherId;
 	@NotNull 
-	private java.lang.Long teacherNumber;
+	private java.lang.String teacherNumber;
 	@Length(max=20)
 	private java.lang.String teacherName;
 	@Length(max=50)
@@ -64,11 +64,11 @@ public class LabTeacher extends BaseEntity{
 	public java.lang.Long getTeacherId() {
 		return this.teacherId;
 	}
-	public void setTeacherNumber(java.lang.Long value) {
+	public void setTeacherNumber(java.lang.String value) {
 		this.teacherNumber = value;
 	}
 	
-	public java.lang.Long getTeacherNumber() {
+	public java.lang.String getTeacherNumber() {
 		return this.teacherNumber;
 	}
 	public void setTeacherName(java.lang.String value) {

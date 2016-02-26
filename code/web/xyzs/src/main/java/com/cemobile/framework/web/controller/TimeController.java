@@ -1,6 +1,7 @@
 package com.cemobile.framework.web.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -421,7 +422,8 @@ public class TimeController {
      * 修改时间：无
      * 修改说明：无
      */
-    @RequestMapping(value = "/timeUpdate", method = RequestMethod.POST)
+    @SuppressWarnings("unchecked")
+	@RequestMapping(value = "/timeUpdate", method = RequestMethod.POST)
     public @ResponseBody AjaxData timeUpdate(@Valid LabTime labTime,
                    BindingResult result, Page page,HttpSession session) {
     	if (result.getErrorCount() > 0) {
@@ -429,7 +431,26 @@ public class TimeController {
 		}
     	try {
 	        log.info("编辑课间数据!");
-	        labTimeService.updateByPrimaryKeySelective(labTime);
+	        
+	        //判断是否已存在节课，如果存在就不允许重复添加
+	        PlaytimeTime playTime=new PlaytimeTime();
+	        playTime.setSection(labTime.getSection());
+	        playTime.setCollegeId(labTime.getCollegeId());
+	        playTime.setTermId(labTime.getTermId());
+	        page=timeService.queryByKeyword(playTime, page);
+			
+			if(page.getResult().size()>0){
+				List<PlaytimeTime> timeList=page.getResult();
+				if(timeList.get(0).getId()==labTime.getId()){
+		        	labTimeService.updateByPrimaryKeySelective(labTime);
+		        }
+				else{
+					return ajaxDataComponent.createError("该节课已存在！");
+				}
+			}
+	        else{
+	        	labTimeService.updateByPrimaryKeySelective(labTime);
+	        }
 			return ajaxDataComponent.createSuccess(page.getResult(),page.getTotal());
 		} catch (Exception e) {
 			log.error(e);

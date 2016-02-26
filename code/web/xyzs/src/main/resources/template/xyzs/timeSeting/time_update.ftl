@@ -44,7 +44,19 @@
 			<tbody>
 	    		<tr>
 	    			<td>第几节:</td>
-	    			<td><input class="easyui-textbox" type="text" name="section" id="section" readOnly="true" value="${time.section}" ></input></td>
+	    			<td><select  class="easyui-combobox" type="text" name="section" id="section" style="width:150px;" editable="false">
+		    					<option value="1" <#if time.section==1> selected = "selected"</#if> >1</option>   
+							    <option value="2" <#if time.section==2> selected = "selected"</#if> >2</option>   
+							    <option value="3" <#if time.section==3> selected = "selected"</#if> >3</option>   
+							    <option value="4" <#if time.section==4> selected = "selected"</#if> >4</option>   
+							    <option value="5" <#if time.section==5> selected = "selected"</#if> >5</option>
+							    <option value="6" <#if time.section==6> selected = "selected"</#if> >6</option>   
+							    <option value="7" <#if time.section==7> selected = "selected"</#if> >7</option>   
+							    <option value="8" <#if time.section==8> selected = "selected"</#if> >8</option>   
+							    <option value="9" <#if time.section==9> selected = "selected"</#if> >9</option>   
+							    <option value="10" <#if time.section==10> selected = "selected"</#if> >10</option>
+							    <option value="11" <#if time.section==11> selected = "selected"</#if> >11</option>
+		    				</select></td>
 	    		</tr>
 	    		<tr>		    			
 	    			<td>开始时间:</td>

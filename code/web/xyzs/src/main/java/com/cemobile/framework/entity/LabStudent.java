@@ -16,7 +16,7 @@ public class LabStudent extends BaseEntity{
 	
 	private java.lang.Long studentId;
 	@NotNull 
-	private java.lang.Long studentNumber;
+	private java.lang.String studentNumber;
 	@Length(max=1)
 	private java.lang.String studentName;
 	@Length(max=50)
@@ -60,11 +60,11 @@ public class LabStudent extends BaseEntity{
 	public java.lang.Long getStudentId() {
 		return this.studentId;
 	}
-	public void setStudentNumber(java.lang.Long value) {
+	public void setStudentNumber(java.lang.String value) {
 		this.studentNumber = value;
 	}
 	
-	public java.lang.Long getStudentNumber() {
+	public java.lang.String getStudentNumber() {
 		return this.studentNumber;
 	}
 	public void setStudentName(java.lang.String value) {

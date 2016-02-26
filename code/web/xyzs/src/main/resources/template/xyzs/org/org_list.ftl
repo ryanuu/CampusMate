@@ -188,7 +188,7 @@
 										if(typeof r.format == "function"){
 											r.value = r.format(r.value);
 										}
-										$('#org_list_orgId').val(data.rows[0].orgObj[0].collegeId);
+										$('#org_list_orgId').val(data.rows[0].orgObj[0].departmentId);
 										$('#org_list_orgLevel').val(data.rows[0].orgObj[0].level);
 									}					
 									$("#org_list_datagrid").propertygrid("loadData", departmentType);
@@ -206,7 +206,7 @@
 										if(typeof r.format == "function"){
 											r.value = r.format(r.value);
 										}
-										$('#org_list_orgId').val(data.rows[0].orgObj[0].collegeId);
+										$('#org_list_orgId').val(data.rows[0].orgObj[0].subjectId);
 										$('#org_list_orgLevel').val(data.rows[0].orgObj[0].level);
 									}					
 									$("#org_list_datagrid").propertygrid("loadData", subjectType);
@@ -224,7 +224,7 @@
 										if(typeof r.format == "function"){
 											r.value = r.format(r.value);
 										}
-										$('#org_list_orgId').val(data.rows[0].orgObj[0].collegeId);
+										$('#org_list_orgId').val(data.rows[0].orgObj[0].classId);
 										$('#org_list_orgLevel').val(data.rows[0].orgObj[0].level);
 									}					
 									$("#org_list_datagrid").propertygrid("loadData", classType);
