@@ -1,8 +1,11 @@
 package com.cemobile.framework.services;
 
+import java.util.List;
+
 import com.cemobile.framework.common.page.Page;
 import com.cemobile.framework.entity.LabTerm;
 import com.cemobile.framework.entity.Term;
+import com.cemobile.framework.entity.Week;
 
 /**
  * 
@@ -20,4 +23,6 @@ public interface ITermService {
 	
 	public Term selectByKeyword(Long id);
 	
+	//通过学院ID查询整个学期的周
+	public List<Week> selectWeek(Long collegeId);
 }

@@ -86,7 +86,7 @@
         	#{headmaster,jdbcType=BIGINT} ,
         	#{instructor,jdbcType=BIGINT} ,
         	#{grade,jdbcType=INTEGER} ,
-        	#{createDate,jdbcType=DATE} ,
+        	sysdate(),
         	#{editDate,jdbcType=DATE} ,
         	#{del,jdbcType=INTEGER} 
         )

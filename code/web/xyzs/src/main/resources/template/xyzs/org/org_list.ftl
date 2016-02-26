@@ -14,6 +14,21 @@
 	<script type="text/javascript">
 	    var _orgId='${_orgId!''}';
 		var addwin;
+		var dateType = {
+				"rows" : [
+				{
+					"key":"Name",
+					"name" : "机构名称 ",
+					"value" : ""
+				}, {
+					"key":"ShortName",
+					"name" : "机构简称",
+					"value" : ""
+				}, {
+					"key":"Profile",
+					"name" : "机构简介",
+					"value" : ""
+				}]};
 		var collegeType = {
 				"rows" : [
 				{
@@ -233,6 +248,24 @@
 									$("#wyList").html(htm);
 									$('#org_list_datagrid').propertygrid('resize')
 								}
+								else{
+									var rows=classType.rows;
+									for(var i=0;i<rows.length;i++){
+										var r=rows[i];
+										r.value=data.rows[0].orgObj[0][r.key];
+										r.value == null?r.value='':r.value=r.value;
+										if(typeof r.format == "function"){
+											r.value = r.format(r.value);
+										}
+										$('#org_list_orgId').val(0);
+										$('#org_list_orgLevel').val("admin");
+									}					
+									$("#org_list_datagrid").propertygrid("loadData", classType);
+									var htm="<ul style='padding-left:1px;list-style-type:none;'>";
+									htm+="</ul>";
+									$("#wyList").html(htm);
+									$('#org_list_datagrid').propertygrid('resize')
+								}
 								
 							} else {
 								$.messager.alert('错误：' + data.code, data.errorText);
@@ -273,56 +306,41 @@
 		        
 		        var treeList=$("#_easyui_tree_1 .tree-title").html();
 		        
-		        
 				var orgId = $('#org_list_orgId').val();
 				var orgLevel = $('#org_list_orgLevel').val();
-				var parentId = $('#org_list_parentId').val();
 				
-				if(orgId=='' || orgLevel=='' || parentId==''){
+				if(orgId=='' || orgLevel==''){
 					if(treeList!=''){
 			           $('#org_list_orgId').val(0);
-			           $('#org_list_orgLevel').val(0);
+			           $('#org_list_orgLevel').val("admin");
 			           orgId=0;
-			           orgLevel=0;
+			           orgLevel="admin";
 			        }
 				}
-				
+				if(orgLevel=="class"){
+					$.messager.alert('提示框','末端组织，无法添加下级组织');	
+					return false;
+				}
 				
 				if(treeList == ''){
 					$.messager.alert('提示框','请选择一行树！');	
 					return false;
 				}
 				
-				
-				 $.ajax({
-						url : '${path.web}/admin/org/getMemberNumByOrgId?orgId='+orgId,
-						dataType : 'json',
-						type : 'get',
-						success : function(data) {
-							if (data.code == 'S1000') {
-								    var isCanAddOrg=data.data;
-								 	if(isCanAddOrg){
-									     $.messager.alert('提示框','该机构已存在会员，不允许添加子机构！');	
-									}else{
-										addwin = $('<div/>').dialog({
-											title:'添加子级机构',
-											width:600,
-											height:440,
-											modal:true,
-											href:'${path.web}/admin/org/toAdd?orgLevel='+orgLevel+'&parentId='+orgId,
-											onClose:function(){
-												org_window_close();
-											}
-										});
-									}
-							} 
-						}
-					});
-				
-			
-							
+				addwin = $('<div/>').dialog({
+					title:'添加子级机构',
+					width:600,
+					height:440,
+					modal:true,
+					href:'${path.web}/admin/campusOrg/toAdd?orgLevel='+orgLevel+'&parentId='+orgId,
+					onClose:function(){
+						org_window_close();
+					}
+				});
 				
 		}
+		
+		
 		//编辑组织
 		function editOrg(){
 				var orgId = $('#org_list_orgId').val();

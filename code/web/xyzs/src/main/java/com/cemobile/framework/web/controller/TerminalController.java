@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cemobile.framework.entity.AppUser;
 import com.cemobile.framework.entity.Student;
 import com.cemobile.framework.entity.Teacher;
+import com.cemobile.framework.entity.Week;
 import com.cemobile.framework.services.IStudentService;
 import com.cemobile.framework.services.ITeacherService;
+import com.cemobile.framework.services.ITermService;
+import com.cemobile.framework.services.impl.TermService;
 import com.cemobile.framework.terminal.common.TerminalCodeException;
 import com.cemobile.framework.terminal.common.TerminalData;
 import com.cemobile.framework.terminal.common.TerminalDataUtils;
@@ -47,6 +50,8 @@ public class TerminalController {
 	private ITeacherService teacherService;
 	@Autowired
 	private IStudentService studentService;
+	@Autowired
+	private ITermService termService;
 
 	@RequestMapping(value = "/test")
 	public @ResponseBody
@@ -125,7 +130,7 @@ public class TerminalController {
 	public @ResponseBody
 	TerminalData appLogin(String username, String password,Long role,Long os) {
 //		username="xyzs";
-//		password="E10ADC3949BA59ABBE56E057F20F883E";
+//		password="123456";
 //		role=2l;
 //		os=1l;
 		try {
@@ -160,6 +165,7 @@ public class TerminalController {
 					return terminalDataUtils.createError("密码不正确！");
 				}
 				appUser.setUserId(student.getStudentId());
+				appUser.setCollegeId(student.getCollegeId());
 				appUser.setRole(role);
 				appUser.setClassId(student.getClassId());
 			}
@@ -195,4 +201,33 @@ public class TerminalController {
 		return terminalDataUtils.createSuccess(list, 1);
 	}
 
+	/**
+	 * 
+	 * 创建人：chenzx
+	 * 创建时间：2016年2月26日下午5:09:53
+	 * 方法说明：app接口-周
+	 * 参数：@param request
+	 * 参数：@param collegeId
+	 * 参数：@return 无
+	 * 修改人：无
+	 * 修改时间：无
+	 * 修改说明：无
+	 */
+	@RequestMapping(value = "/104")
+	public @ResponseBody
+	TerminalData selectWeek(HttpServletRequest request, Long collegeId) {
+		try {
+			if (collegeId == null) {
+				throw new TerminalCodeException("E3002");
+			}
+			List<Week> week=termService.selectWeek(collegeId);
+			return terminalDataUtils.createSuccess(week,1);
+		} catch (TerminalCodeException te) {
+			log.warn(te.getMessage());
+			return terminalDataUtils.createErrorCode(te);
+		} catch (Exception e) {
+			log.error("E3001", e);
+			return terminalDataUtils.createErrorCode("E3001");
+		}
+	}
 }

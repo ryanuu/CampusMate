@@ -1,13 +1,12 @@
 package com.cemobile.framework.entity;
 
-import javax.validation.constraints.NotNull;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 @SuppressWarnings("serial")
@@ -15,9 +14,9 @@ public class LabStudent extends BaseEntity{
 	
 	
 	private java.lang.Long studentId;
-	@NotNull 
+	@NotEmpty @Length(max=20)
 	private java.lang.String studentNumber;
-	@Length(max=1)
+	@Length(max=20)
 	private java.lang.String studentName;
 	@Length(max=50)
 	private java.lang.String nickname;
@@ -33,15 +32,17 @@ public class LabStudent extends BaseEntity{
 	private java.lang.String idCard;
 	
 	private java.lang.Long type;
-	@Email @Length(max=1)
+	@Email @Length(max=50)
 	private java.lang.String email;
 	
+	private java.lang.Long collegeId;
+	
 	private java.lang.Long classId;
-	@Length(max=1)
+	@Length(max=100)
 	private java.lang.String headImage;
 	@Length(max=500)
 	private java.lang.String note;
-	@Length(max=1)
+	@Length(max=100)
 	private java.lang.String password;
 	
 	private java.util.Date creatDate;
@@ -130,6 +131,13 @@ public class LabStudent extends BaseEntity{
 	public java.lang.String getEmail() {
 		return this.email;
 	}
+	public void setCollegeId(java.lang.Long value) {
+		this.collegeId = value;
+	}
+	
+	public java.lang.Long getCollegeId() {
+		return this.collegeId;
+	}
 	public void setClassId(java.lang.Long value) {
 		this.classId = value;
 	}
@@ -200,6 +208,7 @@ public class LabStudent extends BaseEntity{
 			.append("IdCard:",getIdCard()+" ")
 			.append("Type:",getType()+" ")
 			.append("Email:",getEmail()+" ")
+			.append("CollegeId:",getCollegeId()+" ")
 			.append("ClassId:",getClassId()+" ")
 			.append("HeadImage:",getHeadImage()+" ")
 			.append("Note:",getNote()+" ")

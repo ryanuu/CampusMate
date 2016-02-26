@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -12,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -93,10 +96,16 @@ public class CampusOrgController {
 	 * 修改说明：无
 	 */
 	@RequestMapping(value = "/toAdd", method = RequestMethod.GET)
-	public String toAdd(Model model, String parentId, Integer orgLevel) {
+	public String toAdd(Model model, String parentId, String orgLevel) {
 		model.addAttribute("parentId", parentId);
-		model.addAttribute("orgLevel", ++orgLevel);
-		return View.ORG.ADD;
+		model.addAttribute("orgLevel", orgLevel);
+		//判断是否添加班级，如果是添加班级跳转到添加班级页面，其他组织添加公用同一页面
+		if(orgLevel.equals("subject")){
+			return View.ORG.CLASSADD;
+		}
+		else{
+			return View.ORG.ADD;
+		}
 	}
 	
 	/**
@@ -232,5 +241,53 @@ public class CampusOrgController {
 			return ajaxDataComponent.createErrorCode("E1501");
 		}
 	}
+	
+	/**
+	 * 
+	 * 创建人：chenzx
+	 * 创建时间：2016年2月17日 09:55:52
+	 * 方法说明：组织机构管理-添加组织
+	 * 参数：@param request
+	 * 参数：@param response
+	 * 参数：@param org
+	 * 参数：@param result
+	 * 参数：@return AjaxData
+	 * 参数：@throws Exception 无
+	 * 修改人：无
+	 * 修改时间：无
+	 * 修改说明：无
+	 */
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public @ResponseBody AjaxData add(HttpServletRequest request, HttpServletResponse response, @Valid Org org, BindingResult result) throws
+            Exception {
+   
+    	if(org.getLevel().equals("subject")){
+    		//添加班级
+    		if(org.getClassName()==null || org.getClassName()==""){
+    			return ajaxDataComponent.createErrorCode("E1500");
+    		}
+    		int count=orgService.queryName(org);
+    		if (count > 0) {
+    			return ajaxDataComponent.createError("组织机构名称[" + org.getCollegeName()+ "]已存在！");
+    		}else{
+    			int orgId = orgService.insert(org);
+    			
+    		}
+    	}
+    	else{
+    		//添加学院、学系、专业
+    		if(org.getCollegeName()==null || org.getClassName()==""){
+    			return ajaxDataComponent.createErrorCode("E1500");
+    		}
+    		int count=orgService.queryName(org);
+    		if (count > 0) {
+    			return ajaxDataComponent.createError("组织机构名称[" + org.getCollegeName()+ "]已存在！");
+    		}else{
+    			int orgId = orgService.insert(org);
+    			
+    		}
+    	}
+    	return ajaxDataComponent.createSuccess();
+    }
 	
 }

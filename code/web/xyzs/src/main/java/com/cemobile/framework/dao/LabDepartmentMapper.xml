@@ -68,7 +68,7 @@
         	#{shortName,jdbcType=CHAR} ,
         	#{departmentProfile,jdbcType=VARCHAR} ,
         	#{collegeId,jdbcType=BIGINT} ,
-        	#{createDate,jdbcType=DATE} ,
+        	sysdate(),
         	#{editDate,jdbcType=DATE} ,
         	#{del,jdbcType=INTEGER} 
         )

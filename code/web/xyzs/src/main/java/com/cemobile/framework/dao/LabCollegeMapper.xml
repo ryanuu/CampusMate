@@ -62,7 +62,7 @@
         	#{collegeName,jdbcType=CHAR} ,
         	#{shortName,jdbcType=CHAR} ,
         	#{collegeProfile,jdbcType=VARCHAR} ,
-        	#{createDate,jdbcType=DATE} ,
+        	sysdate(),
         	#{editDate,jdbcType=DATE} ,
         	#{del,jdbcType=INTEGER} 
         )

@@ -11,10 +11,10 @@
 	
 	function add_submit_org()
 	{
-		var orgName = $('#collegeName').val();
+		var orgName = $('#className').val();
 		var orgId = $('#org_list_orgId').val();
 		var orgLevel = $('#org_list_orgLevel').val();
-		$('#collegeId').val(orgId);
+		$('#subjectId').val(orgId);
 		$('#level').val(orgLevel);
 		
 		
@@ -49,27 +49,33 @@
 </script>
 <div class="add-table">	
 	<form id="org_add_form" method="post">
-		<input id="collegeId" name="collegeId" type="hidden" />
+		<input id="subjectId" name="subjectId" type="hidden" />
 		<input id="level" name="level" type="hidden" />
 		<table>
 	    		<tr>
 	    			<td>
-	    				<span class="required">*</span>组织名称:
+	    				<span class="required">*</span>班级名称:
 	    			</td>
-	    			<td><input class="easyui-textbox" id="collegeName" name="collegeName" data-options="required:true,missingMessage:'请输入名称！',validType:'length[0,15]'" ></input></td>
+	    			<td><input class="easyui-textbox" id="className" name="className" data-options="required:true,missingMessage:'请输入名称！',validType:'length[0,15]'" ></input></td>
 	    		</tr>
 	   
 	    		<tr>
-	    			<td>组织简称:</td>
+	    			<td>级（入学年份）:</td>
 	    			<td colspan="3">
-	    				<input class="easyui-textbox"  id="collergeShortName" name="collergeShortName" data-options="multiline:true" validType="length[0,20]">
+	    				<input class="easyui-textbox"  id="grade" name="grade" data-options="multiline:true" validType="length[0,20]">
 	    			</td>
 	    		</tr>
 	    		
 	    		<tr>
-	    			<td>组织简介:</td>
+	    			<td>班主任:</td>
 	    			<td colspan="3">
-	    				<input class="easyui-textbox" id="collegeProfile" name="collegeProfile" data-options="multiline:true" validType="length[0,300]" style="width:425px;height:100px">
+	    				
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>辅导员:</td>
+	    			<td colspan="3">
+	    				
 	    			</td>
 	    		</tr>
 	    </table>

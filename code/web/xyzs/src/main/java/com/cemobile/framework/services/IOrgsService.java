@@ -16,6 +16,8 @@ public interface IOrgsService {
 	public void deleteByOrgId(String orgId);
 	//条件查询组织
 	public List<Org> query(Org org, Page page);
+	//查询是否同名组织
+	public int queryName(Org org);
 	//tree组织
 	public List<Orgtree> treelist(Org org);
 	//根据orgId 获取组织数据

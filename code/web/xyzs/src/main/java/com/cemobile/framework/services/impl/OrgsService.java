@@ -48,7 +48,44 @@ public class OrgsService implements IOrgsService {
 	@Override
 	public int insert(Org org) {
 		// TODO Auto-generated method stub
-		return 0;
+		int orgId=0;
+		if(org.getLevel().equals("admin")){
+			LabCollege labCollege=new LabCollege();
+			labCollege.setCollegeName(org.getCollegeName());
+			labCollege.setCollegeProfile(org.getCollegeProfile());
+			labCollege.setShortName(org.getCollergeShortName());
+			labCollege.setDel(0);
+			orgId=labCollegeMapper.insert(labCollege);
+		}
+		else if(org.getLevel().equals("college")){
+			LabDepartment labDepartment=new LabDepartment();
+			labDepartment.setDepartmentName(org.getCollegeName());
+			labDepartment.setCollegeId(org.getCollegeId());
+			labDepartment.setDepartmentProfile(org.getCollegeProfile());
+			labDepartment.setShortName(org.getCollergeShortName());
+			labDepartment.setDel(0);
+			orgId=labDepartmentMapper.insert(labDepartment);
+		}
+		else if(org.getLevel().equals("department")){
+			LabSubject labSubject=new LabSubject();
+			labSubject.setSubjectName(org.getCollegeName());
+			labSubject.setDepartmentId(org.getCollegeId());
+			labSubject.setSubjectProfile(org.getCollegeProfile());
+			labSubject.setShortName(org.getCollergeShortName());
+			labSubject.setDel(0);
+			orgId=labSubjectMapper.insert(labSubject);
+		}
+		else if(org.getLevel().equals("subject")){
+			LabClass labClass=new LabClass();
+			labClass.setClassName(org.getClassName());
+			labClass.setSubjectId(org.getSubjectId());
+			labClass.setHeadmaster(org.getHeadmaster());
+			labClass.setInstructor(org.getInstructor());
+			labClass.setGrade(org.getGrade());
+			labClass.setDel(0);
+			orgId=labClassMapper.insert(labClass);
+		}
+		return orgId;
 	}
 
 	@Override
@@ -151,23 +188,27 @@ public class OrgsService implements IOrgsService {
 							List<Orgtree> subjectTrees = new ArrayList<Orgtree>();
 							if(subjectList.size()!=0){
 								for(LabSubject s:subjectList){
-									Orgtree subjectTree = new Orgtree();
-									subjectTree.setId(String.valueOf(s.getSubjectId()));
-									subjectTree.setText(s.getSubjectName());
-									subjectTree.setLevel("subject");
-									//班级
-									List<Orgtree> classTrees = new ArrayList<Orgtree>();
-									if(classList.size()!=0){
-										for(LabClass c:classList){
-											Orgtree classTree = new Orgtree();
-											classTree.setId(String.valueOf(c.getClassId()));
-											classTree.setText(c.getClassName());
-											classTree.setLevel("class");
-											classTrees.add(classTree);
+									if(s.getDepartmentId().equals(d.getDepartmentId())){
+										Orgtree subjectTree = new Orgtree();
+										subjectTree.setId(String.valueOf(s.getSubjectId()));
+										subjectTree.setText(s.getSubjectName());
+										subjectTree.setLevel("subject");
+										//班级
+										List<Orgtree> classTrees = new ArrayList<Orgtree>();
+										if(classList.size()!=0){
+											for(LabClass c:classList){
+												if(c.getSubjectId().equals(s.getSubjectId())){
+													Orgtree classTree = new Orgtree();
+													classTree.setId(String.valueOf(c.getClassId()));
+													classTree.setText(c.getClassName());
+													classTree.setLevel("class");
+													classTrees.add(classTree);
+												}
+											}
 										}
+										subjectTree.setChildren(classTrees);
+										subjectTrees.add(subjectTree);
 									}
-									subjectTree.setChildren(classTrees);
-									subjectTrees.add(subjectTree);
 								}
 							}
 							departmentTree.setChildren(subjectTrees);
@@ -198,23 +239,27 @@ public class OrgsService implements IOrgsService {
 							List<Orgtree> subjectTrees = new ArrayList<Orgtree>();
 							if(subjectList.size()!=0){
 								for(LabSubject s:subjectList){
-									Orgtree subjectTree = new Orgtree();
-									subjectTree.setId(String.valueOf(s.getSubjectId()));
-									subjectTree.setText(s.getSubjectName());
-									subjectTree.setLevel("subject");
-									//班级
-									List<Orgtree> classTrees = new ArrayList<Orgtree>();
-									if(classList.size()!=0){
-										for(LabClass c:classList){
-											Orgtree classTree = new Orgtree();
-											classTree.setId(String.valueOf(c.getClassId()));
-											classTree.setText(c.getClassName());
-											classTree.setLevel("class");
-											classTrees.add(classTree);
+									if(s.getDepartmentId().equals(d.getDepartmentId())){
+										Orgtree subjectTree = new Orgtree();
+										subjectTree.setId(String.valueOf(s.getSubjectId()));
+										subjectTree.setText(s.getSubjectName());
+										subjectTree.setLevel("subject");
+										//班级
+										List<Orgtree> classTrees = new ArrayList<Orgtree>();
+										if(classList.size()!=0){
+											for(LabClass c:classList){
+												if(c.getSubjectId().equals(s.getSubjectId())){
+													Orgtree classTree = new Orgtree();
+													classTree.setId(String.valueOf(c.getClassId()));
+													classTree.setText(c.getClassName());
+													classTree.setLevel("class");
+													classTrees.add(classTree);
+												}
+											}
 										}
+										subjectTree.setChildren(classTrees);
+										subjectTrees.add(subjectTree);
 									}
-									subjectTree.setChildren(classTrees);
-									subjectTrees.add(subjectTree);
 								}
 							}
 							departmentTree.setChildren(subjectTrees);
@@ -236,34 +281,40 @@ public class OrgsService implements IOrgsService {
 					List<Orgtree> subjectTrees = new ArrayList<Orgtree>();
 					if(subjectList.size()!=0){
 						for(LabSubject s:subjectList){
-							Orgtree subjectTree = new Orgtree();
-							subjectTree.setId(String.valueOf(s.getSubjectId()));
-							subjectTree.setText(s.getSubjectName());
-							subjectTree.setLevel("subject");
-							//班级
-							List<Orgtree> classTrees = new ArrayList<Orgtree>();
-							if(classList.size()!=0){
-								for(LabClass c:classList){
-									Orgtree classTree = new Orgtree();
-									classTree.setId(String.valueOf(c.getClassId()));
-									classTree.setText(c.getClassName());
-									classTree.setLevel("class");
-									classTrees.add(classTree);
+							if(s.getDepartmentId().equals(d.getDepartmentId())){
+								Orgtree subjectTree = new Orgtree();
+								subjectTree.setId(String.valueOf(s.getSubjectId()));
+								subjectTree.setText(s.getSubjectName());
+								subjectTree.setLevel("subject");
+								//班级
+								List<Orgtree> classTrees = new ArrayList<Orgtree>();
+								if(classList.size()!=0){
+									for(LabClass c:classList){
+										if(c.getSubjectId().equals(s.getSubjectId())){
+											Orgtree classTree = new Orgtree();
+											classTree.setId(String.valueOf(c.getClassId()));
+											classTree.setText(c.getClassName());
+											classTree.setLevel("class");
+											classTrees.add(classTree);
+										}
+									}
 								}
+								subjectTree.setChildren(classTrees);
+								subjectTrees.add(subjectTree);
 							}
-							subjectTree.setChildren(classTrees);
-							subjectTrees.add(subjectTree);
 						}
 					}
 					else{
 						//班级
 						if(classList.size()!=0){
 							for(LabClass c:classList){
-								Orgtree classTree = new Orgtree();
-								classTree.setId(String.valueOf(c.getClassId()));
-								classTree.setText(c.getClassName());
-								classTree.setLevel("class");
-								subjectTrees.add(classTree);
+								if(c.getDepartmentId().equals(d.getDepartmentId())){
+									Orgtree classTree = new Orgtree();
+									classTree.setId(String.valueOf(c.getClassId()));
+									classTree.setText(c.getClassName());
+									classTree.setLevel("class");
+									subjectTrees.add(classTree);
+								}
 							}
 						}
 					}
@@ -281,11 +332,13 @@ public class OrgsService implements IOrgsService {
 						List<Orgtree> classTrees = new ArrayList<Orgtree>();
 						if(classList.size()!=0){
 							for(LabClass c:classList){
-								Orgtree classTree = new Orgtree();
-								classTree.setId(String.valueOf(c.getClassId()));
-								classTree.setText(c.getClassName());
-								classTree.setLevel("class");
-								classTrees.add(classTree);
+								if(c.getSubjectId().equals(s.getSubjectId())){
+									Orgtree classTree = new Orgtree();
+									classTree.setId(String.valueOf(c.getClassId()));
+									classTree.setText(c.getClassName());
+									classTree.setLevel("class");
+									classTrees.add(classTree);
+								}
 							}
 						}
 						tree.setChildren(classTrees);
@@ -376,6 +429,41 @@ public class OrgsService implements IOrgsService {
 		// TODO Auto-generated method stub
 		
 		return null;
+	}
+
+	@Override
+	public int queryName(Org org) {
+		// TODO Auto-generated method stub
+		int count=0;
+		if(org.getLevel().equals("admin")){
+			LabCollege labCollege=new LabCollege();
+			labCollege.setCollegeName(org.getCollegeName());
+			List<LabCollege> collegeList=labCollegeMapper.queryByKeyword(labCollege);
+			count=collegeList.size();
+		}
+		else if(org.getLevel().equals("college")){
+			LabDepartment labDepartment=new LabDepartment();
+			labDepartment.setDepartmentName(org.getCollegeName());
+			labDepartment.setCollegeId(org.getCollegeId());
+			List<LabDepartment> departmentList=labDepartmentMapper.queryByKeyword(labDepartment);
+			count=departmentList.size();
+		}
+		else if(org.getLevel().equals("department")){
+			LabSubject labSubject=new LabSubject();
+			labSubject.setSubjectName(org.getCollegeName());
+			labSubject.setDepartmentId(org.getCollegeId());
+			List<LabSubject> subjectList=labSubjectMapper.queryByKeyword(labSubject);
+			count=subjectList.size();
+		}
+		else if(org.getLevel().equals("subject")){
+			LabClass labClass=new LabClass();
+			labClass.setClassName(org.getClassName());
+			labClass.setSubjectId(org.getSubjectId());
+			labClass.setGrade(org.getGrade());
+			List<LabClass> classList=labClassMapper.queryByKeyword(labClass);
+			count=classList.size();
+		}
+		return count;
 	}
 
 }

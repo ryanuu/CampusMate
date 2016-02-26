@@ -26,6 +26,7 @@ public interface View {
     public static abstract interface ORG {
 		public static final String LIST = "xyzs/org/org_list";
 		public static final String ADD = "xyzs/org/org_add";
+		public static final String CLASSADD = "xyzs/org/org_classAdd";
 		public static final String EDIT = "xyzs/org/org_edit";
 		public static final String MOVE = "xyzs/org/org_move";
 	}
