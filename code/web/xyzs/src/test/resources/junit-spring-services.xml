@@ -9,7 +9,7 @@
 	<context:component-scan base-package="com.cemobile"
 		use-default-filters="false">
 		<context:include-filter type="regex"
-			expression="com.cemobile.demo.services.*" />
+			expression="com.cemobile.framework.services.*" />
 	</context:component-scan>
 	
 </beans>

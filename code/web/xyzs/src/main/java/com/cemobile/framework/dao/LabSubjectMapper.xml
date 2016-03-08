@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.LabSubjectMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.LabSubject">
+		<id property="subjectId" column="subject_id"  jdbcType="BIGINT"/>
+		<result property="subjectName" column="subject_name" jdbcType="CHAR" />
+		<result property="shortName" column="short_name" jdbcType="CHAR" />
+		<result property="subjectProfile" column="subject_profile" jdbcType="VARCHAR" />
+		<result property="collegeId" column="college_id" jdbcType="BIGINT" />
+		<result property="departmentId" column="department_id" jdbcType="BIGINT" />
+		<result property="createDate" column="create_date" jdbcType="DATE" />
+		<result property="editDate" column="edit_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	    <![CDATA[
+		subject_id,subject_name,short_name,subject_profile,college_id,department_id,create_date,edit_date,del
+	    ]]>
+	</sql>
+
+	<sql id="LabSubject_findPage">
+		<where>
+			del=0
+	       <if test="subjectId != null">
+				AND subject_id = #{subjectId,jdbcType=BIGINT}
+			</if>
+	       <if test="subjectName != null">
+				AND subject_name = #{subjectName,jdbcType=CHAR}
+			</if>
+	       <if test="shortName != null">
+				AND short_name = #{shortName,jdbcType=CHAR}
+			</if>
+	       <if test="subjectProfile != null">
+				AND subject_profile = #{subjectProfile,jdbcType=VARCHAR}
+			</if>
+	       <if test="collegeId != null">
+				AND college_id = #{collegeId,jdbcType=BIGINT}
+			</if>
+	       <if test="departmentId != null">
+				AND department_id = #{departmentId,jdbcType=BIGINT}
+			</if>
+	       <if test="createDate != null">
+				AND create_date = #{createDate,jdbcType=DATE}
+			</if>
+	       <if test="editDate != null">
+				AND edit_date = #{editDate,jdbcType=DATE}
+			</if>
+	       <if test="del != null">
+				AND del = #{del,jdbcType=INTEGER}
+			</if>
+		</where>
+	</sql>
+
+	<insert id="insert" parameterType="com.cemobile.framework.entity.LabSubject"  useGeneratedKeys="true" keyProperty="subjectId"  >
+    <![CDATA[
+        INSERT INTO lab_subject (
+        	subject_id ,
+        	subject_name ,
+        	short_name ,
+        	subject_profile ,
+        	college_id ,
+        	department_id ,
+        	create_date ,
+        	edit_date ,
+        	del 
+        ) VALUES (
+        	#{subjectId,jdbcType=BIGINT} ,
+        	#{subjectName,jdbcType=CHAR} ,
+        	#{shortName,jdbcType=CHAR} ,
+        	#{subjectProfile,jdbcType=VARCHAR} ,
+        	#{collegeId,jdbcType=BIGINT} ,
+        	#{departmentId,jdbcType=BIGINT} ,
+        	sysdate() ,
+        	#{editDate,jdbcType=DATE} ,
+        	#{del,jdbcType=INTEGER} 
+        )
+    ]]>
+	</insert>
+
+    <insert id="insertSelective" parameterType="com.cemobile.framework.entity.LabSubject">
+        INSERT INTO lab_subject 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="subjectId != null">subject_id </if>,
+			<if test="subjectName != null">subject_name </if>,
+			<if test="shortName != null">short_name </if>,
+			<if test="subjectProfile != null">subject_profile </if>,
+			<if test="collegeId != null">college_id </if>,
+			<if test="departmentId != null">department_id </if>,
+			<if test="createDate != null">create_date </if>,
+			<if test="editDate != null">edit_date </if>,
+			<if test="del != null">del </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="subjectId != null">
+				subject_id = #{subjectId,jdbcType=BIGINT}	,
+			</if>
+			<if test="subjectName != null">
+				subject_name = #{subjectName,jdbcType=CHAR}	,
+			</if>
+			<if test="shortName != null">
+				short_name = #{shortName,jdbcType=CHAR}	,
+			</if>
+			<if test="subjectProfile != null">
+				subject_profile = #{subjectProfile,jdbcType=VARCHAR}	,
+			</if>
+			<if test="collegeId != null">
+				college_id = #{collegeId,jdbcType=BIGINT}	,
+			</if>
+			<if test="departmentId != null">
+				department_id = #{departmentId,jdbcType=BIGINT}	,
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=DATE}	,
+			</if>
+			<if test="editDate != null">
+				edit_date = #{editDate,jdbcType=DATE}	,
+			</if>
+			<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertBatch" parameterType="com.cemobile.framework.entity.LabSubject" >
+		 INSERT INTO lab_subject  (
+        	subject_name ,
+        	short_name ,
+        	subject_profile ,
+        	college_id ,
+        	department_id ,
+        	create_date ,
+        	edit_date ,
+        	del 
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">(
+        	#{item.subjectName,jdbcType=CHAR} ,
+        	#{item.shortName,jdbcType=CHAR} ,
+        	#{item.subjectProfile,jdbcType=VARCHAR} ,
+        	#{item.collegeId,jdbcType=BIGINT} ,
+        	#{item.departmentId,jdbcType=BIGINT} ,
+        	#{item.createDate,jdbcType=DATE} ,
+        	#{item.editDate,jdbcType=DATE} ,
+        	#{item.del,jdbcType=INTEGER} 
+			)
+		</foreach>
+	</insert>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM lab_subject WHERE
+        subject_id =#{subjectId,jdbcType=BIGINT}
+    </delete>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.cemobile.framework.entity.LabSubject" >
+        UPDATE lab_subject 
+		<set>
+				<if test="subjectName != null">
+				subject_name = #{subjectName,jdbcType=CHAR}	,
+				</if>
+				<if test="shortName != null">
+				short_name = #{shortName,jdbcType=CHAR}	,
+				</if>
+				<if test="subjectProfile != null">
+				subject_profile = #{subjectProfile,jdbcType=VARCHAR}	,
+				</if>
+				<if test="collegeId != null">
+				college_id = #{collegeId,jdbcType=BIGINT}	,
+				</if>
+				<if test="departmentId != null">
+				department_id = #{departmentId,jdbcType=BIGINT}	,
+				</if>
+				<if test="createDate != null">
+				create_date = #{createDate,jdbcType=DATE}	,
+				</if>
+				<if test="editDate != null">
+				edit_date = #{editDate,jdbcType=DATE}	,
+				</if>
+				<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	
+				</if>
+		</set>
+		WHERE  subject_id =#{subjectId,jdbcType=BIGINT}
+	</update>
+
+    <update id="updateByPrimaryKey" parameterType="com.cemobile.framework.entity.LabSubject" >
+        UPDATE lab_subject 
+		<set>
+				subject_name = #{subjectName,jdbcType=CHAR}	,
+				short_name = #{shortName,jdbcType=CHAR}	,
+				subject_profile = #{subjectProfile,jdbcType=VARCHAR}	,
+				college_id = #{collegeId,jdbcType=BIGINT}	,
+				department_id = #{departmentId,jdbcType=BIGINT}	,
+				create_date = #{createDate,jdbcType=DATE}	,
+				edit_date = #{editDate,jdbcType=DATE}	,
+				del = #{del,jdbcType=INTEGER}	
+		</set>
+		WHERE  subject_id = #{subjectId,jdbcType=BIGINT}
+	</update>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_subject 
+		WHERE  subject_id = #{subjectId,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryByKeyword" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from lab_subject 
+		<include refid="LabSubject_findPage"/>    
+	</select>
+
+	<select id="queryAllLabSubject" resultMap="BaseResultMap" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_subject 
+	</select>
+</mapper>
+

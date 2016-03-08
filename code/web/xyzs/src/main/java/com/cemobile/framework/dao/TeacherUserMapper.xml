@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.TeacherUserMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.TeacherUser">
+		<id property="teacherId" column="teacher_id"  jdbcType="BIGINT"/>
+		<result property="teacherNumber" column="teacher_number" jdbcType="CHAR" />
+		<result property="teacherName" column="teacher_name" jdbcType="CHAR" />
+		<result property="nickname" column="nickname" jdbcType="CHAR" />
+		<result property="sex" column="sex" jdbcType="BIT" />
+		<result property="age" column="age" jdbcType="BIGINT" />
+		<result property="nation" column="nation" jdbcType="CHAR" />
+		<result property="phone" column="phone" jdbcType="BIGINT" />
+		<result property="idCard" column="id_card" jdbcType="BIGINT" />
+		<result property="email" column="email" jdbcType="CHAR" />
+		<result property="professional" column="professional" jdbcType="BIGINT" />
+		<result property="collegeId" column="college_id" jdbcType="BIGINT" />
+		<result property="collegeName" column="college_name" jdbcType="CHAR" />
+		<result property="departmentId" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" column="department_name" jdbcType="CHAR" />
+		<result property="headImage" column="head_image" jdbcType="CHAR" />
+		<result property="role" column="role" jdbcType="BIGINT" />
+		<result property="note" column="note" jdbcType="VARCHAR" />
+		<result property="password" column="password" jdbcType="VARCHAR" />
+		<result property="creatDate" column="creat_date" jdbcType="DATE" />
+		<result property="editDate" column="edit_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+		<result property="userId" column="user_id" jdbcType="BIGINT" />
+		<result property="username" column="username" jdbcType="BIGINT" />
+		<result property="realname" column="REALNAME" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<resultMap id="BaseResultMapStudent" type="com.cemobile.framework.entity.Teacher">
+		<id property="teacherId" column="teacher_id"  jdbcType="BIGINT"/>
+		<result property="teacherNumber" column="teacher_number" jdbcType="CHAR" />
+		<result property="teacherName" column="teacher_name" jdbcType="CHAR" />
+		<result property="nickname" column="nickname" jdbcType="CHAR" />
+		<result property="sex" column="sex" jdbcType="BIT" />
+		<result property="age" column="age" jdbcType="BIGINT" />
+		<result property="nation" column="nation" jdbcType="CHAR" />
+		<result property="phone" column="phone" jdbcType="BIGINT" />
+		<result property="idCard" column="id_card" jdbcType="BIGINT" />
+		<result property="email" column="email" jdbcType="CHAR" />
+		<result property="professional" column="professional" jdbcType="BIGINT" />
+		<result property="collegeId" column="college_id" jdbcType="BIGINT" />
+		<result property="collegeName" column="college_name" jdbcType="CHAR" />
+		<result property="departmentId" column="department_id" jdbcType="BIGINT" />
+		<result property="departmentName" column="department_name" jdbcType="CHAR" />
+		<result property="headImage" column="head_image" jdbcType="CHAR" />
+		<result property="role" column="role" jdbcType="BIGINT" />
+		<result property="note" column="note" jdbcType="VARCHAR" />
+		<result property="password" column="password" jdbcType="VARCHAR" />
+		<result property="creatDate" column="creat_date" jdbcType="DATE" />
+		<result property="editDate" column="edit_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+	</resultMap>
+
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="Long" >
+		SELECT
+			s.USER_ID,
+			s.USERNAME,
+			s.REALNAME,
+			t.teacher_id,
+			t.teacher_number,
+			t.teacher_name,
+			t.nickname,
+			t.sex,
+			t.age,
+			t.nation,
+			t.phone,
+			t.id_card,
+			t.email,
+			t.professional,
+			t.college_id,
+			t.department_id,
+			t.head_image,
+			t.role,
+			t.note,
+			s.PASSWORD,
+			t.creat_date,
+			t.edit_date,
+			t.del,
+			(SELECT department_name from lab_department where department_id=t.department_id and del=0) department_name,
+			(SELECT college_id FROM lab_college WHERE college_id=t.college_id and del=0) college_id,
+			(SELECT college_name FROM lab_college WHERE college_id=t.college_id and del=0) college_name
+		FROM
+			tsys_user s
+		LEFT JOIN lab_teacher t 
+			ON t.user_id = s.USER_ID	
+		WHERE  s.user_id = #{id,jdbcType=BIGINT}
+				and	t.del=0
+	</select>
+	
+	<select id="selectByPrimaryName" resultMap="BaseResultMapStudent" parameterType="String" >
+		SELECT
+			t.teacher_id,
+			t.teacher_number,
+			t.teacher_name,
+			t.nickname,
+			t.sex,
+			t.age,
+			t.nation,
+			t.phone,
+			t.id_card,
+			t.email,
+			t.professional,
+			t.college_id,
+			t.department_id,
+			t.head_image,
+			t.role,
+			t.note,
+			t.PASSWORD,
+			t.creat_date,
+			t.edit_date,
+			t.del
+		FROM lab_teacher t 	
+		WHERE  t.teacher_number = #{username,jdbcType=CHAR}
+				and	t.del=0
+	</select>
+	
+
+</mapper>
+

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.DemoMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.Demo">
+		<id property="id" column="ID" jdbcType="DECIMAL" />
+		<result property="name" column="NAME" jdbcType="VARCHAR" />
+		<result property="type" column="TYPE" jdbcType="DECIMAL" />
+		<result property="description" column="DESCRIPTION" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+	    <![CDATA[
+		ID,NAME,TYPE,DESCRIPTION
+	    ]]>
+	</sql>
+
+	<sql id="Demo_findPage">
+		<where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=DECIMAL}
+			</if>
+			<if test="name != null and name != '' ">
+				AND NAME like '%' || #{name,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="type != null">
+				AND TYPE = #{type,jdbcType=DECIMAL}
+			</if>
+			<if test="description != null and description != ''">
+				AND DESCRIPTION like '%' || #{description,jdbcType=VARCHAR} || '%'
+			</if>
+		</where>
+	</sql>
+
+	<insert id="insert" parameterType="com.cemobile.framework.entity.Demo"
+		useGeneratedKeys="true" keyProperty="id">
+
+		<selectKey resultType="java.lang.Long" order="BEFORE"
+			keyProperty="id">
+			SELECT SEQ_T_DEMO.nextval AS ID FROM DUAL
+		</selectKey>
+    <![CDATA[
+        INSERT INTO T_DEMO (
+        	ID ,
+        	NAME ,
+        	TYPE ,
+        	DESCRIPTION 
+        ) VALUES (
+        	#{id,jdbcType=DECIMAL} ,
+        	#{name,jdbcType=VARCHAR} ,
+        	#{type,jdbcType=DECIMAL} ,
+        	#{description,jdbcType=VARCHAR} 
+        )
+    ]]>
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.cemobile.framework.entity.Demo">
+		INSERT INTO T_DEMO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID </if>
+			,
+			<if test="name != null">NAME </if>
+			,
+			<if test="type != null">TYPE </if>
+			,
+			<if test="description != null">DESCRIPTION </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID = #{id,jdbcType=DECIMAL} ,
+			</if>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR} ,
+			</if>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=DECIMAL} ,
+			</if>
+			<if test="description != null">
+				DESCRIPTION = #{description,jdbcType=VARCHAR}	
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertBatch" parameterType="com.cemobile.framework.entity.Demo">
+		INSERT INTO T_DEMO (
+		ID,
+		NAME ,
+		TYPE ,
+		DESCRIPTION
+		) VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">(
+			SEQ_T_DEMO.nextval,
+			#{item.name,jdbcType=VARCHAR} ,
+			#{item.type,jdbcType=DECIMAL} ,
+			#{item.description,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="Long">
+		DELETE FROM T_DEMO WHERE
+		ID =#{id,jdbcType=DECIMAL}
+    </delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.cemobile.framework.entity.Demo">
+		UPDATE T_DEMO
+		<set>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR} ,
+			</if>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=DECIMAL} ,
+				</if>
+			<if test="description != null">
+				DESCRIPTION = #{description,jdbcType=VARCHAR}	
+				</if>
+		</set>
+		WHERE ID =#{id,jdbcType=DECIMAL}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.cemobile.framework.entity.Demo">
+		UPDATE T_DEMO
+		<set>
+			NAME = #{name,jdbcType=VARCHAR} ,
+			TYPE = #{type,jdbcType=DECIMAL} ,
+			DESCRIPTION = #{description,jdbcType=VARCHAR}	
+		</set>
+		WHERE ID = #{id,jdbcType=DECIMAL}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="Long">
+		select
+		<include refid="Base_Column_List" />
+		from T_DEMO
+		WHERE ID = #{id,jdbcType=DECIMAL}
+	</select>
+
+	<select id="queryByKeyword" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_DEMO
+		<include refid="Demo_findPage" />
+	</select>
+
+	<select id="queryAllDemo" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_DEMO
+	</select>
+</mapper>
+

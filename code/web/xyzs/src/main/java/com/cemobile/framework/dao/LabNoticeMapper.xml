@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.LabNoticeMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.LabNotice">
+		<id property="noticeId" column="notice_id"  jdbcType="BIGINT"/>
+		<result property="content" column="content" jdbcType="VARCHAR" />
+		<result property="title" column="title" jdbcType="CHAR" />
+		<result property="displayDate" column="display_date" jdbcType="INTEGER" />
+		<result property="teacherId" column="teacher_id" jdbcType="BIGINT" />
+		<result property="source" column="source" jdbcType="CHAR" />
+		<result property="classId" column="class_id" jdbcType="CHAR" />
+		<result property="departmentId" column="department_id" jdbcType="BIGINT" />
+		<result property="collegeId" column="college_id" jdbcType="BIGINT" />
+		<result property="top" column="top" jdbcType="INTEGER" />
+		<result property="creatDate" column="creat_date" jdbcType="DATE" />
+		<result property="editDate" column="edit_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	    <![CDATA[
+		notice_id,content,title,display_date,teacher_id,source,class_id,department_id,college_id,top,creat_date,edit_date,del
+	    ]]>
+	</sql>
+
+	<sql id="LabNotice_findPage">
+		<where>
+	       <if test="noticeId != null">
+				AND notice_id = #{noticeId,jdbcType=BIGINT}
+			</if>
+	       <if test="content != null">
+				AND content = #{content,jdbcType=VARCHAR}
+			</if>
+	       <if test="title != null">
+				AND title = #{title,jdbcType=CHAR}
+			</if>
+	       <if test="displayDate != null">
+				AND display_date = #{displayDate,jdbcType=INTEGER}
+			</if>
+	       <if test="teacherId != null">
+				AND teacher_id = #{teacherId,jdbcType=BIGINT}
+			</if>
+	       <if test="source != null">
+				AND source = #{source,jdbcType=CHAR}
+			</if>
+	       <if test="classId != null">
+				AND class_id = #{classId,jdbcType=CHAR}
+			</if>
+	       <if test="departmentId != null">
+				AND department_id = #{departmentId,jdbcType=BIGINT}
+			</if>
+	       <if test="collegeId != null">
+				AND college_id = #{collegeId,jdbcType=BIGINT}
+			</if>
+	       <if test="top != null">
+				AND top = #{top,jdbcType=INTEGER}
+			</if>
+	       <if test="creatDate != null">
+				AND creat_date = #{creatDate,jdbcType=DATE}
+			</if>
+	       <if test="editDate != null">
+				AND edit_date = #{editDate,jdbcType=DATE}
+			</if>
+	       <if test="del != null">
+				AND del = #{del,jdbcType=INTEGER}
+			</if>
+		</where>
+	</sql>
+
+	<insert id="insert" parameterType="com.cemobile.framework.entity.LabNotice"  useGeneratedKeys="true" keyProperty="noticeId"  >
+    <![CDATA[
+        INSERT INTO lab_notice (
+        	notice_id ,
+        	content ,
+        	title ,
+        	display_date ,
+        	teacher_id ,
+        	source ,
+        	class_id ,
+        	department_id ,
+        	college_id ,
+        	top ,
+        	creat_date ,
+        	edit_date ,
+        	del 
+        ) VALUES (
+        	#{noticeId,jdbcType=BIGINT} ,
+        	#{content,jdbcType=VARCHAR} ,
+        	#{title,jdbcType=CHAR} ,
+        	#{displayDate,jdbcType=INTEGER} ,
+        	#{teacherId,jdbcType=BIGINT} ,
+        	#{source,jdbcType=CHAR} ,
+        	#{classId,jdbcType=CHAR} ,
+        	#{departmentId,jdbcType=BIGINT} ,
+        	#{collegeId,jdbcType=BIGINT} ,
+        	#{top,jdbcType=INTEGER} ,
+        	#{creatDate,jdbcType=DATE} ,
+        	#{editDate,jdbcType=DATE} ,
+        	#{del,jdbcType=INTEGER} 
+        )
+    ]]>
+	</insert>
+
+    <insert id="insertSelective" parameterType="com.cemobile.framework.entity.LabNotice">
+        INSERT INTO lab_notice 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="noticeId != null">notice_id </if>,
+			<if test="content != null">content </if>,
+			<if test="title != null">title </if>,
+			<if test="displayDate != null">display_date </if>,
+			<if test="teacherId != null">teacher_id </if>,
+			<if test="source != null">source </if>,
+			<if test="classId != null">class_id </if>,
+			<if test="departmentId != null">department_id </if>,
+			<if test="collegeId != null">college_id </if>,
+			<if test="top != null">top </if>,
+			<if test="creatDate != null">creat_date </if>,
+			<if test="editDate != null">edit_date </if>,
+			<if test="del != null">del </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="noticeId != null">
+				notice_id = #{noticeId,jdbcType=BIGINT}	,
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR}	,
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=CHAR}	,
+			</if>
+			<if test="displayDate != null">
+				display_date = #{displayDate,jdbcType=INTEGER}	,
+			</if>
+			<if test="teacherId != null">
+				teacher_id = #{teacherId,jdbcType=BIGINT}	,
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=CHAR}	,
+			</if>
+			<if test="classId != null">
+				class_id = #{classId,jdbcType=CHAR}	,
+			</if>
+			<if test="departmentId != null">
+				department_id = #{departmentId,jdbcType=BIGINT}	,
+			</if>
+			<if test="collegeId != null">
+				college_id = #{collegeId,jdbcType=BIGINT}	,
+			</if>
+			<if test="top != null">
+				top = #{top,jdbcType=INTEGER}	,
+			</if>
+			<if test="creatDate != null">
+				creat_date = #{creatDate,jdbcType=DATE}	,
+			</if>
+			<if test="editDate != null">
+				edit_date = #{editDate,jdbcType=DATE}	,
+			</if>
+			<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertBatch" parameterType="com.cemobile.framework.entity.LabNotice" >
+		 INSERT INTO lab_notice  (
+        	content ,
+        	title ,
+        	display_date ,
+        	teacher_id ,
+        	source ,
+        	class_id ,
+        	department_id ,
+        	college_id ,
+        	top ,
+        	creat_date ,
+        	edit_date ,
+        	del 
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">(
+        	#{item.content,jdbcType=VARCHAR} ,
+        	#{item.title,jdbcType=CHAR} ,
+        	#{item.displayDate,jdbcType=INTEGER} ,
+        	#{item.teacherId,jdbcType=BIGINT} ,
+        	#{item.source,jdbcType=CHAR} ,
+        	#{item.classId,jdbcType=CHAR} ,
+        	#{item.departmentId,jdbcType=BIGINT} ,
+        	#{item.collegeId,jdbcType=BIGINT} ,
+        	#{item.top,jdbcType=INTEGER} ,
+        	#{item.creatDate,jdbcType=DATE} ,
+        	#{item.editDate,jdbcType=DATE} ,
+        	#{item.del,jdbcType=INTEGER} 
+			)
+		</foreach>
+	</insert>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM lab_notice WHERE
+        notice_id =#{noticeId,jdbcType=BIGINT}
+    </delete>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.cemobile.framework.entity.LabNotice" >
+        UPDATE lab_notice 
+		<set>
+				<if test="content != null">
+				content = #{content,jdbcType=VARCHAR}	,
+				</if>
+				<if test="title != null">
+				title = #{title,jdbcType=CHAR}	,
+				</if>
+				<if test="displayDate != null">
+				display_date = #{displayDate,jdbcType=INTEGER}	,
+				</if>
+				<if test="teacherId != null">
+				teacher_id = #{teacherId,jdbcType=BIGINT}	,
+				</if>
+				<if test="source != null">
+				source = #{source,jdbcType=CHAR}	,
+				</if>
+				<if test="classId != null">
+				class_id = #{classId,jdbcType=CHAR}	,
+				</if>
+				<if test="departmentId != null">
+				department_id = #{departmentId,jdbcType=BIGINT}	,
+				</if>
+				<if test="collegeId != null">
+				college_id = #{collegeId,jdbcType=BIGINT}	,
+				</if>
+				<if test="top != null">
+				top = #{top,jdbcType=INTEGER}	,
+				</if>
+				<if test="creatDate != null">
+				creat_date = #{creatDate,jdbcType=DATE}	,
+				</if>
+				<if test="editDate != null">
+				edit_date = #{editDate,jdbcType=DATE}	,
+				</if>
+				<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	
+				</if>
+		</set>
+		WHERE  notice_id =#{noticeId,jdbcType=BIGINT}
+	</update>
+
+    <update id="updateByPrimaryKey" parameterType="com.cemobile.framework.entity.LabNotice" >
+        UPDATE lab_notice 
+		<set>
+				content = #{content,jdbcType=VARCHAR}	,
+				title = #{title,jdbcType=CHAR}	,
+				display_date = #{displayDate,jdbcType=INTEGER}	,
+				teacher_id = #{teacherId,jdbcType=BIGINT}	,
+				source = #{source,jdbcType=CHAR}	,
+				class_id = #{classId,jdbcType=CHAR}	,
+				department_id = #{departmentId,jdbcType=BIGINT}	,
+				college_id = #{collegeId,jdbcType=BIGINT}	,
+				top = #{top,jdbcType=INTEGER}	,
+				creat_date = #{creatDate,jdbcType=DATE}	,
+				edit_date = #{editDate,jdbcType=DATE}	,
+				del = #{del,jdbcType=INTEGER}	
+		</set>
+		WHERE  notice_id = #{noticeId,jdbcType=BIGINT}
+	</update>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_notice 
+		WHERE  notice_id = #{noticeId,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryByKeyword" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from lab_notice 
+		<include refid="LabNotice_findPage"/>    
+	</select>
+
+	<select id="queryAllLabNotice" resultMap="BaseResultMap" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_notice 
+	</select>
+</mapper>
+

@@ -6,7 +6,7 @@
 	<artifactId>xyzs</artifactId>
 	<version>1.1.0</version>
 	<packaging>war</packaging>
-	<name>CEF-ALL</name>
+	<name>xyzs</name>
 	<url>http://127.0.0.1:8081/xyzs/</url>
 	<repositories>
 		<repository>
@@ -402,7 +402,7 @@
 		<dependency>
 			<groupId>cemobile</groupId>
 			<artifactId>CEF-NOTIFY</artifactId>
-			<version>1.1.0</version>
+			<version>1.1.1</version>
 		</dependency>
 		<!-- 上传模块 -->
 		<dependency>
@@ -457,6 +457,14 @@
 			<artifactId>CEF-WORKFLOW</artifactId>
 			<version>1.1.0</version>
 		</dependency>
+		
+		<!-- APP接口 -->
+		<dependency>
+		  <groupId>cemobile</groupId>
+		  <artifactId>CEF-TERMINAL</artifactId>
+		  <version>1.1.0</version>
+		</dependency>	
+		
 	</dependencies>
 
 	<build>

@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.LabBluetoothDevMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.LabBluetoothDev">
+		<id property="devId" column="dev_id"  jdbcType="BIGINT"/>
+		<result property="devNumber" column="dev_number" jdbcType="BIGINT" />
+		<result property="manufactor" column="manufactor" jdbcType="CHAR" />
+		<result property="status" column="status" jdbcType="INTEGER" />
+		<result property="positionId" column="position_id" jdbcType="BIGINT" />
+		<result property="uuid" column="uuid" jdbcType="CHAR" />
+		<result property="major" column="major" jdbcType="BIGINT" />
+		<result property="minor" column="minor" jdbcType="BIGINT" />
+		<result property="devType" column="dev_type" jdbcType="CHAR" />
+		<result property="createDate" column="create_date" jdbcType="DATE" />
+		<result property="editDate" column="edit_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+		<result property="devSn" column="dev_sn" jdbcType="CHAR" />
+		<result property="devMac" column="dev_mac" jdbcType="CHAR" />
+		<result property="measuredPower" column="measuredPower" jdbcType="INTEGER" />
+		<result property="name" column="name" jdbcType="CHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	    <![CDATA[
+		dev_id,dev_number,manufactor,status,position_id,uuid,major,minor,dev_type,create_date,edit_date,del,dev_sn,dev_mac,measuredPower,name
+	    ]]>
+	</sql>
+
+	<sql id="LabBluetoothDev_findPage">
+		<where>
+	       <if test="devId != null">
+				AND dev_id = #{devId,jdbcType=BIGINT}
+			</if>
+	       <if test="devNumber != null">
+				AND dev_number = #{devNumber,jdbcType=BIGINT}
+			</if>
+	       <if test="manufactor != null">
+				AND manufactor = #{manufactor,jdbcType=CHAR}
+			</if>
+	       <if test="status != null">
+				AND status = #{status,jdbcType=INTEGER}
+			</if>
+	       <if test="positionId != null">
+				AND position_id = #{positionId,jdbcType=BIGINT}
+			</if>
+	       <if test="uuid != null">
+				AND uuid = #{uuid,jdbcType=CHAR}
+			</if>
+	       <if test="major != null">
+				AND major = #{major,jdbcType=BIGINT}
+			</if>
+	       <if test="minor != null">
+				AND minor = #{minor,jdbcType=BIGINT}
+			</if>
+	       <if test="devType != null">
+				AND dev_type = #{devType,jdbcType=CHAR}
+			</if>
+	       <if test="createDate != null">
+				AND create_date = #{createDate,jdbcType=DATE}
+			</if>
+	       <if test="editDate != null">
+				AND edit_date = #{editDate,jdbcType=DATE}
+			</if>
+	       <if test="del != null">
+				AND del = #{del,jdbcType=INTEGER}
+			</if>
+	       <if test="devSn != null">
+				AND dev_sn = #{devSn,jdbcType=CHAR}
+			</if>
+	       <if test="devMac != null">
+				AND dev_mac = #{devMac,jdbcType=CHAR}
+			</if>
+	       <if test="measuredPower != null">
+				AND measuredPower = #{measuredPower,jdbcType=INTEGER}
+			</if>
+	       <if test="name != null">
+				AND name = #{name,jdbcType=CHAR}
+			</if>
+		</where>
+	</sql>
+
+	<insert id="insert" parameterType="com.cemobile.framework.entity.LabBluetoothDev"  useGeneratedKeys="true" keyProperty="devId"  >
+    <![CDATA[
+        INSERT INTO lab_bluetooth_dev (
+        	dev_id ,
+        	dev_number ,
+        	manufactor ,
+        	status ,
+        	position_id ,
+        	uuid ,
+        	major ,
+        	minor ,
+        	dev_type ,
+        	create_date ,
+        	edit_date ,
+        	del ,
+        	dev_sn ,
+        	dev_mac ,
+        	measuredPower ,
+        	name 
+        ) VALUES (
+        	#{devId,jdbcType=BIGINT} ,
+        	#{devNumber,jdbcType=BIGINT} ,
+        	#{manufactor,jdbcType=CHAR} ,
+        	#{status,jdbcType=INTEGER} ,
+        	#{positionId,jdbcType=BIGINT} ,
+        	#{uuid,jdbcType=CHAR} ,
+        	#{major,jdbcType=BIGINT} ,
+        	#{minor,jdbcType=BIGINT} ,
+        	#{devType,jdbcType=CHAR} ,
+        	#{createDate,jdbcType=DATE} ,
+        	#{editDate,jdbcType=DATE} ,
+        	#{del,jdbcType=INTEGER} ,
+        	#{devSn,jdbcType=CHAR} ,
+        	#{devMac,jdbcType=CHAR} ,
+        	#{measuredPower,jdbcType=INTEGER} ,
+        	#{name,jdbcType=CHAR} 
+        )
+    ]]>
+	</insert>
+
+    <insert id="insertSelective" parameterType="com.cemobile.framework.entity.LabBluetoothDev">
+        INSERT INTO lab_bluetooth_dev 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="devId != null">dev_id </if>,
+			<if test="devNumber != null">dev_number </if>,
+			<if test="manufactor != null">manufactor </if>,
+			<if test="status != null">status </if>,
+			<if test="positionId != null">position_id </if>,
+			<if test="uuid != null">uuid </if>,
+			<if test="major != null">major </if>,
+			<if test="minor != null">minor </if>,
+			<if test="devType != null">dev_type </if>,
+			<if test="createDate != null">create_date </if>,
+			<if test="editDate != null">edit_date </if>,
+			<if test="del != null">del </if>,
+			<if test="devSn != null">dev_sn </if>,
+			<if test="devMac != null">dev_mac </if>,
+			<if test="measuredPower != null">measuredPower </if>,
+			<if test="name != null">name </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="devId != null">
+				dev_id = #{devId,jdbcType=BIGINT}	,
+			</if>
+			<if test="devNumber != null">
+				dev_number = #{devNumber,jdbcType=BIGINT}	,
+			</if>
+			<if test="manufactor != null">
+				manufactor = #{manufactor,jdbcType=CHAR}	,
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER}	,
+			</if>
+			<if test="positionId != null">
+				position_id = #{positionId,jdbcType=BIGINT}	,
+			</if>
+			<if test="uuid != null">
+				uuid = #{uuid,jdbcType=CHAR}	,
+			</if>
+			<if test="major != null">
+				major = #{major,jdbcType=BIGINT}	,
+			</if>
+			<if test="minor != null">
+				minor = #{minor,jdbcType=BIGINT}	,
+			</if>
+			<if test="devType != null">
+				dev_type = #{devType,jdbcType=CHAR}	,
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=DATE}	,
+			</if>
+			<if test="editDate != null">
+				edit_date = #{editDate,jdbcType=DATE}	,
+			</if>
+			<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	,
+			</if>
+			<if test="devSn != null">
+				dev_sn = #{devSn,jdbcType=CHAR}	,
+			</if>
+			<if test="devMac != null">
+				dev_mac = #{devMac,jdbcType=CHAR}	,
+			</if>
+			<if test="measuredPower != null">
+				measuredPower = #{measuredPower,jdbcType=INTEGER}	,
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=CHAR}	
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertBatch" parameterType="com.cemobile.framework.entity.LabBluetoothDev" >
+		 INSERT INTO lab_bluetooth_dev  (
+        	dev_number ,
+        	manufactor ,
+        	status ,
+        	position_id ,
+        	uuid ,
+        	major ,
+        	minor ,
+        	dev_type ,
+        	create_date ,
+        	edit_date ,
+        	del ,
+        	dev_sn ,
+        	dev_mac ,
+        	measuredPower ,
+        	name 
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">(
+        	#{item.devNumber,jdbcType=BIGINT} ,
+        	#{item.manufactor,jdbcType=CHAR} ,
+        	#{item.status,jdbcType=INTEGER} ,
+        	#{item.positionId,jdbcType=BIGINT} ,
+        	#{item.uuid,jdbcType=CHAR} ,
+        	#{item.major,jdbcType=BIGINT} ,
+        	#{item.minor,jdbcType=BIGINT} ,
+        	#{item.devType,jdbcType=CHAR} ,
+        	#{item.createDate,jdbcType=DATE} ,
+        	#{item.editDate,jdbcType=DATE} ,
+        	#{item.del,jdbcType=INTEGER} ,
+        	#{item.devSn,jdbcType=CHAR} ,
+        	#{item.devMac,jdbcType=CHAR} ,
+        	#{item.measuredPower,jdbcType=INTEGER} ,
+        	#{item.name,jdbcType=CHAR} 
+			)
+		</foreach>
+	</insert>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM lab_bluetooth_dev WHERE
+        dev_id =#{devId,jdbcType=BIGINT}
+    </delete>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.cemobile.framework.entity.LabBluetoothDev" >
+        UPDATE lab_bluetooth_dev 
+		<set>
+				<if test="devNumber != null">
+				dev_number = #{devNumber,jdbcType=BIGINT}	,
+				</if>
+				<if test="manufactor != null">
+				manufactor = #{manufactor,jdbcType=CHAR}	,
+				</if>
+				<if test="status != null">
+				status = #{status,jdbcType=INTEGER}	,
+				</if>
+				<if test="positionId != null">
+				position_id = #{positionId,jdbcType=BIGINT}	,
+				</if>
+				<if test="uuid != null">
+				uuid = #{uuid,jdbcType=CHAR}	,
+				</if>
+				<if test="major != null">
+				major = #{major,jdbcType=BIGINT}	,
+				</if>
+				<if test="minor != null">
+				minor = #{minor,jdbcType=BIGINT}	,
+				</if>
+				<if test="devType != null">
+				dev_type = #{devType,jdbcType=CHAR}	,
+				</if>
+				<if test="createDate != null">
+				create_date = #{createDate,jdbcType=DATE}	,
+				</if>
+				<if test="editDate != null">
+				edit_date = #{editDate,jdbcType=DATE}	,
+				</if>
+				<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	,
+				</if>
+				<if test="devSn != null">
+				dev_sn = #{devSn,jdbcType=CHAR}	,
+				</if>
+				<if test="devMac != null">
+				dev_mac = #{devMac,jdbcType=CHAR}	,
+				</if>
+				<if test="measuredPower != null">
+				measuredPower = #{measuredPower,jdbcType=INTEGER}	,
+				</if>
+				<if test="name != null">
+				name = #{name,jdbcType=CHAR}	
+				</if>
+		</set>
+		WHERE  dev_id =#{devId,jdbcType=BIGINT}
+	</update>
+
+    <update id="updateByPrimaryKey" parameterType="com.cemobile.framework.entity.LabBluetoothDev" >
+        UPDATE lab_bluetooth_dev 
+		<set>
+				dev_number = #{devNumber,jdbcType=BIGINT}	,
+				manufactor = #{manufactor,jdbcType=CHAR}	,
+				status = #{status,jdbcType=INTEGER}	,
+				position_id = #{positionId,jdbcType=BIGINT}	,
+				uuid = #{uuid,jdbcType=CHAR}	,
+				major = #{major,jdbcType=BIGINT}	,
+				minor = #{minor,jdbcType=BIGINT}	,
+				dev_type = #{devType,jdbcType=CHAR}	,
+				create_date = #{createDate,jdbcType=DATE}	,
+				edit_date = #{editDate,jdbcType=DATE}	,
+				del = #{del,jdbcType=INTEGER}	,
+				dev_sn = #{devSn,jdbcType=CHAR}	,
+				dev_mac = #{devMac,jdbcType=CHAR}	,
+				measuredPower = #{measuredPower,jdbcType=INTEGER}	,
+				name = #{name,jdbcType=CHAR}	
+		</set>
+		WHERE  dev_id = #{devId,jdbcType=BIGINT}
+	</update>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_bluetooth_dev 
+		WHERE  dev_id = #{devId,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryByKeyword" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from lab_bluetooth_dev 
+		<include refid="LabBluetoothDev_findPage"/>    
+	</select>
+
+	<select id="queryAllLabBluetoothDev" resultMap="BaseResultMap" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_bluetooth_dev 
+	</select>
+</mapper>
+

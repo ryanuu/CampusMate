@@ -9,6 +9,7 @@
             classpath*:spring-view.xml,
             classpath*:spring-cache.xml,
             classpath*:spring-osworkflow.xml,
+            classpath*:spring-terminal.xml,
             classpath:spring-db.xml
         </param-value>
   </context-param>

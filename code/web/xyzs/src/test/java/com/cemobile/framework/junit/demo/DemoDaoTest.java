@@ -5,10 +5,9 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.cemobile.demo.dao.DemoMapper;
-import com.cemobile.demo.entities.Demo;
+import com.cemobile.framework.dao.DemoMapper;
+import com.cemobile.framework.entity.Demo;
 import com.cemobile.framework.junit.base.BaseDaoTestCase;
-import com.cemobile.framework.junit.base.BaseServicesTestCase;
 
 public class DemoDaoTest extends BaseDaoTestCase {
 	@Autowired

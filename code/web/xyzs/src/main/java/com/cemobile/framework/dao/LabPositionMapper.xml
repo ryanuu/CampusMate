@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.LabPositionMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.LabPosition">
+		<id property="positionId" column="position_id"  jdbcType="BIGINT"/>
+		<result property="place" column="place" jdbcType="CHAR" />
+		<result property="number" column="number" jdbcType="CHAR" />
+		<result property="positionType" column="position_type" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" jdbcType="DATE" />
+		<result property="editDate" column="edit_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	    <![CDATA[
+		position_id,place,number,position_type,create_date,edit_date,del
+	    ]]>
+	</sql>
+
+	<sql id="LabPosition_findPage">
+		<where>
+	       <if test="positionId != null">
+				AND position_id = #{positionId,jdbcType=BIGINT}
+			</if>
+	       <if test="place != null">
+				AND place = #{place,jdbcType=CHAR}
+			</if>
+	       <if test="number != null">
+				AND number = #{number,jdbcType=CHAR}
+			</if>
+	       <if test="positionType != null">
+				AND position_type = #{positionType,jdbcType=INTEGER}
+			</if>
+	       <if test="createDate != null">
+				AND create_date = #{createDate,jdbcType=DATE}
+			</if>
+	       <if test="editDate != null">
+				AND edit_date = #{editDate,jdbcType=DATE}
+			</if>
+	       <if test="del != null">
+				AND del = #{del,jdbcType=INTEGER}
+			</if>
+		</where>
+	</sql>
+
+	<insert id="insert" parameterType="com.cemobile.framework.entity.LabPosition"  useGeneratedKeys="true" keyProperty="positionId"  >
+    <![CDATA[
+        INSERT INTO lab_position (
+        	position_id ,
+        	place ,
+        	number ,
+        	position_type ,
+        	create_date ,
+        	edit_date ,
+        	del 
+        ) VALUES (
+        	#{positionId,jdbcType=BIGINT} ,
+        	#{place,jdbcType=CHAR} ,
+        	#{number,jdbcType=CHAR} ,
+        	#{positionType,jdbcType=INTEGER} ,
+        	#{createDate,jdbcType=DATE} ,
+        	#{editDate,jdbcType=DATE} ,
+        	#{del,jdbcType=INTEGER} 
+        )
+    ]]>
+	</insert>
+
+    <insert id="insertSelective" parameterType="com.cemobile.framework.entity.LabPosition">
+        INSERT INTO lab_position 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="positionId != null">position_id </if>,
+			<if test="place != null">place </if>,
+			<if test="number != null">number </if>,
+			<if test="positionType != null">position_type </if>,
+			<if test="createDate != null">create_date </if>,
+			<if test="editDate != null">edit_date </if>,
+			<if test="del != null">del </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="positionId != null">
+				position_id = #{positionId,jdbcType=BIGINT}	,
+			</if>
+			<if test="place != null">
+				place = #{place,jdbcType=CHAR}	,
+			</if>
+			<if test="number != null">
+				number = #{number,jdbcType=CHAR}	,
+			</if>
+			<if test="positionType != null">
+				position_type = #{positionType,jdbcType=INTEGER}	,
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=DATE}	,
+			</if>
+			<if test="editDate != null">
+				edit_date = #{editDate,jdbcType=DATE}	,
+			</if>
+			<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertBatch" parameterType="com.cemobile.framework.entity.LabPosition" >
+		 INSERT INTO lab_position  (
+        	place ,
+        	number ,
+        	position_type ,
+        	create_date ,
+        	edit_date ,
+        	del 
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">(
+        	#{item.place,jdbcType=CHAR} ,
+        	#{item.number,jdbcType=CHAR} ,
+        	#{item.positionType,jdbcType=INTEGER} ,
+        	#{item.createDate,jdbcType=DATE} ,
+        	#{item.editDate,jdbcType=DATE} ,
+        	#{item.del,jdbcType=INTEGER} 
+			)
+		</foreach>
+	</insert>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM lab_position WHERE
+        position_id =#{positionId,jdbcType=BIGINT}
+    </delete>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.cemobile.framework.entity.LabPosition" >
+        UPDATE lab_position 
+		<set>
+				<if test="place != null">
+				place = #{place,jdbcType=CHAR}	,
+				</if>
+				<if test="number != null">
+				number = #{number,jdbcType=CHAR}	,
+				</if>
+				<if test="positionType != null">
+				position_type = #{positionType,jdbcType=INTEGER}	,
+				</if>
+				<if test="createDate != null">
+				create_date = #{createDate,jdbcType=DATE}	,
+				</if>
+				<if test="editDate != null">
+				edit_date = #{editDate,jdbcType=DATE}	,
+				</if>
+				<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	
+				</if>
+		</set>
+		WHERE  position_id =#{positionId,jdbcType=BIGINT}
+	</update>
+
+    <update id="updateByPrimaryKey" parameterType="com.cemobile.framework.entity.LabPosition" >
+        UPDATE lab_position 
+		<set>
+				place = #{place,jdbcType=CHAR}	,
+				number = #{number,jdbcType=CHAR}	,
+				position_type = #{positionType,jdbcType=INTEGER}	,
+				create_date = #{createDate,jdbcType=DATE}	,
+				edit_date = #{editDate,jdbcType=DATE}	,
+				del = #{del,jdbcType=INTEGER}	
+		</set>
+		WHERE  position_id = #{positionId,jdbcType=BIGINT}
+	</update>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_position 
+		WHERE  position_id = #{positionId,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryByKeyword" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from lab_position 
+		<include refid="LabPosition_findPage"/>    
+	</select>
+
+	<select id="queryAllLabPosition" resultMap="BaseResultMap" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_position 
+	</select>
+</mapper>
+

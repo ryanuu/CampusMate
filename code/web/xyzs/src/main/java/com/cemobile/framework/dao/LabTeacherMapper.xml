@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.LabTeacherMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.LabTeacher">
+		<id property="teacherId" column="teacher_id"  jdbcType="BIGINT"/>
+		<result property="teacherNumber" column="teacher_number" jdbcType="CHAR" />
+		<result property="teacherName" column="teacher_name" jdbcType="CHAR" />
+		<result property="nickname" column="nickname" jdbcType="CHAR" />
+		<result property="sex" column="sex" jdbcType="BIT" />
+		<result property="age" column="age" jdbcType="BIGINT" />
+		<result property="nation" column="nation" jdbcType="CHAR" />
+		<result property="phone" column="phone" jdbcType="BIGINT" />
+		<result property="idCard" column="id_card" jdbcType="BIGINT" />
+		<result property="email" column="email" jdbcType="CHAR" />
+		<result property="professional" column="professional" jdbcType="BIGINT" />
+		<result property="collegeId" column="college_id" jdbcType="BIGINT" />
+		<result property="departmentId" column="department_id" jdbcType="BIGINT" />
+		<result property="headImage" column="head_image" jdbcType="CHAR" />
+		<result property="role" column="role" jdbcType="BIGINT" />
+		<result property="note" column="note" jdbcType="VARCHAR" />
+		<result property="password" column="password" jdbcType="VARCHAR" />
+		<result property="creatDate" column="creat_date" jdbcType="DATE" />
+		<result property="editDate" column="edit_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+		<result property="userId" column="user_id" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	    <![CDATA[
+		teacher_id,teacher_number,teacher_name,nickname,sex,age,nation,phone,id_card,email,professional,college_id,department_id,head_image,role,note,password,creat_date,edit_date,del,user_id
+	    ]]>
+	</sql>
+
+	<sql id="LabTeacher_findPage">
+		<where>
+	       <if test="teacherId != null">
+				AND teacher_id = #{teacherId,jdbcType=BIGINT}
+			</if>
+	       <if test="teacherNumber != null">
+				AND teacher_number = #{teacherNumber,jdbcType=CHAR}
+			</if>
+	       <if test="teacherName != null">
+				AND teacher_name = #{teacherName,jdbcType=CHAR}
+			</if>
+	       <if test="nickname != null">
+				AND nickname = #{nickname,jdbcType=CHAR}
+			</if>
+	       <if test="sex != null">
+				AND sex = #{sex,jdbcType=BIT}
+			</if>
+	       <if test="age != null">
+				AND age = #{age,jdbcType=BIGINT}
+			</if>
+	       <if test="nation != null">
+				AND nation = #{nation,jdbcType=CHAR}
+			</if>
+	       <if test="phone != null">
+				AND phone = #{phone,jdbcType=BIGINT}
+			</if>
+	       <if test="idCard != null">
+				AND id_card = #{idCard,jdbcType=BIGINT}
+			</if>
+	       <if test="email != null">
+				AND email = #{email,jdbcType=CHAR}
+			</if>
+	       <if test="professional != null">
+				AND professional = #{professional,jdbcType=BIGINT}
+			</if>
+	       <if test="collegeId != null">
+				AND college_id = #{collegeId,jdbcType=BIGINT}
+			</if>
+	       <if test="departmentId != null">
+				AND department_id = #{departmentId,jdbcType=BIGINT}
+			</if>
+	       <if test="headImage != null">
+				AND head_image = #{headImage,jdbcType=CHAR}
+			</if>
+	       <if test="role != null">
+				AND role = #{role,jdbcType=BIGINT}
+			</if>
+	       <if test="note != null">
+				AND note = #{note,jdbcType=VARCHAR}
+			</if>
+	       <if test="password != null">
+				AND password = #{password,jdbcType=VARCHAR}
+			</if>
+	       <if test="creatDate != null">
+				AND creat_date = #{creatDate,jdbcType=DATE}
+			</if>
+	       <if test="editDate != null">
+				AND edit_date = #{editDate,jdbcType=DATE}
+			</if>
+	       <if test="del != null">
+				AND del = #{del,jdbcType=INTEGER}
+			</if>
+	       <if test="userId != null">
+				AND user_id = #{userId,jdbcType=BIGINT}
+			</if>
+		</where>
+	</sql>
+
+	<insert id="insert" parameterType="com.cemobile.framework.entity.LabTeacher"  useGeneratedKeys="true" keyProperty="teacherId"  >
+    <![CDATA[
+        INSERT INTO lab_teacher (
+        	teacher_id ,
+        	teacher_number ,
+        	teacher_name ,
+        	nickname ,
+        	sex ,
+        	age ,
+        	nation ,
+        	phone ,
+        	id_card ,
+        	email ,
+        	professional ,
+        	college_id ,
+        	department_id ,
+        	head_image ,
+        	role ,
+        	note ,
+        	password ,
+        	creat_date ,
+        	edit_date ,
+        	del ,
+        	user_id 
+        ) VALUES (
+        	#{teacherId,jdbcType=BIGINT} ,
+        	#{teacherNumber,jdbcType=CHAR} ,
+        	#{teacherName,jdbcType=CHAR} ,
+        	#{nickname,jdbcType=CHAR} ,
+        	#{sex,jdbcType=BIT} ,
+        	#{age,jdbcType=BIGINT} ,
+        	#{nation,jdbcType=CHAR} ,
+        	#{phone,jdbcType=BIGINT} ,
+        	#{idCard,jdbcType=BIGINT} ,
+        	#{email,jdbcType=CHAR} ,
+        	#{professional,jdbcType=BIGINT} ,
+        	#{collegeId,jdbcType=BIGINT} ,
+        	#{departmentId,jdbcType=BIGINT} ,
+        	#{headImage,jdbcType=CHAR} ,
+        	#{role,jdbcType=BIGINT} ,
+        	#{note,jdbcType=VARCHAR} ,
+        	#{password,jdbcType=VARCHAR} ,
+        	#{creatDate,jdbcType=DATE} ,
+        	#{editDate,jdbcType=DATE} ,
+        	#{del,jdbcType=INTEGER} ,
+        	#{userId,jdbcType=BIGINT} 
+        )
+    ]]>
+	</insert>
+
+    <insert id="insertSelective" parameterType="com.cemobile.framework.entity.LabTeacher">
+        INSERT INTO lab_teacher 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="teacherId != null">teacher_id </if>,
+			<if test="teacherNumber != null">teacher_number </if>,
+			<if test="teacherName != null">teacher_name </if>,
+			<if test="nickname != null">nickname </if>,
+			<if test="sex != null">sex </if>,
+			<if test="age != null">age </if>,
+			<if test="nation != null">nation </if>,
+			<if test="phone != null">phone </if>,
+			<if test="idCard != null">id_card </if>,
+			<if test="email != null">email </if>,
+			<if test="professional != null">professional </if>,
+			<if test="collegeId != null">college_id </if>,
+			<if test="departmentId != null">department_id </if>,
+			<if test="headImage != null">head_image </if>,
+			<if test="role != null">role </if>,
+			<if test="note != null">note </if>,
+			<if test="password != null">password </if>,
+			<if test="creatDate != null">creat_date </if>,
+			<if test="editDate != null">edit_date </if>,
+			<if test="del != null">del </if>,
+			<if test="userId != null">user_id </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="teacherId != null">
+				teacher_id = #{teacherId,jdbcType=BIGINT}	,
+			</if>
+			<if test="teacherNumber != null">
+				teacher_number = #{teacherNumber,jdbcType=CHAR}	,
+			</if>
+			<if test="teacherName != null">
+				teacher_name = #{teacherName,jdbcType=CHAR}	,
+			</if>
+			<if test="nickname != null">
+				nickname = #{nickname,jdbcType=CHAR}	,
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=BIT}	,
+			</if>
+			<if test="age != null">
+				age = #{age,jdbcType=BIGINT}	,
+			</if>
+			<if test="nation != null">
+				nation = #{nation,jdbcType=CHAR}	,
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=BIGINT}	,
+			</if>
+			<if test="idCard != null">
+				id_card = #{idCard,jdbcType=BIGINT}	,
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=CHAR}	,
+			</if>
+			<if test="professional != null">
+				professional = #{professional,jdbcType=BIGINT}	,
+			</if>
+			<if test="collegeId != null">
+				college_id = #{collegeId,jdbcType=BIGINT}	,
+			</if>
+			<if test="departmentId != null">
+				department_id = #{departmentId,jdbcType=BIGINT}	,
+			</if>
+			<if test="headImage != null">
+				head_image = #{headImage,jdbcType=CHAR}	,
+			</if>
+			<if test="role != null">
+				role = #{role,jdbcType=BIGINT}	,
+			</if>
+			<if test="note != null">
+				note = #{note,jdbcType=VARCHAR}	,
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR}	,
+			</if>
+			<if test="creatDate != null">
+				creat_date = #{creatDate,jdbcType=DATE}	,
+			</if>
+			<if test="editDate != null">
+				edit_date = #{editDate,jdbcType=DATE}	,
+			</if>
+			<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	,
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT}	
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertBatch" parameterType="com.cemobile.framework.entity.LabTeacher" >
+		 INSERT INTO lab_teacher  (
+        	teacher_number ,
+        	teacher_name ,
+        	nickname ,
+        	sex ,
+        	age ,
+        	nation ,
+        	phone ,
+        	id_card ,
+        	email ,
+        	professional ,
+        	college_id ,
+        	department_id ,
+        	head_image ,
+        	role ,
+        	note ,
+        	password ,
+        	creat_date ,
+        	edit_date ,
+        	del ,
+        	user_id 
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">(
+        	#{item.teacherNumber,jdbcType=CHAR} ,
+        	#{item.teacherName,jdbcType=CHAR} ,
+        	#{item.nickname,jdbcType=CHAR} ,
+        	#{item.sex,jdbcType=BIT} ,
+        	#{item.age,jdbcType=BIGINT} ,
+        	#{item.nation,jdbcType=CHAR} ,
+        	#{item.phone,jdbcType=BIGINT} ,
+        	#{item.idCard,jdbcType=BIGINT} ,
+        	#{item.email,jdbcType=CHAR} ,
+        	#{item.professional,jdbcType=BIGINT} ,
+        	#{item.collegeId,jdbcType=BIGINT} ,
+        	#{item.departmentId,jdbcType=BIGINT} ,
+        	#{item.headImage,jdbcType=CHAR} ,
+        	#{item.role,jdbcType=BIGINT} ,
+        	#{item.note,jdbcType=VARCHAR} ,
+        	#{item.password,jdbcType=VARCHAR} ,
+        	#{item.creatDate,jdbcType=DATE} ,
+        	#{item.editDate,jdbcType=DATE} ,
+        	#{item.del,jdbcType=INTEGER} ,
+        	#{item.userId,jdbcType=BIGINT} 
+			)
+		</foreach>
+	</insert>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM lab_teacher WHERE
+        teacher_id =#{teacherId,jdbcType=BIGINT}
+    </delete>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.cemobile.framework.entity.LabTeacher" >
+        UPDATE lab_teacher 
+		<set>
+				<if test="teacherNumber != null">
+				teacher_number = #{teacherNumber,jdbcType=CHAR}	,
+				</if>
+				<if test="teacherName != null">
+				teacher_name = #{teacherName,jdbcType=CHAR}	,
+				</if>
+				<if test="nickname != null">
+				nickname = #{nickname,jdbcType=CHAR}	,
+				</if>
+				<if test="sex != null">
+				sex = #{sex,jdbcType=BIT}	,
+				</if>
+				<if test="age != null">
+				age = #{age,jdbcType=BIGINT}	,
+				</if>
+				<if test="nation != null">
+				nation = #{nation,jdbcType=CHAR}	,
+				</if>
+				<if test="phone != null">
+				phone = #{phone,jdbcType=BIGINT}	,
+				</if>
+				<if test="idCard != null">
+				id_card = #{idCard,jdbcType=BIGINT}	,
+				</if>
+				<if test="email != null">
+				email = #{email,jdbcType=CHAR}	,
+				</if>
+				<if test="professional != null">
+				professional = #{professional,jdbcType=BIGINT}	,
+				</if>
+				<if test="collegeId != null">
+				college_id = #{collegeId,jdbcType=BIGINT}	,
+				</if>
+				<if test="departmentId != null">
+				department_id = #{departmentId,jdbcType=BIGINT}	,
+				</if>
+				<if test="headImage != null">
+				head_image = #{headImage,jdbcType=CHAR}	,
+				</if>
+				<if test="role != null">
+				role = #{role,jdbcType=BIGINT}	,
+				</if>
+				<if test="note != null">
+				note = #{note,jdbcType=VARCHAR}	,
+				</if>
+				<if test="password != null">
+				password = #{password,jdbcType=VARCHAR}	,
+				</if>
+				<if test="creatDate != null">
+				creat_date = #{creatDate,jdbcType=DATE}	,
+				</if>
+				<if test="editDate != null">
+				edit_date = #{editDate,jdbcType=DATE}	,
+				</if>
+				<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	,
+				</if>
+				<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT}	
+				</if>
+		</set>
+		WHERE  teacher_id =#{teacherId,jdbcType=BIGINT}
+	</update>
+
+    <update id="updateByPrimaryKey" parameterType="com.cemobile.framework.entity.LabTeacher" >
+        UPDATE lab_teacher 
+		<set>
+				teacher_number = #{teacherNumber,jdbcType=CHAR}	,
+				teacher_name = #{teacherName,jdbcType=CHAR}	,
+				nickname = #{nickname,jdbcType=CHAR}	,
+				sex = #{sex,jdbcType=BIT}	,
+				age = #{age,jdbcType=BIGINT}	,
+				nation = #{nation,jdbcType=CHAR}	,
+				phone = #{phone,jdbcType=BIGINT}	,
+				id_card = #{idCard,jdbcType=BIGINT}	,
+				email = #{email,jdbcType=CHAR}	,
+				professional = #{professional,jdbcType=BIGINT}	,
+				college_id = #{collegeId,jdbcType=BIGINT}	,
+				department_id = #{departmentId,jdbcType=BIGINT}	,
+				head_image = #{headImage,jdbcType=CHAR}	,
+				role = #{role,jdbcType=BIGINT}	,
+				note = #{note,jdbcType=VARCHAR}	,
+				password = #{password,jdbcType=VARCHAR}	,
+				creat_date = #{creatDate,jdbcType=DATE}	,
+				edit_date = #{editDate,jdbcType=DATE}	,
+				del = #{del,jdbcType=INTEGER}	,
+				user_id = #{userId,jdbcType=BIGINT}	
+		</set>
+		WHERE  teacher_id = #{teacherId,jdbcType=BIGINT}
+	</update>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_teacher 
+		WHERE  teacher_id = #{teacherId,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryByKeyword" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from lab_teacher 
+		<include refid="LabTeacher_findPage"/>    
+	</select>
+
+	<select id="queryAllLabTeacher" resultMap="BaseResultMap" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_teacher 
+	</select>
+</mapper>
+

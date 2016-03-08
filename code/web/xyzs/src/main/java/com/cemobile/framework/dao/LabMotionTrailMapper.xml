@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.LabMotionTrailMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.LabMotionTrail">
+		<id property="trailD" column="trail_d"  jdbcType="BIGINT"/>
+		<result property="studentId" column="student_id" jdbcType="BIGINT" />
+		<result property="positionId" column="position_id" jdbcType="BIGINT" />
+		<result property="residenceTim" column="residence_tim" jdbcType="BIGINT" />
+		<result property="startTime" column="start_time" jdbcType="DATE" />
+		<result property="leaveTime" column="leave_time" jdbcType="DATE" />
+		<result property="createDate" column="create_date" jdbcType="DATE" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	    <![CDATA[
+		trail_d,student_id,position_id,residence_tim,start_time,leave_time,create_date
+	    ]]>
+	</sql>
+
+	<sql id="LabMotionTrail_findPage">
+		<where>
+	       <if test="trailD != null">
+				AND trail_d = #{trailD,jdbcType=BIGINT}
+			</if>
+	       <if test="studentId != null">
+				AND student_id = #{studentId,jdbcType=BIGINT}
+			</if>
+	       <if test="positionId != null">
+				AND position_id = #{positionId,jdbcType=BIGINT}
+			</if>
+	       <if test="residenceTim != null">
+				AND residence_tim = #{residenceTim,jdbcType=BIGINT}
+			</if>
+	       <if test="startTime != null">
+				AND start_time = #{startTime,jdbcType=DATE}
+			</if>
+	       <if test="leaveTime != null">
+				AND leave_time = #{leaveTime,jdbcType=DATE}
+			</if>
+	       <if test="createDate != null">
+				AND create_date = #{createDate,jdbcType=DATE}
+			</if>
+		</where>
+	</sql>
+
+	<insert id="insert" parameterType="com.cemobile.framework.entity.LabMotionTrail"  useGeneratedKeys="true" keyProperty="trailD"  >
+    <![CDATA[
+        INSERT INTO lab_motion_trail (
+        	trail_d ,
+        	student_id ,
+        	position_id ,
+        	residence_tim ,
+        	start_time ,
+        	leave_time ,
+        	create_date 
+        ) VALUES (
+        	#{trailD,jdbcType=BIGINT} ,
+        	#{studentId,jdbcType=BIGINT} ,
+        	#{positionId,jdbcType=BIGINT} ,
+        	#{residenceTim,jdbcType=BIGINT} ,
+        	#{startTime,jdbcType=DATE} ,
+        	#{leaveTime,jdbcType=DATE} ,
+        	#{createDate,jdbcType=DATE} 
+        )
+    ]]>
+	</insert>
+
+    <insert id="insertSelective" parameterType="com.cemobile.framework.entity.LabMotionTrail">
+        INSERT INTO lab_motion_trail 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="trailD != null">trail_d </if>,
+			<if test="studentId != null">student_id </if>,
+			<if test="positionId != null">position_id </if>,
+			<if test="residenceTim != null">residence_tim </if>,
+			<if test="startTime != null">start_time </if>,
+			<if test="leaveTime != null">leave_time </if>,
+			<if test="createDate != null">create_date </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="trailD != null">
+				trail_d = #{trailD,jdbcType=BIGINT}	,
+			</if>
+			<if test="studentId != null">
+				student_id = #{studentId,jdbcType=BIGINT}	,
+			</if>
+			<if test="positionId != null">
+				position_id = #{positionId,jdbcType=BIGINT}	,
+			</if>
+			<if test="residenceTim != null">
+				residence_tim = #{residenceTim,jdbcType=BIGINT}	,
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime,jdbcType=DATE}	,
+			</if>
+			<if test="leaveTime != null">
+				leave_time = #{leaveTime,jdbcType=DATE}	,
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=DATE}	
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertBatch" parameterType="com.cemobile.framework.entity.LabMotionTrail" >
+		 INSERT INTO lab_motion_trail  (
+        	student_id ,
+        	position_id ,
+        	residence_tim ,
+        	start_time ,
+        	leave_time ,
+        	create_date 
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">(
+        	#{item.studentId,jdbcType=BIGINT} ,
+        	#{item.positionId,jdbcType=BIGINT} ,
+        	#{item.residenceTim,jdbcType=BIGINT} ,
+        	#{item.startTime,jdbcType=DATE} ,
+        	#{item.leaveTime,jdbcType=DATE} ,
+        	#{item.createDate,jdbcType=DATE} 
+			)
+		</foreach>
+	</insert>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM lab_motion_trail WHERE
+        trail_d =#{trailD,jdbcType=BIGINT}
+    </delete>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.cemobile.framework.entity.LabMotionTrail" >
+        UPDATE lab_motion_trail 
+		<set>
+				<if test="studentId != null">
+				student_id = #{studentId,jdbcType=BIGINT}	,
+				</if>
+				<if test="positionId != null">
+				position_id = #{positionId,jdbcType=BIGINT}	,
+				</if>
+				<if test="residenceTim != null">
+				residence_tim = #{residenceTim,jdbcType=BIGINT}	,
+				</if>
+				<if test="startTime != null">
+				start_time = #{startTime,jdbcType=DATE}	,
+				</if>
+				<if test="leaveTime != null">
+				leave_time = #{leaveTime,jdbcType=DATE}	,
+				</if>
+				<if test="createDate != null">
+				create_date = #{createDate,jdbcType=DATE}	
+				</if>
+		</set>
+		WHERE  trail_d =#{trailD,jdbcType=BIGINT}
+	</update>
+
+    <update id="updateByPrimaryKey" parameterType="com.cemobile.framework.entity.LabMotionTrail" >
+        UPDATE lab_motion_trail 
+		<set>
+				student_id = #{studentId,jdbcType=BIGINT}	,
+				position_id = #{positionId,jdbcType=BIGINT}	,
+				residence_tim = #{residenceTim,jdbcType=BIGINT}	,
+				start_time = #{startTime,jdbcType=DATE}	,
+				leave_time = #{leaveTime,jdbcType=DATE}	,
+				create_date = #{createDate,jdbcType=DATE}	
+		</set>
+		WHERE  trail_d = #{trailD,jdbcType=BIGINT}
+	</update>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_motion_trail 
+		WHERE  trail_d = #{trailD,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryByKeyword" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from lab_motion_trail 
+		<include refid="LabMotionTrail_findPage"/>    
+	</select>
+
+	<select id="queryAllLabMotionTrail" resultMap="BaseResultMap" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_motion_trail 
+	</select>
+</mapper>
+

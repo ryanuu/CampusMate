@@ -5,10 +5,10 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.cemobile.demo.entities.Demo;
-import com.cemobile.demo.services.IDemoService;
 import com.cemobile.framework.common.page.Page;
+import com.cemobile.framework.entity.Demo;
 import com.cemobile.framework.junit.base.BaseServicesTestCase;
+import com.cemobile.framework.services.IDemoService;
 
 public class DemoServicesTest extends BaseServicesTestCase{
     @Autowired

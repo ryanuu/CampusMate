@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.LabTimeMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.LabTime">
+		<id property="id" column="id"  jdbcType="BIGINT"/>
+		<result property="section" column="section" jdbcType="INTEGER" />
+		<result property="termId" column="term_id" jdbcType="BIGINT" />
+		<result property="startDate" column="start_date" jdbcType="TIME" />
+		<result property="endDate" column="end_date" jdbcType="TIME" />
+		<result property="collegeId" column="college_id" jdbcType="BIGINT" />
+		<result property="createDate" column="create_date" jdbcType="DATE" />
+		<result property="editDate" column="edit_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	    <![CDATA[
+		id,section,term_id,start_date,end_date,college_id,create_date,edit_date,del
+	    ]]>
+	</sql>
+
+	<sql id="LabTime_findPage">
+		<where>
+	       <if test="id != null">
+				AND id = #{id,jdbcType=BIGINT}
+			</if>
+	       <if test="section != null">
+				AND section = #{section,jdbcType=INTEGER}
+			</if>
+	       <if test="termId != null">
+				AND term_id = #{termId,jdbcType=BIGINT}
+			</if>
+	       <if test="startDate != null">
+				AND start_date = #{startDate,jdbcType=TIME}
+			</if>
+	       <if test="endDate != null">
+				AND end_date = #{endDate,jdbcType=TIME}
+			</if>
+	       <if test="collegeId != null">
+				AND college_id = #{collegeId,jdbcType=BIGINT}
+			</if>
+	       <if test="createDate != null">
+				AND create_date = #{createDate,jdbcType=DATE}
+			</if>
+	       <if test="editDate != null">
+				AND edit_date = #{editDate,jdbcType=DATE}
+			</if>
+	       <if test="del != null">
+				AND del = #{del,jdbcType=INTEGER}
+			</if>
+		</where>
+	</sql>
+
+	<insert id="insert" parameterType="com.cemobile.framework.entity.LabTime"  useGeneratedKeys="true" keyProperty="id"  >
+    <![CDATA[
+        INSERT INTO lab_time (
+        	section ,
+        	term_id ,
+        	start_date ,
+        	end_date ,
+        	college_id ,
+        	create_date ,
+        	edit_date ,
+        	del 
+        ) VALUES (
+        	#{section,jdbcType=INTEGER} ,
+        	#{termId,jdbcType=BIGINT} ,
+        	#{startDate,jdbcType=TIME} ,
+        	#{endDate,jdbcType=TIME} ,
+        	#{collegeId,jdbcType=BIGINT} ,
+        	sysdate() ,
+        	#{editDate,jdbcType=DATE} ,
+        	0 
+        )
+    ]]>
+	</insert>
+
+    <insert id="insertSelective" parameterType="com.cemobile.framework.entity.LabTime">
+        INSERT INTO lab_time 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null">id </if>,
+			<if test="section != null">section </if>,
+			<if test="termId != null">term_id </if>,
+			<if test="startDate != null">start_date </if>,
+			<if test="endDate != null">end_date </if>,
+			<if test="collegeId != null">college_id </if>,
+			<if test="createDate != null">create_date </if>,
+			<if test="editDate != null">edit_date </if>,
+			<if test="del != null">del </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id != null">
+				id = #{id,jdbcType=BIGINT}	,
+			</if>
+			<if test="section != null">
+				section = #{section,jdbcType=INTEGER}	,
+			</if>
+			<if test="termId != null">
+				term_id = #{termId,jdbcType=BIGINT}	,
+			</if>
+			<if test="startDate != null">
+				start_date = #{startDate,jdbcType=TIME}	,
+			</if>
+			<if test="endDate != null">
+				end_date = #{endDate,jdbcType=TIME}	,
+			</if>
+			<if test="collegeId != null">
+				college_id = #{collegeId,jdbcType=BIGINT}	,
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=DATE}	,
+			</if>
+			<if test="editDate != null">
+				edit_date = #{editDate,jdbcType=DATE}	,
+			</if>
+			<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertBatch" parameterType="com.cemobile.framework.entity.LabTime" >
+		 INSERT INTO lab_time  (
+        	section ,
+        	term_id ,
+        	start_date ,
+        	end_date ,
+        	college_id ,
+        	create_date ,
+        	edit_date ,
+        	del 
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">(
+        	#{item.section,jdbcType=INTEGER} ,
+        	#{item.termId,jdbcType=BIGINT} ,
+        	#{item.startDate,jdbcType=TIME} ,
+        	#{item.endDate,jdbcType=TIME} ,
+        	#{item.collegeId,jdbcType=BIGINT} ,
+        	#{item.createDate,jdbcType=DATE} ,
+        	#{item.editDate,jdbcType=DATE} ,
+        	#{item.del,jdbcType=INTEGER} 
+			)
+		</foreach>
+	</insert>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM lab_time WHERE
+        id =#{id,jdbcType=BIGINT}
+    </delete>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.cemobile.framework.entity.LabTime" >
+        UPDATE lab_time 
+		<set>
+				<if test="section != null">
+				section = #{section,jdbcType=INTEGER}	,
+				</if>
+				<if test="termId != null">
+				term_id = #{termId,jdbcType=BIGINT}	,
+				</if>
+				<if test="startDate != null">
+				start_date = #{startDate,jdbcType=TIME}	,
+				</if>
+				<if test="endDate != null">
+				end_date = #{endDate,jdbcType=TIME}	,
+				</if>
+				<if test="collegeId != null">
+				college_id = #{collegeId,jdbcType=BIGINT}	,
+				</if>
+				<if test="createDate != null">
+				create_date = #{createDate,jdbcType=DATE}	,
+				</if>
+				<if test="editDate != null">
+				edit_date = #{editDate,jdbcType=DATE}	,
+				</if>
+				<if test="del != null">
+				del = #{del,jdbcType=INTEGER}	
+				</if>
+		</set>
+		WHERE  id =#{id,jdbcType=BIGINT}
+	</update>
+
+    <update id="updateByPrimaryKey" parameterType="com.cemobile.framework.entity.LabTime" >
+        UPDATE lab_time 
+		<set>
+				section = #{section,jdbcType=INTEGER}	,
+				term_id = #{termId,jdbcType=BIGINT}	,
+				start_date = #{startDate,jdbcType=TIME}	,
+				end_date = #{endDate,jdbcType=TIME}	,
+				college_id = #{collegeId,jdbcType=BIGINT}	,
+				create_date = #{createDate,jdbcType=DATE}	,
+				edit_date = #{editDate,jdbcType=DATE}	,
+				del = #{del,jdbcType=INTEGER}	
+		</set>
+		WHERE  id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_time 
+		WHERE  id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryByKeyword" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from lab_time 
+		<include refid="LabTime_findPage"/>    
+	</select>
+
+	<select id="queryAllLabTime" resultMap="BaseResultMap" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_time 
+	</select>
+</mapper>
+
