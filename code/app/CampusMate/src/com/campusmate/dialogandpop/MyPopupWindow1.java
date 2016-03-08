@@ -21,36 +21,36 @@ public class MyPopupWindow1 extends PopupWindow{
 		        contentView = inflater.inflate(resource, null);  
 		        int h = context.getWindowManager().getDefaultDisplay().getHeight();  
 		        int w = context.getWindowManager().getDefaultDisplay().getWidth();  
-	            // ÉèÖÃSelectPicPopupWindowµÄView  
+	            // è®¾ç½®SelectPicPopupWindowçš„View  
 				this.setContentView(contentView);  
-				// ÉèÖÃSelectPicPopupWindowµ¯³ö´°ÌåµÄ¿í  
+				// è®¾ç½®SelectPicPopupWindowå¼¹å‡ºçª—ä½“çš„å®½  
 				this.setWidth(LayoutParams.WRAP_CONTENT);  
-				// ÉèÖÃSelectPicPopupWindowµ¯³ö´°ÌåµÄ¸ß  
+				// è®¾ç½®SelectPicPopupWindowå¼¹å‡ºçª—ä½“çš„é«˜  
 				this.setHeight(LayoutParams.WRAP_CONTENT);  
-				// ÉèÖÃSelectPicPopupWindowµ¯³ö´°Ìå¿Éµã»÷  
+				// è®¾ç½®SelectPicPopupWindowå¼¹å‡ºçª—ä½“å¯ç‚¹å‡»  
 				this.setFocusable(true);  
 				this.setOutsideTouchable(true);  
-				// Ë¢ĞÂ×´Ì¬  
+				// åˆ·æ–°çŠ¶æ€  
 				this.update();  
-				// ÊµÀı»¯Ò»¸öColorDrawableÑÕÉ«Îª°ëÍ¸Ã÷  
+				// å®ä¾‹åŒ–ä¸€ä¸ªColorDrawableé¢œè‰²ä¸ºåŠé€æ˜  
 				ColorDrawable dw = new ColorDrawable(0000000000);  
-				// µãback¼üºÍÆäËûµØ·½Ê¹ÆäÏûÊ§,ÉèÖÃÁËÕâ¸ö²ÅÄÜ´¥·¢OnDismisslistener £¬ÉèÖÃÆäËû¿Ø¼ş±ä»¯µÈ²Ù×÷  
+				// ç‚¹backé”®å’Œå…¶ä»–åœ°æ–¹ä½¿å…¶æ¶ˆå¤±,è®¾ç½®äº†è¿™ä¸ªæ‰èƒ½è§¦å‘OnDismisslistener ï¼Œè®¾ç½®å…¶ä»–æ§ä»¶å˜åŒ–ç­‰æ“ä½œ  
 				this.setBackgroundDrawable(dw);  				
 
 	}
-	//ÉèÖÃpopwupwindowµÄ¿íºÍ¸ß
+	//è®¾ç½®popwupwindowçš„å®½å’Œé«˜
 	public MyPopupWindow1 setWidthAndHeight(int w,int h){
 		this.setWidth(w);
 		this.setHeight(h);
 		return this;
 	}
-	// ÉèÖÃSelectPicPopupWindowµ¯³ö´°Ìå¶¯»­Ğ§¹û
+	// è®¾ç½®SelectPicPopupWindowå¼¹å‡ºçª—ä½“åŠ¨ç”»æ•ˆæœ
 	public MyPopupWindow1 setAnimation(int style){
 		// mPopupWindow.setAnimationStyle(android.R.style.Animation_Dialog);  	
 		this.setAnimationStyle(style);
 		return this;
 	}
-	//ÉèÖÃĞèÒªÓĞµã»÷ÊÂ¼şµÄ°´Å¥£¨view£©
+	//è®¾ç½®éœ€è¦æœ‰ç‚¹å‡»äº‹ä»¶çš„æŒ‰é’®ï¼ˆviewï¼‰
 	public void setView(int...resources){
 		views=new View[resources.length];
 		for(int i=0;i<resources.length;i++){
@@ -58,13 +58,13 @@ public class MyPopupWindow1 extends PopupWindow{
 		}
 
 	}
-	//ÉèÖÃ°´Å¥µã»÷ÊÂ¼ş
+	//è®¾ç½®æŒ‰é’®ç‚¹å‡»äº‹ä»¶
 	public void setViewClick(OnClickListener...listener){
 		for(int i=0;i<listener.length&&i<views.length;i++){
 			views[i].setOnClickListener(listener[i]);
 		}
 	}
-	//ÏÔÊ¾popupwindowµÄÈıÖÖ·½·¨
+	//æ˜¾ç¤ºpopupwindowçš„ä¸‰ç§æ–¹æ³•
 	public void showAsPopupWindow(View v,int xoff,int yoff){
 		if(this.isShowing()){
 			this.dismiss();

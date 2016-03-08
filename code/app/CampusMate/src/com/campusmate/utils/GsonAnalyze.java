@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 
 public class GsonAnalyze {
 	private static Gson gson = new Gson();
-	//½âÎögson×Ö·û´®
+	//è§£ægsonå­—ç¬¦ä¸²
 		public static  <T> T analyze(String s,Class<T> cla){
 			Log.e("result", s);
 			T t=null;

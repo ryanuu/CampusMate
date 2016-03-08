@@ -19,7 +19,7 @@ public class MarqueeTextView extends TextView{
         super(context, attrs, defStyle);
     }
  
-    //Ê¼ÖÕ·µ»Øtrue£¬¼´Ò»Ö±»ñµÃ½¹µã
+    //å§‹ç»ˆè¿”å›trueï¼Œå³ä¸€ç›´è·å¾—ç„¦ç‚¹
     @Override
     public boolean isFocused() {
         return true;

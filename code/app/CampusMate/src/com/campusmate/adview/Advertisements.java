@@ -71,7 +71,7 @@ public class Advertisements implements OnPageChangeListener
 		vpAdvertise = (ViewPager) view.findViewById(R.id.vpAdvertise);
 		vpAdvertise.setOnPageChangeListener(this);
 		views = new ArrayList<View>();
-		LinearLayout ll = (LinearLayout) view.findViewById(R.id.ad_ll);//获取轮播图片的点的parent，用于动态添加要显示的点
+		LinearLayout ll = (LinearLayout) view.findViewById(R.id.ll);//获取轮播图片的点的parent，用于动态添加要显示的点
 		for(int i = 0 ; i < advertiseArray.length() ; i ++){
 			if(fitXY){
 				views.add(inflater.inflate(R.layout.advertisement_item_fitxy, null));

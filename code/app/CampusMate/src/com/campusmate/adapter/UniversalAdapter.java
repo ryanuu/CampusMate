@@ -10,7 +10,7 @@ import android.widget.BaseAdapter;
 
 /**
  * 
- * ÍòÄÜÊÊÅäÆ÷
+ * ä¸‡èƒ½é€‚é…å™¨
  * @author GZB
  * 
  * **/
@@ -20,7 +20,7 @@ public abstract class UniversalAdapter<T> extends BaseAdapter {
 	protected List<T> mDatas;
 	protected final int mItemLayoutId;
 	
-	protected int flag=0;//ÓÃÓÚ¶à¸ögridview/listview¹²ÓÃÒ»¸öadapterÊ±µÄÅĞ¶Ï
+	protected int flag=0;//ç”¨äºå¤šä¸ªgridview/listviewå…±ç”¨ä¸€ä¸ªadapteræ—¶çš„åˆ¤æ–­
 
 	public UniversalAdapter(Context context, List<T> mDatas, int itemLayoutId) {
 		this.mContext = context;

@@ -3,18 +3,19 @@ package com.campusmate;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
-import com.campusmate.bean.BaseResultBean;
 import com.campusmate.commondata.CommonData;
 import com.campusmate.dialogandpop.MyProgressBar1;
+import com.campusmate.resultbean.BaseResultBean;
 import com.campusmate.utils.Config_PT;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
-//基类Activity，实现的功能有请求网络回调和显示相应progress
+//鍩虹被Activity锛屽疄鐜扮殑鍔熻兘鏈夎姹傜綉缁滃洖璋冨拰鏄剧ず鐩稿簲progress
 public class BaseActivity1 extends FragmentActivity{
 	
 	protected Context mContext;
-	protected int currentTag=0;//用于多个网络请求时区分返回数据；
+	protected int currentTag=0;//鐢ㄤ簬澶氫釜缃戠粶璇锋眰鏃跺尯鍒嗚繑鍥炴暟鎹紱
 	protected MyProgressBar1 pb;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +71,11 @@ public class BaseActivity1 extends FragmentActivity{
 	protected void httpFailure(com.lidroid.xutils.exception.HttpException arg0, String arg1){
 		dismissProgressBar();
 		Config_PT.showToast(this, arg0.getExceptionCode()+":"+arg1);
+		Log.e("error", arg0.getExceptionCode()+":"+arg1);
 	}
 	protected boolean checkResultData(BaseResultBean bean){
 		if(bean==null){
-			Config_PT.showToast(mContext, "bean 为空");
+			Config_PT.showToast(mContext, "bean 涓虹┖");
 			return false;
 		}
 		if(CommonData.Code_Success.equals(bean.getCode())){
@@ -82,22 +84,22 @@ public class BaseActivity1 extends FragmentActivity{
 			return false;
 		}
 	}
-//显示进度
+//鏄剧ず杩涘害
 	protected void showProgressBar(){
 		if(pb!=null&&(!pb.isShowing())){
 			pb.show();
 		}
 	}
-//取消进度显示
+//鍙栨秷杩涘害鏄剧ず
 	protected void dismissProgressBar(){
 		if(pb!=null&&pb.isShowing()){
 			pb.dismiss();
 		}
 	}
-//设置进度文字显示	
+//璁剧疆杩涘害鏂囧瓧鏄剧ず	
 	protected void setTextProgressBar(String s){
 		if(pb!=null){
-			pb.setText(s);
+			pb.setContent(s);
 		}		
 	}
 }

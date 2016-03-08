@@ -1,8 +1,10 @@
 package com.campusmate.view;
 
 import android.content.Context;
+import android.graphics.PointF;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 
 public class MyViewPager  extends ViewPager {  
   
@@ -27,5 +29,5 @@ public class MyViewPager  extends ViewPager {
         if (isCanScroll){  
             super.scrollTo(x, y);  
         }  
-    }  
+    } 	
 }

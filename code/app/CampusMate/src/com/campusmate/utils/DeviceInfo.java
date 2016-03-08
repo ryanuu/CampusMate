@@ -53,7 +53,7 @@ public class DeviceInfo {
 	}
 
 	/**
-	 * »ñÈ¡Ó¦ÓÃµ±Ç°°æ±¾ºÅ
+	 * è·å–åº”ç”¨å½“å‰ç‰ˆæœ¬å·
 	 * 
 	 * @param context
 	 * 
@@ -71,7 +71,7 @@ public class DeviceInfo {
 	}
 	
 	/**
-	 * »ñÈ¡Ó¦ÓÃµ±Ç°°æ±¾Ãû³Æ
+	 * è·å–åº”ç”¨å½“å‰ç‰ˆæœ¬åç§°
 	 * 
 	 * @param context
 	 * 

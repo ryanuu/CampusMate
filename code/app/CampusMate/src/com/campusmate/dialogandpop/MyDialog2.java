@@ -28,7 +28,7 @@ public class MyDialog2 extends Dialog {
 		super.onCreate(savedInstanceState);
 		setContentView(contentView);
 	}
-	//ÉèÖÃĞèÒªÓĞµã»÷ÊÂ¼şµÄ°´Å¥£¨view£©
+	//è®¾ç½®éœ€è¦æœ‰ç‚¹å‡»äº‹ä»¶çš„æŒ‰é’®ï¼ˆviewï¼‰
 	public void setView(int...resources){
 		views=new View[resources.length];
 		for(int i=0;i<resources.length;i++){
@@ -36,7 +36,7 @@ public class MyDialog2 extends Dialog {
 		}
 
 	}
-		//ÉèÖÃ°´Å¥µã»÷ÊÂ¼ş
+		//è®¾ç½®æŒ‰é’®ç‚¹å‡»äº‹ä»¶
 	public void setViewClick(android.view.View.OnClickListener...listener){
 		for(int i=0;i<listener.length&&i<views.length;i++){
 			views[i].setOnClickListener(listener[i]);

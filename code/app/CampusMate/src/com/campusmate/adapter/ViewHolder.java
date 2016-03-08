@@ -28,7 +28,7 @@ public class ViewHolder{
         mConvertView.setTag(this);  
     }  
     /** 
-     * ÄÃµ½Ò»¸öViewHolder¶ÔÏó 
+     * æ‹¿åˆ°ä¸€ä¸ªViewHolderå¯¹è±¡ 
      * @param context 
      * @param convertView 
      * @param parent 
@@ -49,7 +49,7 @@ public class ViewHolder{
   
   
     /** 
-     * Í¨¹ı¿Ø¼şµÄId»ñÈ¡¶ÔÓÚµÄ¿Ø¼ş£¬Èç¹ûÃ»ÓĞÔò¼ÓÈëviews 
+     * é€šè¿‡æ§ä»¶çš„Idè·å–å¯¹äºçš„æ§ä»¶ï¼Œå¦‚æœæ²¡æœ‰åˆ™åŠ å…¥views 
      * @param viewId 
      * @return 
      */  
@@ -71,7 +71,7 @@ public class ViewHolder{
     }  
     
     /** 
-     * ÎªTextViewÉèÖÃ×Ö·û´® 
+     * ä¸ºTextViewè®¾ç½®å­—ç¬¦ä¸² 
      *  
      * @param viewId 
      * @param text 
@@ -84,7 +84,7 @@ public class ViewHolder{
         return this;  
     } 
     /*
-     * ÉèÖÃÆÀĞÇµÈ¼¶
+     * è®¾ç½®è¯„æ˜Ÿç­‰çº§
      */
     public ViewHolder setRating(int viewId, String n)  
     {  
@@ -93,7 +93,7 @@ public class ViewHolder{
         return this;  
     } 
     /*
-     * ÉèÖÃÄ³¸öÊÔÍ¼²»¿É¼û
+     * è®¾ç½®æŸä¸ªè¯•å›¾ä¸å¯è§
      */
     public ViewHolder setImageVisible(int viewId, String n,String show)  
     {  
@@ -106,7 +106,7 @@ public class ViewHolder{
         return this;  
     } 
     /*
-     * ÉèÖÃÄ³¸öÊÔÍ¼²»¿É¼û
+     * è®¾ç½®æŸä¸ªè¯•å›¾ä¸å¯è§
      */
     public ViewHolder setTextViewVisible(int viewId, String n,String show)  
     {  
@@ -119,7 +119,7 @@ public class ViewHolder{
         return this;  
     } 
     /*
-     * ÉèÖÃÄ³¸ö°´Å¥×´Ì¬
+     * è®¾ç½®æŸä¸ªæŒ‰é’®çŠ¶æ€
      */
     public ViewHolder setTextViewStatus(int viewId, String n,String flag)  
     {  
@@ -148,7 +148,7 @@ public class ViewHolder{
         return this;
     }
     /*
-     * ÉèÖÃÄ³¸ötextview ×ÖÌåÑÕÉ«
+     * è®¾ç½®æŸä¸ªtextview å­—ä½“é¢œè‰²
      */
     public ViewHolder setTextColor(int viewId, int color)  
     {  
@@ -157,7 +157,7 @@ public class ViewHolder{
         return this;  
     } 
     /** 
-     * ÎªImageViewÉèÖÃÍ¼Æ¬ 
+     * ä¸ºImageViewè®¾ç½®å›¾ç‰‡ 
      *  
      * @param viewId 
      * @param drawableId 
@@ -178,7 +178,7 @@ public class ViewHolder{
     }
   
     /** 
-     * ÎªImageViewÉèÖÃÍ¼Æ¬ 
+     * ä¸ºImageViewè®¾ç½®å›¾ç‰‡ 
      *  
      * @param viewId 
      * @param drawableId 

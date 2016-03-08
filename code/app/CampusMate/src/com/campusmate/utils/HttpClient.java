@@ -54,22 +54,22 @@ public class HttpClient {
 		HttpUtils http = new HttpUtils();
 		http.send(HttpRequest.HttpMethod.POST,url,params,rc);
 	}
-	//ÇëÇó²ÎÊıÌí¼ÓÍ·²ÎÊı
+	//è¯·æ±‚å‚æ•°æ·»åŠ å¤´å‚æ•°
 	public static HashMap<String, String> headerMap=new HashMap<String, String>();
 	public static void DownLoad(String downurl,String saveurl,RequestCallBack<File> rc){
 		HttpUtils http = new HttpUtils();
 		HttpHandler handler = http.download(downurl,
 		    saveurl,
-		    true, // Èç¹ûÄ¿±êÎÄ¼ş´æÔÚ£¬½Ó×ÅÎ´Íê³ÉµÄ²¿·Ö¼ÌĞøÏÂÔØ¡£·şÎñÆ÷²»Ö§³ÖRANGEÊ±½«´ÓĞÂÏÂÔØ¡£
-		    true, // Èç¹û´ÓÇëÇó·µ»ØĞÅÏ¢ÖĞ»ñÈ¡µ½ÎÄ¼şÃû£¬ÏÂÔØÍê³Éºó×Ô¶¯ÖØÃüÃû¡£
+		    true, // å¦‚æœç›®æ ‡æ–‡ä»¶å­˜åœ¨ï¼Œæ¥ç€æœªå®Œæˆçš„éƒ¨åˆ†ç»§ç»­ä¸‹è½½ã€‚æœåŠ¡å™¨ä¸æ”¯æŒRANGEæ—¶å°†ä»æ–°ä¸‹è½½ã€‚
+		    true, // å¦‚æœä»è¯·æ±‚è¿”å›ä¿¡æ¯ä¸­è·å–åˆ°æ–‡ä»¶åï¼Œä¸‹è½½å®Œæˆåè‡ªåŠ¨é‡å‘½åã€‚
 		     rc);
 	}
 	public static void DownLoad(String downUrl,RequestCallBack<File> rc,String filename){
 		HttpUtils http = new HttpUtils();
 		HttpHandler handler = http.download(downUrl,
 		    Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+filename,
-		    true, // Èç¹ûÄ¿±êÎÄ¼ş´æÔÚ£¬½Ó×ÅÎ´Íê³ÉµÄ²¿·Ö¼ÌĞøÏÂÔØ¡£·şÎñÆ÷²»Ö§³ÖRANGEÊ±½«´ÓĞÂÏÂÔØ¡£
-		    true, // Èç¹û´ÓÇëÇó·µ»ØĞÅÏ¢ÖĞ»ñÈ¡µ½ÎÄ¼şÃû£¬ÏÂÔØÍê³Éºó×Ô¶¯ÖØÃüÃû¡£
+		    true, // å¦‚æœç›®æ ‡æ–‡ä»¶å­˜åœ¨ï¼Œæ¥ç€æœªå®Œæˆçš„éƒ¨åˆ†ç»§ç»­ä¸‹è½½ã€‚æœåŠ¡å™¨ä¸æ”¯æŒRANGEæ—¶å°†ä»æ–°ä¸‹è½½ã€‚
+		    true, // å¦‚æœä»è¯·æ±‚è¿”å›ä¿¡æ¯ä¸­è·å–åˆ°æ–‡ä»¶åï¼Œä¸‹è½½å®Œæˆåè‡ªåŠ¨é‡å‘½åã€‚
 		     rc);
 	}
 	

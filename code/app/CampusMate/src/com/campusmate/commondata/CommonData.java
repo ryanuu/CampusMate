@@ -2,24 +2,34 @@ package com.campusmate.commondata;
 
 public class CommonData {
 
-	//Ä£ÄâºóÌ¨ÍøÖ·
+	//æ¨¡æ‹Ÿåå°ç½‘å€
 	public static String HttpUrl="http://192.168.0.202:8085/" +
 			"InterfaceSimulator/Controller/RequestInterfaceController.java";
-	//³É¹¦·µ»ØÊı¾İcode
+	//å¿—æ˜Ÿåœ°å€
+//	public static String HttpUrl="http://192.168.0.21:8080/xyzs/api/teminal/";
+	//æˆåŠŸè¿”å›æ•°æ®code
 	public static String Code_Success="S1000";
-	//·µ»ØÊı¾İÊ§°Ücode
+	//è¿”å›æ•°æ®å¤±è´¥code
 	public static String Code_Failure="";
-	//sharepreferenceµÄÓÃ»§ĞÅÏ¢µÄ±íÃû
+	//sharepreferenceçš„ç”¨æˆ·ä¿¡æ¯çš„è¡¨å
 	public static String UserInfo="userInfo";
-	//sharepreferenceµÄµÇÂ¼ĞÅÏ¢µÄ±íÃû
+	//sharepreferenceçš„ç™»å½•ä¿¡æ¯çš„è¡¨å
 	public static String LoginInfo="LoginInfo";
-	//µÇÂ¼ÕËºÅ×Ö¶ÎÃû
+	//ç™»å½•è´¦å·å­—æ®µå
 	public static String LoginAccount="LoginAccount";
-	//µÇÂ¼ÃÜÂë×Ö¶ÎÃû
+	//ç™»å½•å¯†ç å­—æ®µå
 	public static String LoginPassword="LoginPassword";
-	//µÇÂ¼×´Ì¬×Ö¶Î £ºÊÇ·ñ±£´æÃÜÂë,ÊÇ·ñ×Ô¶¯µÇÂ½£¬1Îª×Ô¶¯µÇÂ½£¬2Îª¼Ç×¡ÃÜÂë£¬0Îª¿Õ
+	//ç™»å½•çŠ¶æ€å­—æ®µ ï¼šæ˜¯å¦ä¿å­˜å¯†ç ,æ˜¯å¦è‡ªåŠ¨ç™»é™†ï¼Œ1ä¸ºè‡ªåŠ¨ç™»é™†ï¼Œ2ä¸ºè®°ä½å¯†ç ï¼Œ0ä¸ºç©º
 	public static String LoginState="LoginState";
-	//µÇÂ¼½ÇÉ«×Ö¶Î
+	//ç™»å½•è§’è‰²å­—æ®µ
 	public static String LoginRole="LoginRole";
+	//ä¸€å­¦æœŸå…±æœ‰å‡ å‘¨(é»˜è®¤1å‘¨ï¼Œä¾¿äºè°ƒè¯•)
+	public static int WEEKNUN=1;
+	//ä¸€å¤©çš„æ—¶é—´æˆ³
+	public static Long ONE_DAY=24*60*60*1000L;
+	//å½“å‰æ—¶é—´æˆ³
+    public static Long CURRENT_DAY=0L;
+    //å½“å‰å‘¨å‡ 
+    public static String WEEKDAY;
 	
 }

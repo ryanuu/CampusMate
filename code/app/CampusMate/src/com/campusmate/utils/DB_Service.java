@@ -13,7 +13,7 @@ import com.lidroid.xutils.db.sqlite.WhereBuilder;
 
 public class DB_Service {
 	static DbUtils db = null;
-	//´´½¨Êı¾İ¿âµÄÁ½¸ö·½·¨
+	//åˆ›å»ºæ•°æ®åº“çš„ä¸¤ä¸ªæ–¹æ³•
 	public static DbUtils getDb(Context context,String db_name) {
 	    if (context == null) {
 		context = AppContext.getInstance();
@@ -34,7 +34,7 @@ public class DB_Service {
 		}
 		return db;
 	}
-    //É¾³ı±í
+    //åˆ é™¤è¡¨
 	public static <T> void deleteTable(Class<T>...objects){
     	try{
     		for(int i=0;i<objects.length;i++){
@@ -45,7 +45,7 @@ public class DB_Service {
 			e.printStackTrace();
 		}
 	}
-	//´´½¨±í
+	//åˆ›å»ºè¡¨
 	public static <T> void createTable(Class<T>...objects){
     	try{
     		for(int i=0;i<objects.length;i++){
@@ -56,11 +56,11 @@ public class DB_Service {
 		}
 	}
 	/**
-	 * ÅúÁ¿ĞÂÔö
+	 * æ‰¹é‡æ–°å¢
 	 * 
 	 * @param list
 	 */
-	public static <T> void batchInsert(ArrayList<T> list) {
+	public static <T> void batchInsert(List<T> list) {
 		try{
 			db.saveAll(list);	        
 			Log.e(list.get(0).getClass().getName(), "succeed");
@@ -69,7 +69,7 @@ public class DB_Service {
 			e.printStackTrace();
 		}	
 	}
-	//¸ù¾İÒ»¸ö²ÎÊı²éÑ¯£¬ÒÔListµÄ·½Ê½·µ»Ø
+	//æ ¹æ®ä¸€ä¸ªå‚æ•°æŸ¥è¯¢ï¼Œä»¥Listçš„æ–¹å¼è¿”å›
 	public static <T> List<T> queryParams(Class<T> ot, String params,int value) {
 		List<T> list = new ArrayList<T>();
 		try{
@@ -79,7 +79,7 @@ public class DB_Service {
 		}
 		return list;
 	}
-    //¸ù¾İÁ½¸ö²ÎÊı²éÑ¯£¬ÒÔListµÄ·½Ê½·µ»Ø
+    //æ ¹æ®ä¸¤ä¸ªå‚æ•°æŸ¥è¯¢ï¼Œä»¥Listçš„æ–¹å¼è¿”å›
 	public static <T> List<T>  querySting(Class<T> ot, String params1,String params2,int value1,int value2,String op1,String op2) {
 		List<T> list = new ArrayList<T>();
 		try{

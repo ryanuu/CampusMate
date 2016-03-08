@@ -2,47 +2,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    <LinearLayout 
+    <LinearLayout      
         android:id="@+id/main_footer"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
         <TextView 
-            android:id="@+id/footer_1"
-            android:layout_width="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#8C8E8F"
+                android:layout_gravity="top"
+            />
+        <LinearLayout 
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:gravity="center"
-            android:text="page1"/>
-        <TextView 
-            android:id="@+id/footer_2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="page2"/>
-        <TextView 
-            android:id="@+id/footer_3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="page3"/>
-        <TextView 
-            android:id="@+id/footer_4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="page4"/>
+            android:orientation="horizontal"
+            android:background="@color/white_course">    
+            <LinearLayout 
+                android:id="@+id/footer_ll_1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView 
+                    android:id="@+id/footer_1"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:gravity="center"
+                    android:background="@drawable/drawable_course_icon_bottom"/>
+            </LinearLayout>
+            <LinearLayout 
+                android:id="@+id/footer_ll_2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/footer_2" 
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:gravity="center"
+                    android:enabled="false"
+                    android:background="@drawable/drawable_my_icon_bottom"/>
+            </LinearLayout>    
+        </LinearLayout>       
     </LinearLayout>
     <com.campusmate.view.MyViewPager
         android:id="@+id/main_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/main_footer"
-        android:background="@color/blue_app"
-        ></com.campusmate.view.MyViewPager>
+        android:layout_above="@id/main_footer">
+        
+    </com.campusmate.view.MyViewPager>
 </RelativeLayout>

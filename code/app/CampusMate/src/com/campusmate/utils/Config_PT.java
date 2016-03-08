@@ -36,15 +36,15 @@ public class Config_PT {
 	}
 	/** 
      *  
-     * @param mContext ÉÏÏÂÎÄ£¬À´Çø±ğÄÄÒ»¸öactivityµ÷ÓÃµÄ 
-     * @param whichSp Ê¹ÓÃµÄSharedPreferencesµÄÃû×Ö 
-     * @param field SharedPreferencesµÄÄÄÒ»¸ö×Ö¶Î 
+     * @param mContext ä¸Šä¸‹æ–‡ï¼Œæ¥åŒºåˆ«å“ªä¸€ä¸ªactivityè°ƒç”¨çš„ 
+     * @param whichSp ä½¿ç”¨çš„SharedPreferencesçš„åå­— 
+     * @param field SharedPreferencesçš„å“ªä¸€ä¸ªå­—æ®µ 
      * @return 
      */  
-    //È¡³öwhichSpÖĞfield×Ö¶Î¶ÔÓ¦µÄstringÀàĞÍµÄÖµ  
+    //å–å‡ºwhichSpä¸­fieldå­—æ®µå¯¹åº”çš„stringç±»å‹çš„å€¼  
     public static String getSharePreStr(Context mContext,String whichSp,String field){  
         SharedPreferences sp=(SharedPreferences) mContext.getSharedPreferences(whichSp, Activity.MODE_PRIVATE);  
-        String s=sp.getString(field,"");//Èç¹û¸Ã×Ö¶ÎÃ»¶ÔÓ¦Öµ£¬ÔòÈ¡³ö×Ö·û´®0  
+        String s=sp.getString(field,"");//å¦‚æœè¯¥å­—æ®µæ²¡å¯¹åº”å€¼ï¼Œåˆ™å–å‡ºå­—ç¬¦ä¸²0  
         return s;  
     }  
     /**
@@ -59,18 +59,18 @@ public class Config_PT {
 	public static void setUserType(String userType) {
 		UserType = userType;
 	}
-	//È¡³öwhichSpÖĞfield×Ö¶Î¶ÔÓ¦µÄintÀàĞÍµÄÖµ  
+	//å–å‡ºwhichSpä¸­fieldå­—æ®µå¯¹åº”çš„intç±»å‹çš„å€¼  
     public static int getSharePreInt(Context mContext,String whichSp,String field){  
         SharedPreferences sp=(SharedPreferences) mContext.getSharedPreferences(whichSp, 0);  
-        int i=sp.getInt(field,0);//Èç¹û¸Ã×Ö¶ÎÃ»¶ÔÓ¦Öµ£¬ÔòÈ¡³ö0  
+        int i=sp.getInt(field,0);//å¦‚æœè¯¥å­—æ®µæ²¡å¯¹åº”å€¼ï¼Œåˆ™å–å‡º0  
         return i;  
     }  
-    //±£´æstringÀàĞÍµÄvalueµ½whichSpÖĞµÄfield×Ö¶Î  
+    //ä¿å­˜stringç±»å‹çš„valueåˆ°whichSpä¸­çš„fieldå­—æ®µ  
     public static void putSharePre(Context mContext,String whichSp,String field,String value){  
         SharedPreferences sp=(SharedPreferences) mContext.getSharedPreferences(whichSp, 0);  
         sp.edit().putString(field, value).commit();  
     }  
-    //±£´æintÀàĞÍµÄvalueµ½whichSpÖĞµÄfield×Ö¶Î  
+    //ä¿å­˜intç±»å‹çš„valueåˆ°whichSpä¸­çš„fieldå­—æ®µ  
     public static void putSharePre(Context mContext,String whichSp,String field,int value){  
         SharedPreferences sp=(SharedPreferences) mContext.getSharedPreferences(whichSp, 0);  
         sp.edit().putInt(field, value).commit();  
@@ -79,7 +79,7 @@ public class Config_PT {
 	public static void showToast(Context mContext,String msg){
 		    Toast toast=new Toast(mContext);  
 	        toast=Toast.makeText(mContext,msg, 300);  
-	        toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0);//ÉèÖÃ¾ÓÖĞ  
+	        toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0);//è®¾ç½®å±…ä¸­  
 	        toast.show();
 	}
 }

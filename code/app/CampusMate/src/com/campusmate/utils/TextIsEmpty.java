@@ -6,9 +6,9 @@ import java.util.regex.Pattern;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
-//ÅĞ¶Ï×Ö·û´®±äÁ¿ÊÇ·ñÎª¿Õ£»ÅĞ¶ÏÊÖ»úºÅÂë¸ñÊ½ÊÇ·ñÕıÈ·
+//åˆ¤æ–­å­—ç¬¦ä¸²å˜é‡æ˜¯å¦ä¸ºç©ºï¼›åˆ¤æ–­æ‰‹æœºå·ç æ ¼å¼æ˜¯å¦æ­£ç¡®
 public class TextIsEmpty {
-	//ÅĞ¶Ï×Ö·û´®±äÁ¿ÊÇ·ñÎª¿Õ
+	//åˆ¤æ–­å­—ç¬¦ä¸²å˜é‡æ˜¯å¦ä¸ºç©º
 	public static boolean isEmpty(String text){
 		if(null==text){
 			return true;
@@ -27,7 +27,7 @@ public class TextIsEmpty {
 		}	
 		return false;
 	}
-	//ÅĞ¶ÏÊÖ»úºÅÂë¸ñÊ½ÊÇ·ñÕıÈ·
+	//åˆ¤æ–­æ‰‹æœºå·ç æ ¼å¼æ˜¯å¦æ­£ç¡®
 	public static boolean isPhoneNumber(String phoneNumber){
 		Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,3-9]))\\d{8}$");  
 
@@ -37,7 +37,7 @@ public class TextIsEmpty {
 
 		return m.matches();
 	}
-	//ÅĞ¶Ï¶à¸öTextviewÊÇ·ñÎª¿Õ
+	//åˆ¤æ–­å¤šä¸ªTextviewæ˜¯å¦ä¸ºç©º
 	public static int textViewIsEmpty(TextView...textViews ){
 		int result=-1;
 		for(int i=0;i<textViews.length;i++){
@@ -48,7 +48,7 @@ public class TextIsEmpty {
 		}
 		return result;
 	}
-	//ÅĞ¶Ï¶à¸öEditTextÊÇ·ñÎª¿Õ
+	//åˆ¤æ–­å¤šä¸ªEditTextæ˜¯å¦ä¸ºç©º
 	public static int editTextIsEmpty(EditText...textViews){
 		int result=-1;
 		for(int i=0;i<textViews.length;i++){

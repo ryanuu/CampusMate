@@ -1,9 +1,12 @@
 package com.campusmate.activity;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Intent;
@@ -17,13 +20,13 @@ import android.widget.TextView;
 
 import com.campusmate.BaseActivity2;
 import com.campusmate.R;
-import com.campusmate.bean.BaseResultBean;
-import com.campusmate.bean.LoginResultBean;
 import com.campusmate.commondata.CommonData;
+import com.campusmate.resultbean.LoginResultBean;
 import com.campusmate.utils.Config_PT;
 import com.campusmate.utils.GsonAnalyze;
 import com.campusmate.utils.HttpClient;
 import com.campusmate.utils.TextIsEmpty;
+import com.google.gson.stream.JsonReader;
 import com.lidroid.xutils.http.ResponseInfo;
 
 public class LoginActivity extends BaseActivity2 implements OnClickListener{
@@ -38,9 +41,9 @@ public class LoginActivity extends BaseActivity2 implements OnClickListener{
 	private TextView loginBtn;
 	
 	private LoginResultBean bean;
-	private boolean RememberAP=true;//¼Ç×¡ÃÜÂë
-	private boolean AutoLogin=false;//×Ô¶¯µÇÂ½
-	private String role="1";//½ÇÉ«£¬Ä¬ÈÏÎªÑ§Éú
+	private boolean RememberAP=true;//è®°ä½å¯†ç 
+	private boolean AutoLogin=false;//è‡ªåŠ¨ç™»é™†
+	private String role="1";//è§’è‰²ï¼Œé»˜è®¤ä¸ºå­¦ç”Ÿ
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,44 +79,55 @@ public class LoginActivity extends BaseActivity2 implements OnClickListener{
 	protected void initAsyc() {
 		// TODO Auto-generated method stub
 		super.initAsyc();
-		String state=Config_PT.getSharePreStr(mContext, CommonData.LoginInfo,
+		String state=Config_PT.getSharePreStr(this, CommonData.LoginInfo,
 				CommonData.LoginState);
-		if("1".equals(state)){//×Ô¶¯µÇÂ½
-			autolBtn.performClick();
-			userAccount.setText(Config_PT.getSharePreStr(mContext, CommonData.LoginInfo,
+		Log.e("loginstate", state);
+		if("1".equals(state)){//è‡ªåŠ¨ç™»é™†
+			AutoLogin=true;
+			autolBtn.setChecked(true);
+			userAccount.setText(Config_PT.getSharePreStr(this, CommonData.LoginInfo,
 				CommonData.LoginAccount));
-			userPassword.setText(Config_PT.getSharePreStr(mContext, CommonData.LoginInfo,
+			userPassword.setText(Config_PT.getSharePreStr(this, CommonData.LoginInfo,
 					CommonData.LoginPassword));
-			role=Config_PT.getSharePreStr(mContext, CommonData.LoginInfo,
+			role=Config_PT.getSharePreStr(this, CommonData.LoginInfo,
 					CommonData.LoginRole);
-			if("1".equals(role)){//½ÇÉ«ÎªÑ§Éú
-				student.performClick();
-			}else{//½ÇÉ«ÎªÀÏÊ¦
-				teacher.performClick();
+			if("1".equals(role)){//è§’è‰²ä¸ºå­¦ç”Ÿ
+				student.setEnabled(false);
+				teacher.setEnabled(true);
+			}else{//è§’è‰²ä¸ºè€å¸ˆ
+				student.setEnabled(true);
+				teacher.setEnabled(false);
 			}
 			httpPost();
-		}else if("2".equals(state)){//¼Ç×¡ÃÜÂë
-			rememberBtn.performClick();
-			userAccount.setText(Config_PT.getSharePreStr(mContext, CommonData.LoginInfo,
+		}else if("2".equals(state)){//è®°ä½å¯†ç 
+			rememberBtn.setChecked(true);
+			RememberAP=true;
+			userAccount.setText(Config_PT.getSharePreStr(this, CommonData.LoginInfo,
 					CommonData.LoginAccount));
-			userPassword.setText(Config_PT.getSharePreStr(mContext, CommonData.LoginInfo,
+			userPassword.setText(Config_PT.getSharePreStr(this, CommonData.LoginInfo,
 					CommonData.LoginPassword));
-			role=Config_PT.getSharePreStr(mContext, CommonData.LoginInfo,
+			role=Config_PT.getSharePreStr(this, CommonData.LoginInfo,
 					CommonData.LoginRole);
-			if("1".equals(role)){//½ÇÉ«ÎªÑ§Éú
-				student.performClick();
-			}else{//½ÇÉ«ÎªÀÏÊ¦
-				teacher.performClick();
+			if("1".equals(role)){//è§’è‰²ä¸ºå­¦ç”Ÿ
+				student.setEnabled(false);
+				teacher.setEnabled(true);
+			}else{//è§’è‰²ä¸ºè€å¸ˆ
+				student.setEnabled(true);
+				teacher.setEnabled(false);
 			}
-		}else if("0".equals(state)){//¿Õ
-			
+			userPassword.requestFocus();
+		}else{//ç©º
+			student.performClick();
+			rememberBtn.setChecked(true);
+			RememberAP=true;
 		}
 		
 	}
 	private void httpPost(){
+//		String url=CommonData.HttpUrl+"login";
 		String url=CommonData.HttpUrl;
 		HashMap<String, String> map=new HashMap<String, String>();
-		map.put("act", "101");
+		map.put("act", "login");
 		map.put("username", userAccount.getText().toString());
 		map.put("password", userPassword.getText().toString());
 		map.put("role", role);
@@ -126,11 +140,10 @@ public class LoginActivity extends BaseActivity2 implements OnClickListener{
 	protected void httpSuccess(ResponseInfo<String> arg0) {
 		// TODO Auto-generated method stub
 		super.httpSuccess(arg0);
-		Log.e("login result", arg0.result);
 		bean=GsonAnalyze.analyze(arg0.result, LoginResultBean.class);
 		if(checkResultData(bean)){
 			saveUserInfo(arg0.result);			
-			if(AutoLogin){//Èç¹ûÉèÖÃ³É×Ô¶¯µÇÂ½£¨×Ô¶¯µÇÂ½±£º¬¼Ç×¡ÃÜÂë£©
+			if(AutoLogin){//å¦‚æœè®¾ç½®æˆè‡ªåŠ¨ç™»é™†ï¼ˆè‡ªåŠ¨ç™»é™†ä¿å«è®°ä½å¯†ç ï¼‰
 				HashMap<String, String> map=new HashMap<String, String>();
 				map.put(CommonData.LoginState,"1");
 				map.put(CommonData.LoginAccount, userAccount.getText().toString());
@@ -138,7 +151,7 @@ public class LoginActivity extends BaseActivity2 implements OnClickListener{
 				map.put(CommonData.LoginRole, role);
 				saveLoginInfo(map);
 				
-			}else if(RememberAP){//Èç¹ûÉèÖÃ³É¼Ç×¡ÃÜÂë
+			}else if(RememberAP){//å¦‚æœè®¾ç½®æˆè®°ä½å¯†ç 
 				HashMap<String, String> map=new HashMap<String, String>();
 				map.put(CommonData.LoginState,"2");
 				map.put(CommonData.LoginAccount, userAccount.getText().toString());
@@ -152,34 +165,42 @@ public class LoginActivity extends BaseActivity2 implements OnClickListener{
 			}
 			Intent intent =new Intent(this,MainActivity.class);
 			startActivity(intent);
+//			this.finish();
 		}
-	    Config_PT.showToast(mContext, bean.getReason());
+	    Config_PT.showToast(this, bean.getCodeText());
 		
 		
 	}
-	//±£´æÓÃ»§ĞÅÏ¢
+	//ä¿å­˜ç”¨æˆ·ä¿¡æ¯
 		public void saveUserInfo(String jsondata){
 			try{
 				JSONObject jsonobject=new JSONObject(jsondata);
-				JSONObject jsonmap=jsonobject.getJSONObject("data");	
-				Iterator<String> nameItr = jsonmap.keys();
+				JSONArray jsonlist=jsonobject.getJSONArray("data");
+				JSONObject jsonmap=jsonlist.getJSONObject(0);
+				Iterator<String> nameItr = jsonmap.keys();			
 				String name;
+				String s="";
 				while(nameItr.hasNext()){
 					name=nameItr.next();
 					Config_PT.putSharePre(mContext, CommonData.UserInfo, name, jsonmap.getString(name));
+					s+=name+":"+jsonmap.getString(name)+"  ";
 				}
+				Log.e("saveUserInfo", s);
 			}catch(Exception e){
-				e.printStackTrace();
+				Log.e("saveUserInfo", "failed");
+				e.printStackTrace();				
 			}
 			
 		}
-   //±£´æµÇÂ½ĞÅÏ¢£ºÊÇ·ñ¼Ç×¡ÃÜÂë£¬ÊÇ·ñ×Ô¶¯µÇÂ½
+   //ä¿å­˜ç™»é™†ä¿¡æ¯ï¼šæ˜¯å¦è®°ä½å¯†ç ï¼Œæ˜¯å¦è‡ªåŠ¨ç™»é™†
 		public void saveLoginInfo(HashMap<String, String> map){
+			String s="";
 			for (HashMap.Entry<String, String> entry : map.entrySet()) {
-				Config_PT.putSharePre(mContext, CommonData.LoginInfo,
+				Config_PT.putSharePre(this, CommonData.LoginInfo,
 						entry.getKey(), entry.getValue()); 
+				s+=(entry.getKey()+":"+ entry.getValue()+"   ");
 	         }
-			
+			Log.e("saveLoginInfo", s);
 		}
 	@Override
 	public void onClick(View v) {
@@ -194,27 +215,31 @@ public class LoginActivity extends BaseActivity2 implements OnClickListener{
 		case R.id.autol_tv:
 			autolBtn.setChecked(!autolBtn.isChecked());
 			AutoLogin=autolBtn.isChecked();
-			rememberBtn.performClick();//×Ô¶¯µÇÂ½Ä¬ÈÏ°üº¬¼Ç×¡ÃÜÂë
+			//è‡ªåŠ¨ç™»é™†é»˜è®¤åŒ…å«è®°ä½å¯†ç 
+			if(autolBtn.isChecked()){
+				rememberBtn.setChecked(true);
+				RememberAP=true;
+			}		
 			break;
 		case R.id.student:
-			student.setEnabled(true);
-			teacher.setEnabled(false);
+			student.setEnabled(false);
+			teacher.setEnabled(true);
 			role="1";
 			break;
 		case R.id.teacher:
-			student.setEnabled(false);
-			teacher.setEnabled(true);
+			student.setEnabled(true);
+			teacher.setEnabled(false);		
 			role="2";
 			break;
 		case R.id.login_btn:
-			//ÅĞ¶ÏÕËºÅÊÇ·ñÎª¿Õ
+			//åˆ¤æ–­è´¦å·æ˜¯å¦ä¸ºç©º
 		    if(TextIsEmpty.isEmpty(userAccount.getText().toString())){
-		    	Config_PT.showToast(mContext, "Ñ§ºÅ/¹¤ºÅ ²»ÄÜÎª¿Õ");
+		    	Config_PT.showToast(this, "å­¦å·/å·¥å· ä¸èƒ½ä¸ºç©º");
 		    	break;
 		    }
-		    //ÅĞ¶ÏÃÜÂëÊÇ·ñÎª¿Õ
+		    //åˆ¤æ–­å¯†ç æ˜¯å¦ä¸ºç©º
 		    else if(TextIsEmpty.isEmpty(userPassword.getText().toString())){
-		    	Config_PT.showToast(mContext, "ÃÜÂë ²»ÄÜÎª¿Õ");
+		    	Config_PT.showToast(this, "å¯†ç  ä¸èƒ½ä¸ºç©º");
 		    	break;
 		    }
 		    httpPost();

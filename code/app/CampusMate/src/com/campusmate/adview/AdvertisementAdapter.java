@@ -61,8 +61,7 @@ public class AdvertisementAdapter extends PagerAdapter {
 		try {
 			String head_img = advertiseArray.optJSONObject(position).optString("head_img");
 			ImageView ivAdvertise = (ImageView) view.findViewById(R.id.ivAdvertise);
-//			ImageLoaderUtil.getImage(context,ivAdvertise,head_img, R.drawable.ic_launcher, R.drawable.ic_launcher,0,0);
-			Picasso.with(context).load(head_img).error(R.drawable.ic_launcher)
+			Picasso.with(context).load(head_img).error(R.drawable.banner)
 			.into(ivAdvertise);
 			ivAdvertise.setOnClickListener(new OnClickListener() {
 				@Override

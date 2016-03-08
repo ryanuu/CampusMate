@@ -5,36 +5,36 @@ import android.os.Bundle;
 import com.campusmate.dialogandpop.MyDialog1;
 import com.campusmate.dialogandpop.MyDialog2;
 import com.campusmate.dialogandpop.MyPopupWindow1;
-//»ùÀàActivity£¬ÊµÏÖµÄ¹¦ÄÜÓĞµ¯³ödialogºÍpopupwindow
+//åŸºç±»Activityï¼Œå®ç°çš„åŠŸèƒ½æœ‰å¼¹å‡ºdialogå’Œpopupwindow
 public class BaseActivity2 extends BaseActivity1{
-	protected static int ONLYPOP=0; //ĞèÒªÏÔÊ¾pop
-	protected static int ONLYDIALOG2=1;//ĞèÒªÏÔÊ¾dialog2
-	protected static int BOTHPAD=3;//ĞèÒªÏÔÊ¾Á½Õß
-	protected MyDialog1 dialog1;//ÆÕ±éÑùÊ½dialog£¨×Ô¶¯Éú³É£©
-	protected MyDialog2 dialog2;//Ö§³Ö×Ô¶¨ÒåÑùÊ½dialog
-	protected MyPopupWindow1 pop1;//Ö§³Ö×Ô¶¨ÒåÑùÊ½popupwindow
+	protected static int ONLYPOP=0; //éœ€è¦æ˜¾ç¤ºpop
+	protected static int ONLYDIALOG2=1;//éœ€è¦æ˜¾ç¤ºdialog2
+	protected static int BOTHPAD=3;//éœ€è¦æ˜¾ç¤ºä¸¤è€…
+	protected MyDialog1 dialog1;//æ™®éæ ·å¼dialogï¼ˆè‡ªåŠ¨ç”Ÿæˆï¼‰
+	protected MyDialog2 dialog2;//æ”¯æŒè‡ªå®šä¹‰æ ·å¼dialog
+	protected MyPopupWindow1 pop1;//æ”¯æŒè‡ªå®šä¹‰æ ·å¼popupwindow
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 	}
-    //Ö»ĞèÒªdialog1Ê±µ÷ÓÃ£¨×Ô¶¯Éú³É£©
+    //åªéœ€è¦dialog1æ—¶è°ƒç”¨ï¼ˆè‡ªåŠ¨ç”Ÿæˆï¼‰
 	@Override
 	protected void initWidget() {
 		// TODO Auto-generated method stub
 		super.initWidget();
 		dialog1=new MyDialog1(mContext);
 	}
-	//ĞèÒªpopupwindowºÍ×Ô¶¨Òådialog2Ê±µ÷ÓÃ
+	//éœ€è¦popupwindowå’Œè‡ªå®šä¹‰dialog2æ—¶è°ƒç”¨
 	protected void initWidget(int type,int...resource){
 		switch(type){
-		case 0://Ö»ĞèÒªpop
+		case 0://åªéœ€è¦pop
 			pop1=new MyPopupWindow1(this,resource[0]);
 			break;
-		case 1://Ö»ĞèÒªdialog2
+		case 1://åªéœ€è¦dialog2
 			dialog2=new MyDialog2(mContext, resource[0]);
 			break;
-		case 2://Í¬Ê±ĞèÒª
+		case 2://åŒæ—¶éœ€è¦
 			pop1=new MyPopupWindow1(this,resource[0]);
 			dialog2=new MyDialog2(mContext, resource[1]);
 			break;

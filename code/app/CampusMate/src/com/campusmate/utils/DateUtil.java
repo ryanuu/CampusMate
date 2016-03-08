@@ -21,7 +21,7 @@ public class DateUtil {
 	}
 
 	/*
-	 * ½«ÈÕÆÚ×ª³É×Ö·û´®¸ñÊ½
+	 * å°†æ—¥æœŸè½¬æˆå­—ç¬¦ä¸²æ ¼å¼
 	 */
 	public static String formatDateTime(Date date) {
 		if (date == null)
@@ -36,7 +36,7 @@ public class DateUtil {
 	}
 
 	/*
-	 * ½«×Ö·û´®×ª»¯³ÉÈÕÆÚ¸ñÊ½
+	 * å°†å­—ç¬¦ä¸²è½¬åŒ–æˆæ—¥æœŸæ ¼å¼
 	 */
 	public static Date parseDateTime(String dateStr) {
 		try {
@@ -46,33 +46,63 @@ public class DateUtil {
 		}
 	}
 	/*
-	 * ½«Long×ª»¯³ÉÈÕÆÚ¸ñÊ½
+	 * å°†Longè½¬åŒ–æˆæ—¥æœŸæ ¼å¼
 	 */
-	public static String LongToDate(Long dateStr) {
-		try {
-			return DATE_TIME_FORMAT.format(DATE_TIME_FORMAT.parse(dateStr+""));
-		} catch (ParseException ex) {
-			return null;
-		}
+	public static String LongToDate(Long dateStr) throws ParseException {
+		return DATE_TIME_FORMAT.format(new Date(dateStr)); 
 	}
 	/*
-	 * ½«Double×ª»¯³ÉÈÕÆÚ¸ñÊ½
+	 * å°†Longè½¬åŒ–æˆæ—¥æœŸæ ¼å¼
 	 */
-	public static String DoubleToDate(Double dateStr) {
-		try {
-			return DATE_TIME_FORMAT.format(DATE_TIME_FORMAT.parse(dateStr+""));
-		} catch (ParseException ex) {
-			return null;
-		}
+	public static String LongToDate(Long dateStr,String TIME_PATTERN) throws ParseException {
+		return new SimpleDateFormat(
+				TIME_PATTERN).format(new Date(dateStr));
 	}
 	/*
-	 * ½«String×ª»¯³ÉÈÕÆÚ¸ñÊ½
+	 * å°†Stringè½¬åŒ–æˆæ—¥æœŸæ ¼å¼
 	 */
 	public static String StringToDate(String dateStr) {
 		try {
 			return DATE_TIME_FORMAT.format(DATE_TIME_FORMAT.parse(dateStr));
 		} catch (ParseException ex) {
 			return null;
+		}
+	}
+	/*
+	 * æ¯”è¾ƒä¸¤ä¸ªæ—¥æœŸçš„å¤§å°
+	 */
+	public static int Compare_Date(Long date1,Long date2) {
+		Date dt1 = new Date(date1);
+        Date dt2 = new Date(date2);;
+        if (dt1.getTime() > dt2.getTime()) {
+            System.out.println("dt1 åœ¨dt2å‰");
+            return 1;
+        } else if (dt1.getTime() < dt2.getTime()) {
+            System.out.println("dt1åœ¨dt2å");
+            return -1;
+        } else {
+            return 0;
+        }
+	}
+	/*
+	 * æ¯”è¾ƒä¸¤ä¸ªæ—¥æœŸçš„å¤§å°
+	 */
+	public static int Compare_Date(String date1,String date2) {
+		try {
+            Date dt1 = DATE_TIME_FORMAT.parse(date1);
+            Date dt2 = DATE_TIME_FORMAT.parse(date2);
+            if (dt1.getTime() > dt2.getTime()) {
+                System.out.println("dt1 åœ¨dt2å‰");
+                return 1;
+            } else if (dt1.getTime() < dt2.getTime()) {
+                System.out.println("dt1åœ¨dt2å");
+                return -1;
+            } else {
+                return 0;
+            }
+		} catch (ParseException ex) {
+			ex.printStackTrace();
+			return -2;
 		}
 	}
 }
