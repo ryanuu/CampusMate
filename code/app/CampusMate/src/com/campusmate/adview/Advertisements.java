@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -96,6 +97,7 @@ public class Advertisements implements OnPageChangeListener
 				msg.what = 0x01;
 				msg.obj = currentPage;
 				runHandler.sendMessage(msg);
+				Log.e("ad_timer", "isRunning");
 			}
 		};
 		timer.schedule(task, 0, timeDratioin);
@@ -148,5 +150,14 @@ public class Advertisements implements OnPageChangeListener
 		count = position;
 		setCurrentDot(position);
 	}
+
+	public Timer getTimer() {
+		return timer;
+	}
+
+	public void setTimer(Timer timer) {
+		this.timer = timer;
+	}
+	
 	
 }

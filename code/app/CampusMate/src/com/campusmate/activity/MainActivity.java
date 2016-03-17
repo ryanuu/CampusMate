@@ -15,7 +15,6 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.campusmate.BaseActivity2;
 import com.campusmate.R;
 import com.campusmate.adapter.MainFragmentPagerAdapter;
 import com.campusmate.bean.SectionList;
@@ -36,7 +35,7 @@ import com.tencent.android.tpush.XGPushManager;
 import com.tencent.android.tpush.service.XGPushService;
 
 
-public class MainActivity extends BaseActivity2 implements OnClickListener{	
+public class MainActivity extends SigninActivity implements OnClickListener{	
 	private LinearLayout mainFooter;
 	private TextView footer1;
 	private TextView footer2;
@@ -58,6 +57,28 @@ public class MainActivity extends BaseActivity2 implements OnClickListener{
 		Intent service = new Intent(context, XGPushService.class);
 		context.startService(service);
 	}
+	
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+	}
+
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+	}
+
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+	}
+
 
 	@Override
 	protected void initviewAndListener() {

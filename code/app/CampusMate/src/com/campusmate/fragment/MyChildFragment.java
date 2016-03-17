@@ -42,6 +42,7 @@ public class MyChildFragment extends BaseFragment{
 	private boolean isFrist=true;
 	private CourseListBean result_bean;
 	private int httpTag=0;
+	private Advertisements advertisements;//广告条
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -61,6 +62,18 @@ public class MyChildFragment extends BaseFragment{
 		Log.e("initCreate", reCreateView+"");
 		return view;
 	}
+	
+
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		if(advertisements.getTimer()!=null){
+			advertisements.getTimer().cancel();
+			Log.e("ad_timer", "cancel");
+		}
+		super.onDestroy();
+	}
+
 
 	@Override
 	public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -237,7 +250,9 @@ public class MyChildFragment extends BaseFragment{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		adLl.addView(new Advertisements(this.getActivity(), true, inflater, 3000).initView(advertiseArray));
+		advertisements=new Advertisements(this.getActivity(), true, inflater, 3000);
+		
+		adLl.addView(advertisements.initView(advertiseArray));
 	}
 	private void httpPost1(){
 		httpTag=1;

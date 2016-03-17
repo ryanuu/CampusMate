@@ -7,6 +7,17 @@
     <uses-sdk
         android:minSdkVersion="10"
         android:targetSdkVersion="21" />
+     <!-- 【必须】 BLE所需权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+<!-- 設置是否允许在沒有BLE的设备运行. -->
+
+
+<uses-feature android:name="android.hardware.bluetooth_le" android:required="false"/>
+
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <!-- 【必须】 信鸽SDK所需权限 -->
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -47,6 +58,11 @@
         </activity>
         <activity android:name="com.campusmate.BaseActivity2" >
         </activity>
+        <activity android:name="com.campusmate.activity.SigninActivity" >
+        </activity>
+        <service
+           android:name="com.cemt.ble.service.BeaconService"
+           android:exported="false" />
         <!-- APP项目的其它配置... -->
  
    <!-- 【必须】 信鸽receiver广播接收 -->
