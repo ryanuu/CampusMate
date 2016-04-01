@@ -160,6 +160,19 @@ public class MyFragment1 extends BaseFragment{
 				scroll_direction=0;
 			}  	          
 		                
-     }   
+     }
+	public ArrayList<MyChildFragment> getChildFragments() {
+		return childFragments;
+	}
+	public void setChildFragments(ArrayList<MyChildFragment> childFragments) {
+		this.childFragments = childFragments;
+	}
+	
+	public MyViewPager getChildBody() {
+		return childBody;
+	}
+	public void setChildBody(MyViewPager childBody) {
+		this.childBody = childBody;
+	}
 	
 }

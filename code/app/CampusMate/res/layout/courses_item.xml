@@ -54,7 +54,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:text="高等数学"
+                        android:text=""
                         android:duplicateParentState="true"
                         android:textColor="@drawable/color_black2white"/>
                     <LinearLayout 
@@ -66,7 +66,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             
-                            android:text="10:00-11:00"
+                            android:text=""
                             android:textColor="@drawable/color_black2white"/>
                         <TextView 
                             android:id="@+id/course_address"
@@ -74,7 +74,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:text="10:00-11:00"
+                            android:text=""
                             android:paddingRight="5dp"
                             android:textColor="@drawable/color_black2white"/>
                     </LinearLayout>
@@ -93,7 +93,7 @@
                         android:id="@+id/course_signin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"                      
-                        android:text="11:00"
+                        android:text=""
                         android:paddingBottom="5dp"
                         android:drawableLeft="@drawable/drawable_coursesignin"
                         android:drawablePadding="2dp"
@@ -102,7 +102,7 @@
                         android:id="@+id/course_signout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10:00"
+                        android:text=""
                         android:drawablePadding="2dp"
                         android:drawableLeft="@drawable/drawable_coursesignout"
                         android:textColor="@drawable/color_black2white"/>

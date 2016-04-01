@@ -1,19 +1,15 @@
 package com.campusmate.dialogandpop;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
-import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.campusmate.R;
 
@@ -45,6 +41,11 @@ public class MyProgressBar1{
 
 		Window window = dialog.getWindow();
 		window.setContentView(R.layout.common_progressbar);
+		//设置背景半透明
+		WindowManager.LayoutParams winlp = dialog.getWindow()  
+		        .getAttributes();  
+		winlp.alpha = 0.5f; // 0.0-1.0 
+		window.setAttributes(winlp);
 		TextView tv_content = (TextView) window.findViewById(R.id.pbtv);
 		if(!"".equals(content))
 		tv_content.setText(content);

@@ -30,12 +30,13 @@ import com.campusmate.utils.DB_Service;
 import com.campusmate.utils.GsonAnalyze;
 import com.campusmate.utils.HttpClient;
 import com.campusmate.view.MyViewPager;
+import com.cemt.ble.base.BeaconDev;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.tencent.android.tpush.XGPushManager;
 import com.tencent.android.tpush.service.XGPushService;
 
 
-public class MainActivity extends SigninActivity implements OnClickListener{	
+public class MainActivity extends SignInActivity implements OnClickListener{	
 	private LinearLayout mainFooter;
 	private TextView footer1;
 	private TextView footer2;
@@ -45,6 +46,8 @@ public class MainActivity extends SigninActivity implements OnClickListener{
 	private WeekListBean weekbean;
 	private SectionListBean sectionbean;
 	private boolean ForcedToChangeWeek=true;//强行改变周表
+	private int SIGN_STATE=0;//签到状态，0表示为进行签到；1表示已签到；2表示已签退
+	private MyFragment1 fragment1;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -102,12 +105,12 @@ public class MainActivity extends SigninActivity implements OnClickListener{
 		//检查周表和节表
 		checkTableIsExist(1);
 	}
-	//签到
-	private void signIn(){
-		
+	//蓝牙数据获取、签到
+	protected void BlesignIn(List<BeaconDev> list){
+		httpPost3(list.get(0).getUuid());
 	}
-	//签退
-	private void signOut(){
+	//蓝牙数据获取、签退
+	protected void BlesignOut(List<BeaconDev> list){
 		
 	}
 	//初始化数据
@@ -118,7 +121,7 @@ public class MainActivity extends SigninActivity implements OnClickListener{
 		}catch(Exception e){
 			e.printStackTrace();
 		}		
-		fragmentlist.add(new MyFragment1(this.getSupportFragmentManager()));
+		fragmentlist.add(fragment1=new MyFragment1(this.getSupportFragmentManager()));
 		fragmentlist.add(new MyFragment2());
 		mainBody.setAdapter(new MainFragmentPagerAdapter(this.getSupportFragmentManager(), fragmentlist));
 		mainBody.setCurrentItem(0);
@@ -197,6 +200,7 @@ public class MainActivity extends SigninActivity implements OnClickListener{
     } 
 	 //获取周列表
 	private void httpPost1(){
+		setTextProgressBar("获取周表..");
 		currentHttp=1;
 		String url=CommonData.HttpUrl;
 //		String url=CommonData.HttpUrl+"104";
@@ -208,6 +212,7 @@ public class MainActivity extends SigninActivity implements OnClickListener{
 	}
 	//获取节列表
 	private void httpPost2(){
+		setTextProgressBar("获取时间表..");
 		currentHttp=2;
 		String url=CommonData.HttpUrl;
 //		String url=CommonData.HttpUrl+"105";
@@ -218,8 +223,20 @@ public class MainActivity extends SigninActivity implements OnClickListener{
 		HttpClient.Post(url, map, rc, mContext);
 	}
 	//签到和签退
-	private void httpPost3(int i){
+	private void httpPost3(String uuid){
+		setTextProgressBar("进行签到..");
 		currentHttp=3;
+		String url=CommonData.HttpUrl;
+//		String url=CommonData.HttpUrl+"108";
+		HashMap<String, String> map=new HashMap<String, String>();
+		map.put("act", "108");
+		map.put("ticket", Config_PT.getSharePreStr(mContext, CommonData.UserInfo, "ticket"));
+		map.put("studentId", Config_PT.getSharePreStr(mContext, CommonData.UserInfo, "studentId"));
+		map.put("termID", Config_PT.getSharePreStr(mContext, CommonData.UserInfo, "termID"));
+		map.put("weekNo", Config_PT.getSharePreStr(mContext, CommonData.UserInfo, "termID"));
+		map.put("weekday", Config_PT.getSharePreStr(mContext, CommonData.UserInfo, "termID"));
+		map.put("curriculum_id", Config_PT.getSharePreStr(mContext, CommonData.UserInfo, "curriculum_id"));
+		HttpClient.Post(url, map, rc, mContext);
 	}
 
 	
@@ -250,7 +267,9 @@ public class MainActivity extends SigninActivity implements OnClickListener{
 			initData();
 			break;
 		case 3://签到和签退
-			
+			Config_PT.showToast(mContext, "已成功签到");
+			int i=MyFragment1.currentPage;
+			fragment1.getChildFragments().get(i).initData();
 			break;
 			
 		}
