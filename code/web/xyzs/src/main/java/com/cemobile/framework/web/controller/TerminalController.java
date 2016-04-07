@@ -1,7 +1,10 @@
 package com.cemobile.framework.web.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,12 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cemobile.framework.entity.AppUser;
+import com.cemobile.framework.entity.Dictionaries;
+import com.cemobile.framework.entity.LabTime;
 import com.cemobile.framework.entity.Student;
 import com.cemobile.framework.entity.Teacher;
 import com.cemobile.framework.entity.Week;
+import com.cemobile.framework.services.ILabTimeService;
 import com.cemobile.framework.services.IStudentService;
 import com.cemobile.framework.services.ITeacherService;
 import com.cemobile.framework.services.ITermService;
+import com.cemobile.framework.services.ITimeService;
 import com.cemobile.framework.services.impl.TermService;
 import com.cemobile.framework.terminal.common.TerminalCodeException;
 import com.cemobile.framework.terminal.common.TerminalData;
@@ -52,6 +59,8 @@ public class TerminalController {
 	private IStudentService studentService;
 	@Autowired
 	private ITermService termService;
+	@Autowired
+	private ITimeService timeService;
 
 	@RequestMapping(value = "/test")
 	public @ResponseBody
@@ -129,10 +138,10 @@ public class TerminalController {
 	@RequestMapping(value = "/login")
 	public @ResponseBody
 	TerminalData appLogin(String username, String password,Long role,Long os) {
-//		username="xyzs";
-//		password="123456";
-//		role=2l;
-//		os=1l;
+		username="xyzs";
+		password="123456";
+		role=2l;
+		os=1l;
 		try {
 			if (StringUtil.isEmpty(username) || StringUtil.isEmpty(password) || role==null || os==null) {
 				throw new TerminalCodeException("E2010");
@@ -205,7 +214,71 @@ public class TerminalController {
 	 * 
 	 * 创建人：chenzx
 	 * 创建时间：2016年2月26日下午5:09:53
-	 * 方法说明：app接口-周
+	 * 方法说明：app接口-周（查询时间（周），每学期每一周的开始结束时间和一共多少周）
+	 * 参数：@param request
+	 * 参数：@param collegeId
+	 * 参数：@return 无
+	 * 修改人：无
+	 * 修改时间：无
+	 * 修改说明：无
+	 */
+	@RequestMapping(value = "/1004")
+	public @ResponseBody
+	TerminalData selectWeek(HttpServletRequest request, Long collegeId) {
+		try {
+			if (collegeId == null) {
+				throw new TerminalCodeException("E3002");
+			}
+			List<Week> week=termService.selectWeek(collegeId);
+			return terminalDataUtils.createSuccess(week,1);
+		} catch (TerminalCodeException te) {
+			log.warn(te.getMessage());
+			return terminalDataUtils.createErrorCode(te);
+		} catch (Exception e) {
+			log.error("E3001", e);
+			return terminalDataUtils.createErrorCode("E3001");
+		}
+	}
+	
+	/**
+	 * 
+	 * 创建人：chenzx
+	 * 创建时间：2016年4月7日下午4:04:13
+	 * 方法说明：app接口-节（查询时间（节），每天每节课的上下课时间）
+	 * 参数：@param request
+	 * 参数：@param collegeId
+	 * 参数：@return 无
+	 * 修改人：无
+	 * 修改时间：无
+	 * 修改说明：无
+	 */
+	@RequestMapping(value = "/1005")
+	public @ResponseBody
+	TerminalData selectTime(HttpServletRequest request, Long collegeId) {
+		try {
+			if (collegeId == null) {
+				throw new TerminalCodeException("E3002");
+			}
+			//获取节（查询时间（节），每天每节课的上下课时间）
+			LabTime labTime=new LabTime();
+			labTime.setCollegeId(collegeId);
+			labTime.setEditDate(new Date());
+			List<LabTime> time=timeService.queryByKeywordTime(labTime);
+			
+			return terminalDataUtils.createSuccess(time,1);
+		} catch (TerminalCodeException te) {
+			log.warn(te.getMessage());
+			return terminalDataUtils.createErrorCode(te);
+		} catch (Exception e) {
+			log.error("E3001", e);
+			return terminalDataUtils.createErrorCode("E3001");
+		}
+	}
+	/**
+	 * 
+	 * 创建人：chenzx
+	 * 创建时间：2016年4月7日上午9:17:41
+	 * 方法说明：app接口-字典数据（不用经常请求的数据）
 	 * 参数：@param request
 	 * 参数：@param collegeId
 	 * 参数：@return 无
@@ -215,13 +288,40 @@ public class TerminalController {
 	 */
 	@RequestMapping(value = "/104")
 	public @ResponseBody
-	TerminalData selectWeek(HttpServletRequest request, Long collegeId) {
+	TerminalData selectDictionaries(HttpServletRequest request, Long collegeId) {
 		try {
 			if (collegeId == null) {
 				throw new TerminalCodeException("E3002");
 			}
+			//获取节（查询时间（节），每天每节课的上下课时间）
+			LabTime labTime=new LabTime();
+			labTime.setCollegeId(collegeId);
+			labTime.setEditDate(new Date());
+			List<LabTime> time=timeService.queryByKeywordTime(labTime);
+			//获取学期周（查询时间（周），每学期每一周的开始结束时间和一共多少周）
 			List<Week> week=termService.selectWeek(collegeId);
-			return terminalDataUtils.createSuccess(week,1);
+			//将周、节封装成一个map
+			List<Object> dic=new ArrayList<Object>();
+			for(LabTime t:time){
+				Dictionaries diction=new Dictionaries();
+				diction.setType(2);
+				diction.setTremId(t.getTermId());
+				diction.setNumber((long)t.getSection());
+				diction.setStartTime(t.getStartDate());
+				diction.setEndTime(t.getEndDate());
+				dic.add(diction);
+			}
+			for(Week t:week){
+				Dictionaries diction=new Dictionaries();
+				diction.setType(1);
+				diction.setTremId(t.getTremId());
+				diction.setNumber(t.getWeekNo());
+				diction.setStartDate(t.getStartDate());
+				diction.setEndDate(t.getEndDate());
+				dic.add(diction);
+			}
+			
+			return terminalDataUtils.createSuccess(dic);
 		} catch (TerminalCodeException te) {
 			log.warn(te.getMessage());
 			return terminalDataUtils.createErrorCode(te);

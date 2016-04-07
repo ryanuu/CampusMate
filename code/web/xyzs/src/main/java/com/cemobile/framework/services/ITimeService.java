@@ -1,6 +1,9 @@
 package com.cemobile.framework.services;
 
+import java.util.List;
+
 import com.cemobile.framework.common.page.Page;
+import com.cemobile.framework.entity.LabTime;
 import com.cemobile.framework.entity.PlaytimeTime;
 
 /**
@@ -19,4 +22,7 @@ public interface ITimeService {
 	public Page queryAllTerm(Page page);
 	
 	public PlaytimeTime selectByKeyword(Long id);
+	
+	//app查询本学期上下课时间
+	public List<LabTime> queryByKeywordTime(LabTime labTime);
 }

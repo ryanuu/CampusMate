@@ -118,7 +118,20 @@
 		from lab_time t
 		where t.del=0
 	</select>
-
+	
+	<select id="queryAllTime" resultMap="BaseResultMap" >
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			lab_time t
+		LEFT JOIN lab_term m ON m.term_id = t.term_id
+		WHERE
+			m.start_date &lt;= #{editDate,jdbcType=DATE}
+		AND m.end_date &gt;= #{editDate,jdbcType=DATE}
+		AND t.del = 0
+		AND m.del = 0
+		AND t.college_id =#{collegeId,jdbcType=BIGINT}
+	</select>
 	
 </mapper>
 

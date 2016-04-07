@@ -3,6 +3,7 @@ package com.cemobile.framework.dao;
 import java.util.List;
 
 import com.cemobile.framework.common.page.Page;
+import com.cemobile.framework.entity.LabTime;
 import com.cemobile.framework.entity.PlaytimeTime;
 
 /**
@@ -24,4 +25,6 @@ public interface TimeMapper {
 
 	List<PlaytimeTime> queryAllTerm(Page page);
 	
+	// app查询本学期上下课时间
+	List<LabTime> queryAllTime(LabTime labTime);
 }

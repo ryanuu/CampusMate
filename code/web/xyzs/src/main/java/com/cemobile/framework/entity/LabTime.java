@@ -1,7 +1,6 @@
 package com.cemobile.framework.entity;
 
 
-import java.sql.Time;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;

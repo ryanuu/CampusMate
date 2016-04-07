@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cemobile.framework.common.page.Page;
 import com.cemobile.framework.dao.TimeMapper;
+import com.cemobile.framework.entity.LabTime;
 import com.cemobile.framework.entity.PlaytimeTime;
 import com.cemobile.framework.services.ITimeService;
 
@@ -47,6 +48,16 @@ public class TimeService implements ITimeService {
 	public PlaytimeTime selectByKeyword(Long id) {
 		// TODO Auto-generated method stub
 		return timeMapper.selectByPrimaryKey(id);
+	}
+	
+	/**
+	 * app查询本学期上下课时间
+	 */
+	@Override
+	public List<LabTime> queryByKeywordTime(LabTime labTime) {
+		// TODO Auto-generated method stub
+		List<LabTime> time=timeMapper.queryAllTime(labTime);
+		return time;
 	}
 
 }
