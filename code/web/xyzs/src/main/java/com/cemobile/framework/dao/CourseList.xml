@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.cemobile.framework.dao.CourseListMapper">
+
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.CourseList">
+		<id property="courseListId" column="course_list_id"  jdbcType="BIGINT"/>
+		<result property="curriculumId" column="curriculum_id" jdbcType="BIGINT" />
+		<result property="weekday" column="weekday" jdbcType="INTEGER" />
+		<result property="section" column="section" jdbcType="INTEGER" />
+		<result property="classId" column="class_id" jdbcType="BIGINT" />
+		<result property="termId" column="term_id" jdbcType="BIGINT" />
+		<result property="positionId" column="position_id" jdbcType="BIGINT" />
+		<result property="courseType" column="course_type" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" jdbcType="DATE" />
+		<result property="editDate" column="edit_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	    <![CDATA[
+		course_list_id,curriculum_id,weekday,section,class_id,term_id,position_id,course_type,create_date,edit_date,del
+	    ]]>
+	</sql>
+
+	<sql id="LabCourseList_findPage">
+		<where>
+	       <if test="courseListId != null">
+				AND course_list_id = #{courseListId,jdbcType=BIGINT}
+			</if>
+	       <if test="curriculumId != null">
+				AND curriculum_id = #{curriculumId,jdbcType=BIGINT}
+			</if>
+	       <if test="weekday != null">
+				AND weekday = #{weekday,jdbcType=INTEGER}
+			</if>
+	       <if test="section != null">
+				AND section = #{section,jdbcType=INTEGER}
+			</if>
+	       <if test="classId != null">
+				AND class_id = #{classId,jdbcType=BIGINT}
+			</if>
+	       <if test="termId != null">
+				AND term_id = #{termId,jdbcType=BIGINT}
+			</if>
+	       <if test="positionId != null">
+				AND position_id = #{positionId,jdbcType=BIGINT}
+			</if>
+	       <if test="courseType != null">
+				AND course_type = #{courseType,jdbcType=INTEGER}
+			</if>
+	       <if test="createDate != null">
+				AND create_date = #{createDate,jdbcType=DATE}
+			</if>
+	       <if test="editDate != null">
+				AND edit_date = #{editDate,jdbcType=DATE}
+			</if>
+	       <if test="del != null">
+				AND del = #{del,jdbcType=INTEGER}
+			</if>
+		</where>
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_course_list 
+		WHERE  course_list_id = #{courseListId,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryByKeyword" resultMap="BaseResultMap">
+		SELECT
+			l.course_list_id,
+			l.curriculum_id,
+			IF(m.modify_id,m.weekday,l.weekday) as weekday,
+			IF(m.modify_id,m.section,l.section) as section,
+			l.class_id,
+			l.term_id,
+			l.course_type,
+			l.create_date,
+			l.edit_date,
+			l.del,
+			IF(m.modify_id,m.position_id,l.position_id) as position_id,
+			IF(m.modify_id,mp.place,p.place) as place,
+			IF(m.modify_id,mp.number,p.number) as number,
+			IF(l.course_type=4,e.curriculum_name,c.curriculum_name) as curriculum_name,
+			IF(l.course_type=4,'',c.start_week) as start_week,
+			IF(l.course_type=4,'',c.end_week) as end_week,
+			IF(l.course_type=4,e.teacher_id,c.teacher_id) as teacher_id,
+			IF(l.course_type=4,e.teacher_name,c.teacher_name) as teacher_name,
+			IF(l.course_type=4,e.start_time,'') as start_time,
+			IF(l.course_type=4,e.end_time,'') as end_time,
+			IF(l.course_type=4,e.weeke,'') as weeke
+		FROM
+			lab_course_list l
+		LEFT JOIN lab_position p ON p.position_id = l.position_id
+			AND p.del = 0
+		LEFT JOIN lab_curriculum_name c ON c.curriculum_id = l.curriculum_id
+			AND c.del = 0
+			AND l.course_type != 4
+		LEFT JOIN lab_modify_course m ON m.curriculum_id = l.course_list_id
+			AND m.del = 0
+		LEFT JOIN lab_position mp ON mp.position_id = m.position_id
+			AND mp.del = 0
+		LEFT JOIN lab_exam e ON e.exam_id = l.curriculum_id
+			AND e.del = 0
+			AND l.course_type = 4
+		WHERE
+			l.del = 0
+			AND l.term_id = 5
+			AND l.class_id = 1
+			AND l.weekday = 1
+			AND
+			IF (
+				c.start_week &lt;= 15 AND c.end_week &gt;= 15,
+				(
+					c.start_week &lt;= 15
+					AND c.end_week &gt;= 15
+				),
+				e.weeke = 15
+			)  
+	</select>
+
+	<select id="queryAllLabCourseList" resultMap="BaseResultMap" >
+		select 
+		<include refid="Base_Column_List" />
+		from lab_course_list 
+	</select>
+</mapper>
+

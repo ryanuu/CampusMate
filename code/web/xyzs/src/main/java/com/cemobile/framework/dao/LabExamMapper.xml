@@ -10,11 +10,12 @@
 		<result property="curriculumName" column="curriculum_name" jdbcType="CHAR" />
 		<result property="startTime" column="start_time" jdbcType="TIME" />
 		<result property="endTime" column="end_time" jdbcType="TIME" />
-		<result property="week" column="week" jdbcType="INTEGER" />
+		<result property="weeke" column="weeke" jdbcType="INTEGER" />
 		<result property="subjectId" column="subject_id" jdbcType="BIGINT" />
 		<result property="level" column="level" jdbcType="INTEGER" />
 		<result property="termId" column="term_id" jdbcType="BIGINT" />
 		<result property="teacherId" column="teacher_id" jdbcType="BIGINT" />
+		<result property="teacherName" column="teacher_name" jdbcType="CHAR" />
 		<result property="createDate" column="create_date" jdbcType="DATE" />
 		<result property="editDate" column="edit_date" jdbcType="DATE" />
 		<result property="del" column="del" jdbcType="INTEGER" />
@@ -22,7 +23,7 @@
 	
 	<sql id="Base_Column_List">
 	    <![CDATA[
-		exam_id,curriculum_id,curriculum_name,start_time,end_time,week,subject_id,level,term_id,teacher_id,create_date,edit_date,del
+		exam_id,curriculum_id,curriculum_name,start_time,end_time,weeke,subject_id,level,term_id,teacher_id,teacher_name,create_date,edit_date,del
 	    ]]>
 	</sql>
 
@@ -43,8 +44,8 @@
 	       <if test="endTime != null">
 				AND end_time = #{endTime,jdbcType=TIME}
 			</if>
-	       <if test="week != null">
-				AND week = #{week,jdbcType=INTEGER}
+	       <if test="weeke != null">
+				AND weeke = #{weeke,jdbcType=INTEGER}
 			</if>
 	       <if test="subjectId != null">
 				AND subject_id = #{subjectId,jdbcType=BIGINT}
@@ -57,6 +58,9 @@
 			</if>
 	       <if test="teacherId != null">
 				AND teacher_id = #{teacherId,jdbcType=BIGINT}
+			</if>
+	       <if test="teacherName != null">
+				AND teacher_name = #{teacherName,jdbcType=CHAR}
 			</if>
 	       <if test="createDate != null">
 				AND create_date = #{createDate,jdbcType=DATE}
@@ -78,11 +82,12 @@
         	curriculum_name ,
         	start_time ,
         	end_time ,
-        	week ,
+        	weeke ,
         	subject_id ,
         	level ,
         	term_id ,
         	teacher_id ,
+        	teacher_name ,
         	create_date ,
         	edit_date ,
         	del 
@@ -92,11 +97,12 @@
         	#{curriculumName,jdbcType=CHAR} ,
         	#{startTime,jdbcType=TIME} ,
         	#{endTime,jdbcType=TIME} ,
-        	#{week,jdbcType=INTEGER} ,
+        	#{weeke,jdbcType=INTEGER} ,
         	#{subjectId,jdbcType=BIGINT} ,
         	#{level,jdbcType=INTEGER} ,
         	#{termId,jdbcType=BIGINT} ,
         	#{teacherId,jdbcType=BIGINT} ,
+        	#{teacherName,jdbcType=CHAR} ,
         	#{createDate,jdbcType=DATE} ,
         	#{editDate,jdbcType=DATE} ,
         	#{del,jdbcType=INTEGER} 
@@ -112,11 +118,12 @@
 			<if test="curriculumName != null">curriculum_name </if>,
 			<if test="startTime != null">start_time </if>,
 			<if test="endTime != null">end_time </if>,
-			<if test="week != null">week </if>,
+			<if test="weeke != null">weeke </if>,
 			<if test="subjectId != null">subject_id </if>,
 			<if test="level != null">level </if>,
 			<if test="termId != null">term_id </if>,
 			<if test="teacherId != null">teacher_id </if>,
+			<if test="teacherName != null">teacher_name </if>,
 			<if test="createDate != null">create_date </if>,
 			<if test="editDate != null">edit_date </if>,
 			<if test="del != null">del </if>
@@ -137,8 +144,8 @@
 			<if test="endTime != null">
 				end_time = #{endTime,jdbcType=TIME}	,
 			</if>
-			<if test="week != null">
-				week = #{week,jdbcType=INTEGER}	,
+			<if test="weeke != null">
+				weeke = #{weeke,jdbcType=INTEGER}	,
 			</if>
 			<if test="subjectId != null">
 				subject_id = #{subjectId,jdbcType=BIGINT}	,
@@ -151,6 +158,9 @@
 			</if>
 			<if test="teacherId != null">
 				teacher_id = #{teacherId,jdbcType=BIGINT}	,
+			</if>
+			<if test="teacherName != null">
+				teacher_name = #{teacherName,jdbcType=CHAR}	,
 			</if>
 			<if test="createDate != null">
 				create_date = #{createDate,jdbcType=DATE}	,
@@ -170,11 +180,12 @@
         	curriculum_name ,
         	start_time ,
         	end_time ,
-        	week ,
+        	weeke ,
         	subject_id ,
         	level ,
         	term_id ,
         	teacher_id ,
+        	teacher_name ,
         	create_date ,
         	edit_date ,
         	del 
@@ -184,11 +195,12 @@
         	#{item.curriculumName,jdbcType=CHAR} ,
         	#{item.startTime,jdbcType=TIME} ,
         	#{item.endTime,jdbcType=TIME} ,
-        	#{item.week,jdbcType=INTEGER} ,
+        	#{item.weeke,jdbcType=INTEGER} ,
         	#{item.subjectId,jdbcType=BIGINT} ,
         	#{item.level,jdbcType=INTEGER} ,
         	#{item.termId,jdbcType=BIGINT} ,
         	#{item.teacherId,jdbcType=BIGINT} ,
+        	#{item.teacherName,jdbcType=CHAR} ,
         	#{item.createDate,jdbcType=DATE} ,
         	#{item.editDate,jdbcType=DATE} ,
         	#{item.del,jdbcType=INTEGER} 
@@ -216,8 +228,8 @@
 				<if test="endTime != null">
 				end_time = #{endTime,jdbcType=TIME}	,
 				</if>
-				<if test="week != null">
-				week = #{week,jdbcType=INTEGER}	,
+				<if test="weeke != null">
+				weeke = #{weeke,jdbcType=INTEGER}	,
 				</if>
 				<if test="subjectId != null">
 				subject_id = #{subjectId,jdbcType=BIGINT}	,
@@ -230,6 +242,9 @@
 				</if>
 				<if test="teacherId != null">
 				teacher_id = #{teacherId,jdbcType=BIGINT}	,
+				</if>
+				<if test="teacherName != null">
+				teacher_name = #{teacherName,jdbcType=CHAR}	,
 				</if>
 				<if test="createDate != null">
 				create_date = #{createDate,jdbcType=DATE}	,
@@ -251,11 +266,12 @@
 				curriculum_name = #{curriculumName,jdbcType=CHAR}	,
 				start_time = #{startTime,jdbcType=TIME}	,
 				end_time = #{endTime,jdbcType=TIME}	,
-				week = #{week,jdbcType=INTEGER}	,
+				weeke = #{weeke,jdbcType=INTEGER}	,
 				subject_id = #{subjectId,jdbcType=BIGINT}	,
 				level = #{level,jdbcType=INTEGER}	,
 				term_id = #{termId,jdbcType=BIGINT}	,
 				teacher_id = #{teacherId,jdbcType=BIGINT}	,
+				teacher_name = #{teacherName,jdbcType=CHAR}	,
 				create_date = #{createDate,jdbcType=DATE}	,
 				edit_date = #{editDate,jdbcType=DATE}	,
 				del = #{del,jdbcType=INTEGER}	

@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/2/24 17:25:48                           */
+/* Created on:     2016/4/8 15:13:22                            */
 /*==============================================================*/
 
 
@@ -135,8 +135,8 @@ create table lab_class
 (
    class_id             bigint not null auto_increment comment '班级id',
    class_name           char(50) not null comment '班级名称',
-   college_id           bigint not null,
-   department_id        bigint not null comment '院系ID',
+   college_id           bigint,
+   department_id        bigint comment '院系ID',
    subject_id           bigint not null comment '专业',
    headmaster           bigint comment '班主任',
    instructor           bigint comment '辅导员',
@@ -163,6 +163,8 @@ create table lab_college
    del                  int,
    primary key (college_id)
 );
+
+alter table lab_college comment '学院';
 
 /*==============================================================*/
 /* Table: lab_course_list                                       */
@@ -224,6 +226,8 @@ create table lab_department
    primary key (department_id)
 );
 
+alter table lab_department comment '系';
+
 /*==============================================================*/
 /* Table: lab_exam                                              */
 /*==============================================================*/
@@ -234,16 +238,19 @@ create table lab_exam
    curriculum_name      char(100),
    start_time           time,
    end_time             time,
-   week                 int,
+   weeke                int,
    subject_id           bigint not null,
    level                int,
    term_id              bigint,
    teacher_id           bigint,
+   teacher_name         char(20),
    create_date          date,
    edit_date            date,
    del                  int,
    primary key (exam_id)
 );
+
+alter table lab_exam comment '考试安排';
 
 /*==============================================================*/
 /* Table: lab_modify_course                                     */
@@ -330,8 +337,8 @@ alter table lab_position comment '位置';
 create table lab_student
 (
    student_id           bigint not null auto_increment comment '学生ID',
-   student_number       bigint not null comment '学号',
-   student_name         char comment '姓名',
+   student_number       char(20) not null comment '学号',
+   student_name         char(20) comment '姓名',
    nickname             char(50) comment '昵称',
    sex                  bit comment '性别',
    age                  int(3) comment '年龄',
@@ -339,11 +346,12 @@ create table lab_student
    phone                bigint(11) comment '手机号码',
    id_card              char(18) comment '身份证号码',
    type                 bigint comment '职位',
-   email                char comment 'Email',
+   email                char(50) comment 'Email',
+   college_id           bigint,
    class_id             bigint,
-   head_image           char comment '头像',
+   head_image           char(100) comment '头像',
    note                 varchar(500) comment '备注',
-   password             char comment '密码',
+   password             varchar(100) comment '密码',
    creat_date           date comment '创建时间',
    edit_date            date comment '修改时间',
    del                  int comment '删除标识',
@@ -378,7 +386,7 @@ create table lab_subject
    subject_name         char(30) not null,
    short_name           char(10),
    subject_profile      varchar(500),
-   college_id           bigint not null,
+   college_id           bigint,
    department_id        bigint not null,
    create_date          date,
    edit_date            date,
@@ -386,13 +394,15 @@ create table lab_subject
    primary key (subject_id)
 );
 
+alter table lab_subject comment '专业';
+
 /*==============================================================*/
 /* Table: lab_teacher                                           */
 /*==============================================================*/
 create table lab_teacher
 (
    teacher_id           bigint not null auto_increment comment '教职工ID',
-   teacher_number       bigint not null comment '工号',
+   teacher_number       char(20) not null comment '工号',
    teacher_name         char(20) comment '姓名',
    nickname             char(50) comment '昵称',
    sex                  bit comment '性别',
@@ -400,14 +410,14 @@ create table lab_teacher
    nation               char(20) comment '民族',
    phone                bigint(11) comment '手机号码',
    id_card              bigint(18) comment '身份证号码',
-   email                char comment 'Email',
+   email                char(50) comment 'Email',
    professional         bigint,
    college_id           bigint,
    department_id        bigint comment '院系ID',
-   head_image           char comment '头像',
+   head_image           char(100) comment '头像',
    role                 bigint comment '角色',
    note                 varchar(500) comment '备注',
-   password             char comment '密码',
+   password             varchar(100) comment '密码',
    creat_date           date comment '创建时间',
    edit_date            date comment '修改时间',
    del                  int comment '删除标识',

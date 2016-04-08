@@ -1,7 +1,5 @@
 package com.cemobile.framework.entity;
 
-import java.sql.Time;
-
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -21,11 +19,11 @@ public class LabExam extends BaseEntity{
 	@Length(max=100)
 	private java.lang.String curriculumName;
 	
-	private Time startTime;
+	private String startTime;
 	
-	private Time endTime;
+	private String endTime;
 	
-	private java.lang.Integer week;
+	private java.lang.Integer weeke;
 	@NotNull 
 	private java.lang.Long subjectId;
 	
@@ -34,6 +32,8 @@ public class LabExam extends BaseEntity{
 	private java.lang.Long termId;
 	
 	private java.lang.Long teacherId;
+	@Length(max=20)
+	private java.lang.String teacherName;
 	
 	private java.util.Date createDate;
 	
@@ -63,26 +63,26 @@ public class LabExam extends BaseEntity{
 	public java.lang.String getCurriculumName() {
 		return this.curriculumName;
 	}
-	public void setStartTime(Time value) {
+	public void setStartTime(String value) {
 		this.startTime = value;
 	}
 	
-	public Time getStartTime() {
+	public String getStartTime() {
 		return this.startTime;
 	}
-	public void setEndTime(Time value) {
+	public void setEndTime(String value) {
 		this.endTime = value;
 	}
 	
-	public Time getEndTime() {
+	public String getEndTime() {
 		return this.endTime;
 	}
-	public void setWeek(java.lang.Integer value) {
-		this.week = value;
+	public void setWeeke(java.lang.Integer value) {
+		this.weeke = value;
 	}
 	
-	public java.lang.Integer getWeek() {
-		return this.week;
+	public java.lang.Integer getWeeke() {
+		return this.weeke;
 	}
 	public void setSubjectId(java.lang.Long value) {
 		this.subjectId = value;
@@ -111,6 +111,13 @@ public class LabExam extends BaseEntity{
 	
 	public java.lang.Long getTeacherId() {
 		return this.teacherId;
+	}
+	public void setTeacherName(java.lang.String value) {
+		this.teacherName = value;
+	}
+	
+	public java.lang.String getTeacherName() {
+		return this.teacherName;
 	}
 	public void setCreateDate(java.util.Date value) {
 		this.createDate = value;
@@ -141,11 +148,12 @@ public class LabExam extends BaseEntity{
 			.append("CurriculumName:",getCurriculumName()+" ")
 			.append("StartTime:",getStartTime()+" ")
 			.append("EndTime:",getEndTime()+" ")
-			.append("Week:",getWeek()+" ")
+			.append("Weeke:",getWeeke()+" ")
 			.append("SubjectId:",getSubjectId()+" ")
 			.append("Level:",getLevel()+" ")
 			.append("TermId:",getTermId()+" ")
 			.append("TeacherId:",getTeacherId()+" ")
+			.append("TeacherName:",getTeacherName()+" ")
 			.append("CreateDate:",getCreateDate()+" ")
 			.append("EditDate:",getEditDate()+" ")
 			.append("Del:",getDel()+" ")
