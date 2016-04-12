@@ -7,7 +7,7 @@ import java.util.Date;
 public class Dictionaries extends BaseEntity{
 	private int type;//类型:1.学周，2.节课
 	private Long number;//第几周、节（1,2,3,4......） 
-	private Long tremId;//学期Id
+	private Long termId;//学期Id
 	private Date startDate;//周开始时间
 	private Date endDate;//周结束时间
 	private String startTime;//节开始时间
@@ -25,12 +25,6 @@ public class Dictionaries extends BaseEntity{
 	}
 	public void setNumber(Long number) {
 		this.number = number;
-	}
-	public Long getTremId() {
-		return tremId;
-	}
-	public void setTremId(Long tremId) {
-		this.tremId = tremId;
 	}
 	public Date getStartDate() {
 		return startDate;
@@ -55,6 +49,12 @@ public class Dictionaries extends BaseEntity{
 	}
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+	public Long getTermId() {
+		return termId;
+	}
+	public void setTermId(Long termId) {
+		this.termId = termId;
 	}
 	
 	

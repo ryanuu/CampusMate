@@ -4,7 +4,7 @@
 
 <mapper namespace="com.cemobile.framework.dao.CourseListMapper">
 
-	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.CourseList">
+	<resultMap id="BaseResultMap" type="com.cemobile.framework.entity.LabCourseList">
 		<id property="courseListId" column="course_list_id"  jdbcType="BIGINT"/>
 		<result property="curriculumId" column="curriculum_id" jdbcType="BIGINT" />
 		<result property="weekday" column="weekday" jdbcType="INTEGER" />
@@ -62,14 +62,34 @@
 		</where>
 	</sql>
 	
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-		select 
-		<include refid="Base_Column_List" />
-		from lab_course_list 
-		WHERE  course_list_id = #{courseListId,jdbcType=BIGINT}
-	</select>
+	<resultMap id="CourseListMap" type="com.cemobile.framework.entity.CourseList">
+		<id property="courseListId" column="course_list_id"  jdbcType="BIGINT"/>
+		<result property="curriculumId" column="curriculum_id" jdbcType="BIGINT" />
+		<result property="weekday" column="weekday" jdbcType="INTEGER" />
+		<result property="section" column="section" jdbcType="INTEGER" />
+		<result property="classId" column="class_id" jdbcType="BIGINT" />
+		<result property="termId" column="term_id" jdbcType="BIGINT" />
+		<result property="positionId" column="position_id" jdbcType="BIGINT" />
+		<result property="courseType" column="course_type" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" jdbcType="DATE" />
+		<result property="editDate" column="edit_date" jdbcType="DATE" />
+		<result property="del" column="del" jdbcType="INTEGER" />
+		<result property="place" column="place" jdbcType="CHAR" />
+		<result property="number" column="number" jdbcType="CHAR" />
+		<result property="positionType" column="position_type" jdbcType="INTEGER" />
+		<result property="positionName" column="position_name" jdbcType="INTEGER" />
+		<result property="curriculumName" column="curriculum_name" jdbcType="CHAR" />
+		<result property="startWeek" column="start_week" jdbcType="INTEGER" />
+		<result property="endWeek" column="end_week" jdbcType="INTEGER" />
+		<result property="teacherId" column="teacher_id" jdbcType="BIGINT" />
+		<result property="teacherName" column="teacher_name" jdbcType="CHAR" />
+		<result property="startTime" column="start_time" jdbcType="TIME" />
+		<result property="endTime" column="end_time" jdbcType="TIME" />
+		<result property="weeke" column="weeke" jdbcType="INTEGER" />
+		<result property="uuid" column="uuid" jdbcType="CHAR" />
+	</resultMap>
 
-	<select id="queryByKeyword" resultMap="BaseResultMap">
+	<select id="queryByKeywordCourseList" resultMap="CourseListMap">
 		SELECT
 			l.course_list_id,
 			l.curriculum_id,
@@ -84,6 +104,7 @@
 			IF(m.modify_id,m.position_id,l.position_id) as position_id,
 			IF(m.modify_id,mp.place,p.place) as place,
 			IF(m.modify_id,mp.number,p.number) as number,
+			IF(m.modify_id,mp.position_type,p.position_type) as position_type,
 			IF(l.course_type=4,e.curriculum_name,c.curriculum_name) as curriculum_name,
 			IF(l.course_type=4,'',c.start_week) as start_week,
 			IF(l.course_type=4,'',c.end_week) as end_week,
@@ -91,7 +112,9 @@
 			IF(l.course_type=4,e.teacher_name,c.teacher_name) as teacher_name,
 			IF(l.course_type=4,e.start_time,'') as start_time,
 			IF(l.course_type=4,e.end_time,'') as end_time,
-			IF(l.course_type=4,e.weeke,'') as weeke
+			IF(l.course_type=4,e.weeke,'') as weeke,
+			CONCAT(IF(m.modify_id,mp.place,p.place),IF(m.modify_id,mp.number,p.number)) as position_name,
+			b.uuid
 		FROM
 			lab_course_list l
 		LEFT JOIN lab_position p ON p.position_id = l.position_id
@@ -106,26 +129,26 @@
 		LEFT JOIN lab_exam e ON e.exam_id = l.curriculum_id
 			AND e.del = 0
 			AND l.course_type = 4
+		LEFT JOIN lab_bluetooth_dev b ON b.position_id=l.position_id
+			AND b.del=0	
 		WHERE
 			l.del = 0
-			AND l.term_id = 5
-			AND l.class_id = 1
-			AND l.weekday = 1
+			AND l.term_id = #{termId,jdbcType=BIGINT}
+			AND l.class_id = #{classId,jdbcType=BIGINT}
+			<if test="weekday != null and weekday!=''">
+				AND l.weekday = #{weekday,jdbcType=INTEGER}
+			</if>
 			AND
 			IF (
-				c.start_week &lt;= 15 AND c.end_week &gt;= 15,
+				c.start_week &lt;= #{weeke,jdbcType=INTEGER} AND c.end_week &gt;= #{weeke,jdbcType=INTEGER},
 				(
-					c.start_week &lt;= 15
-					AND c.end_week &gt;= 15
+					c.start_week &lt;= #{weeke,jdbcType=INTEGER}
+					AND c.end_week &gt;=#{weeke,jdbcType=INTEGER}
 				),
-				e.weeke = 15
+				e.weeke = #{weeke,jdbcType=INTEGER}
 			)  
+		ORDER BY l.section
 	</select>
 
-	<select id="queryAllLabCourseList" resultMap="BaseResultMap" >
-		select 
-		<include refid="Base_Column_List" />
-		from lab_course_list 
-	</select>
 </mapper>
 

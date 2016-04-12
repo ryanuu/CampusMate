@@ -1,5 +1,9 @@
 package com.cemobile.framework.dao;
 
+import java.util.List;
+
+import com.cemobile.framework.entity.CourseList;
+
 /**
  * 
  * 创建人：chenzx
@@ -10,5 +14,6 @@ package com.cemobile.framework.dao;
  * 修改说明：无
  */
 public interface CourseListMapper {
-
+	//查询课程表
+	List<CourseList> queryByKeywordCourseList(CourseList courseList);
 }

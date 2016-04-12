@@ -2,11 +2,10 @@ package com.cemobile.framework.web.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -18,17 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cemobile.framework.entity.AppUser;
+import com.cemobile.framework.entity.CheckWork;
+import com.cemobile.framework.entity.CourseList;
 import com.cemobile.framework.entity.Dictionaries;
 import com.cemobile.framework.entity.LabTime;
 import com.cemobile.framework.entity.Student;
 import com.cemobile.framework.entity.Teacher;
 import com.cemobile.framework.entity.Week;
-import com.cemobile.framework.services.ILabTimeService;
+import com.cemobile.framework.services.ICheckWorkService;
+import com.cemobile.framework.services.ICourseListService;
 import com.cemobile.framework.services.IStudentService;
 import com.cemobile.framework.services.ITeacherService;
 import com.cemobile.framework.services.ITermService;
 import com.cemobile.framework.services.ITimeService;
-import com.cemobile.framework.services.impl.TermService;
 import com.cemobile.framework.terminal.common.TerminalCodeException;
 import com.cemobile.framework.terminal.common.TerminalData;
 import com.cemobile.framework.terminal.common.TerminalDataUtils;
@@ -61,6 +62,10 @@ public class TerminalController {
 	private ITermService termService;
 	@Autowired
 	private ITimeService timeService;
+	@Autowired
+	private ICourseListService courseListService;
+	@Autowired
+	private ICheckWorkService checkWorkSevice;
 
 	@RequestMapping(value = "/test")
 	public @ResponseBody
@@ -138,10 +143,10 @@ public class TerminalController {
 	@RequestMapping(value = "/login")
 	public @ResponseBody
 	TerminalData appLogin(String username, String password,Long role,Long os) {
-		username="xyzs";
-		password="123456";
-		role=2l;
-		os=1l;
+//		username="xyzs";
+//		password="123456";
+//		role=2l;
+//		os=1l;
 		try {
 			if (StringUtil.isEmpty(username) || StringUtil.isEmpty(password) || role==null || os==null) {
 				throw new TerminalCodeException("E2010");
@@ -274,6 +279,7 @@ public class TerminalController {
 			return terminalDataUtils.createErrorCode("E3001");
 		}
 	}
+	
 	/**
 	 * 
 	 * 创建人：chenzx
@@ -305,7 +311,7 @@ public class TerminalController {
 			for(LabTime t:time){
 				Dictionaries diction=new Dictionaries();
 				diction.setType(2);
-				diction.setTremId(t.getTermId());
+				diction.setTermId(t.getTermId());
 				diction.setNumber((long)t.getSection());
 				diction.setStartTime(t.getStartDate());
 				diction.setEndTime(t.getEndDate());
@@ -314,7 +320,7 @@ public class TerminalController {
 			for(Week t:week){
 				Dictionaries diction=new Dictionaries();
 				diction.setType(1);
-				diction.setTremId(t.getTremId());
+				diction.setTermId(t.getTremId());
 				diction.setNumber(t.getWeekNo());
 				diction.setStartDate(t.getStartDate());
 				diction.setEndDate(t.getEndDate());
@@ -322,6 +328,98 @@ public class TerminalController {
 			}
 			
 			return terminalDataUtils.createSuccess(dic);
+		} catch (TerminalCodeException te) {
+			log.warn(te.getMessage());
+			return terminalDataUtils.createErrorCode(te);
+		} catch (Exception e) {
+			log.error("E3001", e);
+			return terminalDataUtils.createErrorCode("E3001");
+		}
+	}
+	
+	/**
+	 * 
+	 * 创建人：chenzx
+	 * 创建时间：2016年4月11日下午3:12:06
+	 * 方法说明：app接口-查询通知
+	 * 参数：@param request
+	 * 参数：@return 无
+	 * 修改人：无
+	 * 修改时间：无
+	 * 修改说明：无
+	 */
+	@RequestMapping(value = "/105")
+	public @ResponseBody
+	TerminalData selectnotice(HttpServletRequest request) {
+
+		return terminalDataUtils.createSuccess();
+
+	}
+	
+	/**
+	 * 
+	 * 创建人：chenzx
+	 * 创建时间：2016年4月11日下午1:59:53
+	 * 方法说明：app接口-课程表
+	 * 参数：@param request
+	 * 参数：@param weekday
+	 * 参数：@param classId
+	 * 参数：@param tremId
+	 * 参数：@param weekNo
+	 * 参数：@return 无
+	 * 修改人：无
+	 * 修改时间：无
+	 * 修改说明：无
+	 */
+	@RequestMapping(value = "/106")
+	public @ResponseBody
+	TerminalData selectCourseList(HttpServletRequest request,Long weekday,Long classId,Long tremId,int weekNo) {
+		try {
+			if (classId == null && tremId==null) {
+				throw new TerminalCodeException("E3002");
+			}
+			CourseList courseList=new CourseList();
+			if(weekday!=null){
+				courseList.setWeekday(weekday.intValue());
+			}
+			courseList.setClassId(classId);
+			courseList.setTermId(tremId);
+			courseList.setWeeke(weekNo);
+			List<CourseList> courseLists=courseListService.selectByPrimaryKey(courseList);
+			return terminalDataUtils.createSuccess(courseLists);
+		} catch (TerminalCodeException te) {
+			log.warn(te.getMessage());
+			return terminalDataUtils.createErrorCode(te);
+		} catch (Exception e) {
+			log.error("E3001", e);
+			return terminalDataUtils.createErrorCode("E3001");
+		}
+	}
+	
+	/**
+	 * 
+	 * 创建人：chenzx
+	 * 创建时间：2016年4月11日下午3:13:31
+	 * 方法说明：app接口-签到
+	 * 参数：@param request
+	 * 参数：@param weekday
+	 * 参数：@param classId
+	 * 参数：@param tremId
+	 * 参数：@param weekNo
+	 * 参数：@return 无
+	 * 修改人：无
+	 * 修改时间：无
+	 * 修改说明：无
+	 */
+	@RequestMapping(value = "/107")
+	public @ResponseBody
+	TerminalData inputCheckWork(HttpServletRequest request,@Valid CheckWork labCheckWork) {
+		try {
+			if (labCheckWork == null) {
+				throw new TerminalCodeException("E3002");
+			}
+			CheckWork checkWork=checkWorkSevice.insert(labCheckWork);
+			return terminalDataUtils.createSuccess(checkWork);
 		} catch (TerminalCodeException te) {
 			log.warn(te.getMessage());
 			return terminalDataUtils.createErrorCode(te);

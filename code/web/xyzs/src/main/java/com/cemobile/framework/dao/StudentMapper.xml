@@ -16,6 +16,7 @@
 		<result property="idCard" column="id_card" jdbcType="CHAR" />
 		<result property="type" column="type" jdbcType="BIGINT" />
 		<result property="email" column="email" jdbcType="CHAR" />
+		<result property="collegeId" column="college_id" jdbcType="BIGINT" />
 		<result property="classId" column="class_id" jdbcType="BIGINT" />
 		<result property="headImage" column="head_image" jdbcType="CHAR" />
 		<result property="note" column="note" jdbcType="VARCHAR" />
@@ -29,7 +30,7 @@
 	<sql id="Base_Column_List">
 	    <![CDATA[
 		s.student_id,s.student_number,s.student_name,s.nickname,s.sex,s.age,s.nation,s.phone,s.id_card,s.type,s.email,
-		s.class_id,s.head_image,s.note,s.password,s.creat_date,s.edit_date,s.del,s.useri_id
+		s.college_id,s.class_id,s.head_image,s.note,s.password,s.creat_date,s.edit_date,s.del,s.useri_id
 	    ]]>
 	</sql>
 
@@ -99,7 +100,7 @@
 		select 
 		<include refid="Base_Column_List" />
 		from lab_student s
-		WHERE  s.student_name = #{username,jdbcType=CHAR}
+		WHERE  s.student_number = #{username,jdbcType=CHAR}
 			and s.del=0
 	</select>
 
